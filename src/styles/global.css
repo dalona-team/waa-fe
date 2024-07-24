@@ -1,0 +1,23 @@
+@import 'swiper/swiper-bundle.min.css';
+
+body{
+  overflow: hidden;
+}
+.container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: unset;
+  min-width: unset;
+  max-height: unset;
+  min-height: unset;
+}
+.wrapper{
+  width: 100vw;
+  height: 100vh;
+  max-width: 480px;
+  max-height: 800px;
+  margin: auto;
+}
