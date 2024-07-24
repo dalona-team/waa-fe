@@ -1,14 +1,5 @@
 
-@font-face {
-    font-family: 'GangwonEdu Saeeum';
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-    src: url('https://cdn.jsdelivr.net/gh/fonts-archive/GangwonEduSaeeum/GangwonEduSaeeum.woff2') format('woff2'),
-         url('https://cdn.jsdelivr.net/gh/fonts-archive/GangwonEduSaeeum/GangwonEduSaeeum.woff') format('woff'),
-         url('https://cdn.jsdelivr.net/gh/fonts-archive/GangwonEduSaeeum/GangwonEduSaeeum.otf') format('opentype'),
-         url('https://cdn.jsdelivr.net/gh/fonts-archive/GangwonEduSaeeum/GangwonEduSaeeum.ttf') format('truetype');
-}
+@import url('https://cdn.jsdelivr.net/gh/fonts-archive/GangwonEduSaeeum/GangwonEduSaeeum.css');
 
 @font-face {
     font-family: 'NanumSquareNeoLight';
@@ -50,5 +41,5 @@ body {
   font-family: 'NanumSquareNeo', sans-serif;
 }
 .font-gangwon {
-  font-family: 'GangwonEduSaeeum', sans-serif !important;
+  font-family: "GangwonEdu Saeeum", sans-serif !important;
 }
