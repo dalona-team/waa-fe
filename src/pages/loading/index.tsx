@@ -9,3 +9,11 @@ export default function Loading() {
     </div>
   );
 }
+
+export async function getStaticProps() {
+  return {
+    props: {
+      layoutClassName: 'bg-mint',
+    },
+  };
+}

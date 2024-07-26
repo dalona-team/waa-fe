@@ -47,8 +47,8 @@ const HomeDay = () => {
           <SwiperSlide key={index} style={{width: 'auto', userSelect: 'none'}}>
             <div className='relative w-40 h-[184px] font-gangwon leading-tight pl-5 pr-5 pt-2.5 pb-4 bg-white rounded-xl flex flex-col justify-center text-lg font-normal text-left'>
               {card.imageSrc ? <div className='absolute left-0 w-full flex justify-center' style={{bottom: '96%'}}><Image src={card.imageSrc} alt="강아지" width={card.imageWidth} height={card.imageHeight} /></div> : null}
-              <div className='text-black/40 pb-1 truncate'>{card.title}</div>
-              <div className='text-black/80 text-ellipsis overflow-hidden line-clamp-6'>{card.message}</div>
+              <div className='text-black/40 pb-1 truncate font-gangwon'>{card.title}</div>
+              <div className='text-black/80 text-ellipsis overflow-hidden line-clamp-6 font-gangwon'>{card.message}</div>
             </div>
           </SwiperSlide>
         ))}

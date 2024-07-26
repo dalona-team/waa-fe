@@ -1,20 +1,14 @@
-import { useEffect, useState } from 'react';
 import HomeDay from '@/components/home/HomeDay';
 import HomeNight from '@/components/home/HomeNight';
+import { useThemeMode } from '@/hooks/useThemeMode';
 
 export default function Home() {
-  const [isDayTime, setIsDayTime] = useState<boolean | undefined>(true);
+  const {mode} = useThemeMode();
 
-  useEffect(() => {
-    const now = new Date();
-    const hours = now.getHours();
-    setIsDayTime(hours >= 8 && hours < 19);
-  }, []);
-
-  if(isDayTime === undefined) return <></>;
+  if(mode.isDay === undefined) return <></>;
 
   return (
-    <>{isDayTime ? <HomeDay /> : <HomeNight />}</>
+    <>{mode.isDay ? <HomeDay /> : <HomeNight />}</>
   );
 }
 

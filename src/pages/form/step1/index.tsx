@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormWrapper from '@/components/form/FormWrapper';
 import { TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Box } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -7,12 +7,10 @@ import { useForm } from '@/hooks/useForm';
 export default function Step1() {
   const router = useRouter();
   const { formData, setFormData } = useForm();
-  const [specialChecked, setSpecialChecked] = useState(formData.ownerNickname === 'special');
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setFormData({ ownerNickname: value });
-    setSpecialChecked(value === 'special');
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,20 +23,25 @@ export default function Step1() {
       titleElement={'별나라에서 내새꾸를 찾기 위해 필수 정보를 입력해주세요.'}
       formElement={
         <Box component="form" noValidate autoComplete="off">
-          <TextField
-            required
-            fullWidth
-            margin="normal"
-            label="내새꾸 이름"
-            placeholder="내새꾸 이름을 알려주세요."
-            variant="outlined"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-          />
           <FormControl sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <FormLabel component="legend" required sx={{ marginRight: 2, flex: 1 }}>
-              반려동물
+            <FormLabel component="legend" sx={{ marginRight: 2, width: '100px' }}>
+              <i className='required'>*</i><span className='font-bold text-base text-gray-950'>이름</span>
+            </FormLabel>
+            <TextField
+              sx={{ flex: 1 }}
+              fullWidth
+              margin="normal"
+              placeholder="내새꾸 이름을 알려주세요."
+              variant="outlined"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+          </FormControl>
+          <div className='px-5 border border-line1 border-dashed my-4'></div>
+          <FormControl sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <FormLabel component="legend" sx={{ marginRight: 2, width: '100px' }}>
+              <i className='required'>*</i><span className='font-bold text-base text-gray-950'>반려동물</span>
             </FormLabel>
             <RadioGroup
               row
@@ -59,24 +62,26 @@ export default function Step1() {
               />
             </RadioGroup>
           </FormControl>
+          <div className='px-5 border border-line1 border-dashed my-4'></div>
           <FormControl component="fieldset" margin="normal">
-            <FormLabel component="legend" required>당신을 어떻게 불렀나요?</FormLabel>
+            <FormLabel component="legend" className='pb-4'><i className='required'>*</i><span className='font-bold text-base text-gray-950'>당신을 어떻게 불렀나요?</span></FormLabel>
             <RadioGroup row onChange={handleRadioChange} value={formData.ownerNickname}>
-              <FormControlLabel className='w-20' value="mom" control={<Radio />} label="엄마" />
-              <FormControlLabel className='w-20' value="dad" control={<Radio />} label="아빠" />
-              <FormControlLabel className='w-20' value="owner" control={<Radio />} label="집사" />
-              <FormControlLabel className='w-20' value="sister" control={<Radio />} label="언니" />
-              <FormControlLabel className='w-20' value="brother" control={<Radio />} label="오빠" />
+              <FormControlLabel className='w-1/3 mr-0' value="엄마" control={<Radio />} label="엄마" />
+              <FormControlLabel className='w-1/3 mr-0' value="아빠" control={<Radio />} label="아빠" />
+              <FormControlLabel className='w-1/3 mr-0' value="집사" control={<Radio />} label="집사" />
+              <FormControlLabel className='w-1/3 mr-0' value="언니" control={<Radio />} label="언니" />
+              <FormControlLabel className='w-1/3 mr-0' value="누나" control={<Radio />} label="누나" />
+              <FormControlLabel className='w-1/3 mr-0' value="오빠" control={<Radio />} label="오빠" />
               <FormControlLabel className='w-30' value="special" control={<Radio />} label="특별한 명칭" />
             </RadioGroup>
-            {specialChecked && (
+            {formData.ownerNickname === 'special' && (
               <TextField
                 fullWidth
                 margin="normal"
-                placeholder="특별한 명칭을 알려주세요"
+                placeholder="특별한 명칭을 알려주세요."
                 variant="outlined"
-                name="extraDesc"
-                value={formData.extraDesc}
+                name="specialOwnerNickname"
+                value={formData.specialOwnerNickname}
                 onChange={handleInputChange}
               />
             )}
@@ -84,11 +89,19 @@ export default function Step1() {
         </Box>
       }
       buttonElement={
-        <>
-          <button className='w-1/4 h-14 text-white bg-black/80' onClick={() => router.push('/')}><span>이전</span></button>
-          <button className='w-3/4 h-14 text-white bg-primary' onClick={() => router.push('/form/step2')}><span>다음</span></button>
-        </>
+        <div className='flex gap-1.5'>
+          <button className='w-1/4 h-14 text-white bg-secondary rounded-[20px]' onClick={() => router.push('/')}><span>이전</span></button>
+          <button className='w-3/4 h-14 text-white bg-primary rounded-[20px]' onClick={() => router.push('/form/step2')}><span>다음</span></button>
+        </div>
       }
     />
   );
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      layoutClassName: 'bg-white',
+    },
+  };
 }
