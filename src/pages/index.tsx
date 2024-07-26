@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import HomeDay from '@/components/home/HomeDay';
-import NightDay from '@/components/home/NightDay';
+import HomeNight from '@/components/home/HomeNight';
 
 export default function Home() {
-  const [isDayTime, setIsDayTime] = useState(true);
+  const [isDayTime, setIsDayTime] = useState<boolean | undefined>(true);
 
   useEffect(() => {
     const now = new Date();
@@ -11,26 +11,10 @@ export default function Home() {
     setIsDayTime(hours >= 8 && hours < 19);
   }, []);
 
+  if(isDayTime === undefined) return <></>;
+
   return (
-    <div
-      className="container"
-      style={{
-        backgroundImage: isDayTime
-          ? 'url(/images/background_day.png)'
-          : 'url(/images/background_night.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <div className='wrapper'>{isDayTime ? <HomeDay /> : <NightDay />}</div>
-    </div>
+    <>{isDayTime ? <HomeDay /> : <HomeNight />}</>
   );
 }
 
-export async function getStaticProps() {
-  return {
-    props: {
-      noLayout: true,
-    },
-  };
-}

@@ -2,36 +2,39 @@ import React from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { useRouter } from 'next/router';
+
+const cardList = [{
+  title: '로나가 엄마에게',
+  message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 ㅇㅁㄹㅁㅇㄴㄹㅇㄹ지내는 동안 심심하진 않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너',
+  imageSrc: '/images/day_animals/illust_04.svg',
+  imageWidth: 70,
+  imageHeight: 50
+},{
+  title: '로나가 엄마에게',
+  message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 ㅇㅁㄴㄹㅁㅇㄴㄹㅇㅁㄴㄹ지내는 동안 심심하진 않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너',
+  imageSrc: '/images/day_animals/illust_06.svg',
+  imageWidth: 80,
+  imageHeight: 50
+},{
+  title: '로나가 엄마에게',
+  message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 지내는 동ㅇㅇㅇ ㅇㄹㄴㅇㄹㄴㅇ ㄹㅇ안 심심하진 않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너',
+  imageSrc: '/images/day_animals/illust_05.svg',
+  imageWidth: 80,
+  imageHeight: 50
+},{
+  title: '로나가 엄마에게',
+  message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 지내는 동안 심심하진 dsfdsfsdfsdf fhgfdg않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너'
+}];
 
 const HomeDay = () => {
-  const cardList = [{
-    title: '로나가 엄마에게',
-    message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 ㅇㅁㄹㅁㅇㄴㄹㅇㄹ지내는 동안 심심하진 않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너',
-    imageSrc: '/images/day_animals/illust_04.svg',
-    imageWidth: 70,
-    imageHeight: 50
-  },{
-    title: '로나가 엄마에게',
-    message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 ㅇㅁㄴㄹㅁㅇㄴㄹㅇㅁㄴㄹ지내는 동안 심심하진 않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너',
-    imageSrc: '/images/day_animals/illust_06.svg',
-    imageWidth: 80,
-    imageHeight: 50
-  },{
-    title: '로나가 엄마에게',
-    message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 지내는 동ㅇㅇㅇ ㅇㄹㄴㅇㄹㄴㅇ ㄹㅇ안 심심하진 않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너',
-    imageSrc: '/images/day_animals/illust_05.svg',
-    imageWidth: 80,
-    imageHeight: 50
-  },{
-    title: '로나가 엄마에게',
-    message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 지내는 동안 심심하진 dsfdsfsdfsdf fhgfdg않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너'
-  }];
+  const router = useRouter();
 
   return (
     <div className='relative flex flex-col items-center justify-center h-full'>
       <Image className='absolute top-[15%] left-[15%]' src="/images/day_animals/illust_01.svg" alt="강아지들" width={60} height={80} />
       <Image className='absolute top-[20%] right-0' src="/images/day_animals/illust_02.svg" alt="강아지들" width={74} height={70} />
-      <Image className='absolute top-[40%] left-[40%]' src="/images/day_animals/illust_03.svg" alt="강아지들" width={80} height={60} />
+      <Image className='slideLeft absolute top-[40%] left-[40%]' src="/images/day_animals/illust_03.svg" alt="강아지들" width={80} height={60} />
       <Image className='mt-[130px]' src="/images/logo_big_white.svg" alt="BigLogoImage" width={90} height={74} />
       <p className='text-white text-center text-xs pt-1'>떠나간 반려동물에게<br />편지를 받아보세요!</p>
       <Swiper
@@ -54,7 +57,7 @@ const HomeDay = () => {
         </SwiperSlide>
       </Swiper>
       <div className='mt-4 mb-8'>
-        <button role='button' className='h-[52px] px-7 py-3 bg-primary rounded-[20px] shadow flex justify-center items-center'>
+        <button role='button' className='h-[52px] px-7 py-3 bg-primary rounded-[20px] shadow flex justify-center items-center' onClick={() => router.push('/form/step1')}>
           <span className='text-center text-white text-sm font-bold'>내새꾸에게 편지 신청</span>
         </button>
       </div>
