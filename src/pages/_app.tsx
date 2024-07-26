@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import '@/styles/font.css';
 import '@/styles/tailwind.css';
 import '@/styles/global.css';
@@ -8,6 +7,8 @@ import Layout from '@/components/Layout';
 import { FormProvider } from '@/hooks/useForm';
 import { ThemeModeProvider } from '@/hooks/useThemeMode';
 import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
+import { ToastMessageProvider } from '@/hooks/useToastMessage';
+import ToastMessage from '@/components/toastMessage/ToastMessage';
 
 const theme = createTheme({
   palette: {
@@ -63,31 +64,21 @@ const theme = createTheme({
   },
 });
 
-
-export default function App({ Component, pageProps }: AppProps & { noLayout?: boolean, layoutClassName?: string }) {
-  const { noLayout, layoutClassName, ...rest } = pageProps;
-
-  if (noLayout) {
-    return (
-      <ThemeProvider theme={theme}>
-        <ThemeModeProvider>
-          <FormProvider>
-            <Component {...rest} />
-          </FormProvider>
-        </ThemeModeProvider>
-      </ThemeProvider>
-    );
-  }
-
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <ThemeModeProvider>
         <FormProvider>
-          <Layout className={layoutClassName}>
-            <Component {...rest} />
-          </Layout>
+          <ToastMessageProvider>
+            <Layout>
+              <Component {...pageProps} />
+              <ToastMessage />
+            </Layout>
+          </ToastMessageProvider>
         </FormProvider>
       </ThemeModeProvider>
     </ThemeProvider>
   );
 }
+
+export default MyApp;

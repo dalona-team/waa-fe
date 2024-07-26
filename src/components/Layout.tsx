@@ -15,7 +15,7 @@ const Layout = ({ children, className }: { children: React.ReactNode, className?
         backgroundPosition: 'center',
       }}
     >
-      <div className={`wrapper ${className}`}>{children}</div>
+      <div className={`wrapper relative ${className ?? ''}`}>{children}</div>
     </div>
   );
 };
