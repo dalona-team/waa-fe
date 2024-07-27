@@ -40,7 +40,6 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
 
   const resetFormData = useCallback(() => {
     localStorage.removeItem('formData');
-    localStorage.removeItem('previewImage');
     setFormDataState({
       name: '',
       species: null,
