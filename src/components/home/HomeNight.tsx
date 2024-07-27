@@ -32,7 +32,7 @@ const HomeNight = () => {
   const router = useRouter();
 
   return (
-    <div className='relative flex flex-col items-center justify-center h-full'>
+    <div className='relative flex flex-col items-center justify-center h-full overflow-y-auto invisible-scroll py-6'>
       <Image priority className='absolute top-[12%] left-[15%]' src="/images/night_animals/illust_01_dark.svg" alt="강아지들" width={60} height={80} />
       <Image priority className='absolute top-[22%] right-[9%]' src="/images/night_animals/illust_02_dark.svg" alt="강아지들" width={74} height={70} />
       <Image priority className='slideLeft absolute top-[40%] left-[40%]' src="/images/night_animals/illust_03_dark.svg" alt="강아지들" width={80} height={60} />
@@ -42,7 +42,7 @@ const HomeNight = () => {
         freeMode={true}
         spaceBetween={6}
         slidesPerView='auto'
-        className='w-full !pt-[196px] !pl-[20px]'
+        className='w-full !pt-[196px] !pl-[20px] min-h-[380px]'
       >
         {cardList.map((card, index) => (
           <SwiperSlide key={index} style={{width: 'auto', userSelect: 'none'}}>
