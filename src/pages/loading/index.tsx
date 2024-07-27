@@ -23,14 +23,15 @@ export default function Loading() {
       router.replace(router.pathname, undefined, { shallow: true });
 
       try {
-        const response = await fetch('http://223.130.153.29:8080/letter', {
+        const response = await fetch('/api/letter', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ id: petId }),
+          body: JSON.stringify({
+            id: petId,
+          }),
         });
-
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
