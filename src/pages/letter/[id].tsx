@@ -38,7 +38,8 @@ export default function Letter({letterContent, counselingContent, imageUrl}: Pro
 
   useEffect(() => {
     resetFormData();
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   return (
     <Wrapper

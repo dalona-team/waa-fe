@@ -33,6 +33,7 @@ export default function Step1() {
 
   return (
     <Wrapper
+      disableBorder
       formElement={
         <>
           <div className="text-base font-bold">
