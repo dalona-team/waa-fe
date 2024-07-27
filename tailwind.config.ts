@@ -29,6 +29,9 @@ const config: Config = {
         line1: 'rgba(0, 0, 0, 0.08)',
         line2: 'rgba(0, 0, 0, 0.16)',
         b40: 'rgba(0, 0, 0, 0.4)',
+      },
+      fontSize: {
+        base: '15px'
       }
     },
   },

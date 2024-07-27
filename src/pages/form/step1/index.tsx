@@ -92,11 +92,13 @@ export default function Step1() {
                   value="DOG"
                   control={<Radio />}
                   label="강아지"
+                  sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
                 />
                 <FormControlLabel
                   value="CAT"
                   control={<Radio />}
                   label="고양이"
+                  sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
                 />
               </RadioGroup>
             </FormControl>
@@ -118,42 +120,49 @@ export default function Step1() {
                   value="엄마"
                   control={<Radio />}
                   label="엄마"
+                  sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
                 />
                 <FormControlLabel
                   className="w-1/3 !mr-2"
                   value="아빠"
                   control={<Radio />}
                   label="아빠"
+                  sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
                 />
                 <FormControlLabel
                   className="w-1/3 !mr-2"
                   value="집사"
                   control={<Radio />}
                   label="집사"
+                  sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
                 />
                 <FormControlLabel
                   className="w-1/3 !mr-2"
                   value="언니"
                   control={<Radio />}
                   label="언니"
+                  sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
                 />
                 <FormControlLabel
                   className="w-1/3 !mr-2"
                   value="누나"
                   control={<Radio />}
                   label="누나"
+                  sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
                 />
                 <FormControlLabel
                   className="w-1/3 !mr-2"
                   value="오빠"
                   control={<Radio />}
                   label="오빠"
+                  sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
                 />
                 <FormControlLabel
                   className="w-30"
                   value="special"
                   control={<Radio />}
                   label="특별한 명칭"
+                  sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
                 />
               </RadioGroup>
               <TextField
@@ -164,6 +173,7 @@ export default function Step1() {
                 name="specialOwnerNickname"
                 value={formData.specialOwnerNickname}
                 onChange={handleInputChange}
+                sx={{ '& .MuiInputBase-input': { fontSize: '15px' } }}
               />
             </FormControl>
           </Box>

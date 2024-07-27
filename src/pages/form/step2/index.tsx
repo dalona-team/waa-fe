@@ -114,7 +114,7 @@ export default function Step2({characterOptions}: Props) {
             <FormGroup row className='mt-4' onChange={handleCheckboxChange}>
               {
                 characterOptions.map(item => (
-                  <FormControlLabel key={item.code} className='w-1/2 !mr-0' value={item.code} label={item.codeName} control={<Checkbox checked={formData.character?.includes(String(item.code)) || false} />} />
+                  <FormControlLabel key={item.code} className='w-1/2 !mr-0' value={item.code} label={item.codeName} control={<Checkbox checked={formData.character?.includes(String(item.code)) || false}  />} sx={{ '& .MuiTypography-root': { fontSize: '15px' } }} />
                 ))
               }
             </FormGroup>
@@ -132,6 +132,7 @@ export default function Step2({characterOptions}: Props) {
               name="toyAndTreat"
               value={formData.toyAndTreat}
               onChange={handleInputChange}
+              sx={{ '& .MuiInputBase-input': { fontSize: '15px' } }}
             />
           </FormControl>
           <div className='px-5 border border-line1 border-dashed my-4'></div>
@@ -149,7 +150,7 @@ export default function Step2({characterOptions}: Props) {
               onChange={handleInputChange}
               multiline
               rows={4}
-              sx={{height: '110px', '& .MuiInputBase-root': {height: '168px'}}}
+              sx={{height: '110px', '& .MuiInputBase-root': {height: '168px', fontSize: '15px'}}}
             />
           </FormControl>
           <div className='px-5 border border-line1 border-dashed my-4'></div>
