@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import FormWrapper from '@/components/form/FormWrapper';
+import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
 
 export default function Privacy() {
   const router = useRouter();
 
   return (
-    <FormWrapper
+    <Wrapper
       isFloatingButton
       titleElement={<div className='text-center'>서비스 이용약관</div>}
       formElement={

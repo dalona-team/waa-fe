@@ -1,3 +1,5 @@
 <svg width="50" height="60" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M50 60V0H35.5L0 39.5V60H50Z" fill="#426337"/>
+<g id="letter_top_r">
+<path id="letter_top_r_2" d="M0 60V0H2.01811C9.96256 0 17.533 3.37477 22.8434 9.28355L43.3378 32.0871C47.6271 36.8597 50 43.0499 50 49.4667V60H0Z" fill="#1A9058"/>
+</g>
 </svg>

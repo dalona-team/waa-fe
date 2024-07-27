@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box, TextField, FormControl, FormLabel, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
-import FormWrapper from '@/components/form/FormWrapper';
+import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
 import { useForm } from '@/hooks/useForm';
 import Image from 'next/image';
@@ -80,6 +80,9 @@ export default function Step2({characterOptions}: Props) {
     try {
       const response = await fetch('http://223.130.153.29:8080/pet', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: formDataReq,
       });
 
@@ -95,7 +98,7 @@ export default function Step2({characterOptions}: Props) {
   };
 
   return (
-    <FormWrapper
+    <Wrapper
       disableBorder
       formElement={
         <Box component="form" noValidate autoComplete="off">

@@ -14,6 +14,7 @@ const config: Config = {
         accent: '#EA98E0', // PINK
         line1: 'rgba(0, 0, 0, 0.08)',
         mint: '#CEF4E9',
+        yellow: '#F8ED64',
         // 추가 색상 변수
       },
       textColor: {

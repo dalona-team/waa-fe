@@ -1,12 +1,12 @@
 import React from 'react';
-import FormWrapper from '@/components/form/FormWrapper';
+import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
 
 export default function Service() {
   const router = useRouter();
 
   return (
-    <FormWrapper
+    <Wrapper
       isFloatingButton
       titleElement={<div className='text-center'>개인정보 수집 및 이용약관</div>}
       formElement={

@@ -1,5 +1,5 @@
 import React from 'react';
-import FormWrapper from '@/components/form/FormWrapper';
+import Wrapper from '@/components/wrapper/Wrapper';
 import { TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Box } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useForm } from '@/hooks/useForm';
@@ -32,7 +32,7 @@ export default function Step1() {
   };
 
   return (
-    <FormWrapper
+    <Wrapper
       titleElement={'별나라에서 내새꾸를 찾기 위해 필수 정보를 입력해주세요.'}
       formElement={
         <Box component="form" noValidate autoComplete="off">

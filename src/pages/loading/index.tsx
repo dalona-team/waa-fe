@@ -1,6 +1,18 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function Loading() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/letter');
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  });
+
   return (
     <div className="flex justify-center items-center flex-col gap-2 h-full">
       <Image className='floating pb-7' src="/images/img_loading.svg" alt="로딩 이미지" width={90} height={60} />

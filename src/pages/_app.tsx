@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import '@/styles/font.css';
 import '@/styles/tailwind.css';
 import '@/styles/global.css';
@@ -31,7 +32,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           height: '44px',
-          borderColor: alpha('#000000', 0.16),
+          borderColor: alpha('#000000', 0.16)
         },
       },
     },
