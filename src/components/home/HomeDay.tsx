@@ -32,10 +32,10 @@ const HomeDay = () => {
 
   return (
     <div className='relative flex flex-col items-center justify-center h-full overflow-y-auto invisible-scroll py-6'>
-      <Image className='absolute top-[15%] left-[15%]' src="/images/day_animals/illust_01.svg" alt="강아지들" width={60} height={80} />
-      <Image className='absolute top-[20%] right-0' src="/images/day_animals/illust_02.svg" alt="강아지들" width={74} height={70} />
-      <Image className='slideLeft absolute top-[40%] left-[40%]' src="/images/day_animals/illust_03.svg" alt="강아지들" width={80} height={60} />
-      <Image className='mt-[130px]' src="/images/logo_big_white.svg" alt="BigLogoImage" width={90} height={74} />
+      <Image priority className='absolute top-[15%] left-[15%]' src="/images/day_animals/illust_01.svg" alt="강아지들" width={60} height={80} />
+      <Image priority className='absolute top-[20%] right-0' src="/images/day_animals/illust_02.svg" alt="강아지들" width={74} height={70} />
+      <Image priority className='slideLeft absolute top-[40%] left-[40%]' src="/images/day_animals/illust_03.svg" alt="강아지들" width={80} height={60} />
+      <Image priority className='mt-[130px]' src="/images/logo_big_white.svg" alt="BigLogoImage" width={90} height={74} />
       <p className='text-white text-center text-xs pt-1'>떠나간 반려동물에게<br />편지를 받아보세요!</p>
       <Swiper
         freeMode={true}
@@ -53,7 +53,7 @@ const HomeDay = () => {
           </SwiperSlide>
         ))}
         <SwiperSlide style={{width: 'auto', userSelect: 'none'}}>
-          <Image className='my-10' src="/images/day_animals/illust_07.svg" alt="강아지들" width={200} height={100} style={{marginLeft: '-6px'}} />
+          <Image priority className='my-10' src="/images/day_animals/illust_07.svg" alt="강아지들" width={200} height={100} style={{marginLeft: '-6px'}} />
         </SwiperSlide>
       </Swiper>
       <div className='mt-4 mb-8'>
