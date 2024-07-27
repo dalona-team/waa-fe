@@ -20,8 +20,7 @@ export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const now = new Date();
     const hours = now.getHours();
-    // setMode({ isDay: hours >= 8 && hours < 19 });
-    setMode({ isDay: false });
+    setMode({ isDay: hours >= 8 && hours < 19 });
   }, []);
 
   return (
