@@ -5,6 +5,7 @@ import { useToastMessage } from '@/hooks/useToastMessage';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Head from 'next/head';
 
 export default function Reply() {
   const router = useRouter();
@@ -41,57 +42,85 @@ export default function Reply() {
   }, [phoneNumber, setToastMessage]);
 
   return (
-    <Wrapper
-      disableTitle
-      disableBorder
-      topElement={<div className='flex items-center h-11 w-full mb-2'>
-        <Image className='cursor-pointer mx-5' src="/images/icon_home.svg" alt="BigLogoImage" width={24} height={24} onClick={() => router.push('/')} />
-      </div>}
-      formElement={
-        <div className='flex flex-col h-full justify-center items-center gap-5'>
-          <div className='w-[200px] text-gray-950 text-center'>답장 기능은 준비 중이에요<br />오픈하면 알려드릴게요!</div>
-          <Box display="flex" alignItems="center" gap={1}>
-            <div>010</div>
-            <span>-</span>
-            <TextField
-              name="part2"
-              value={phoneNumber.part2}
-              onChange={handleChange}
-              inputProps={{ maxLength: 4 }}
-              sx={{
-                width: '80px',
-                '& input': {
-                  padding: '10px !important',
-                  backgroundColor: 'inherit !important',
-                  color: 'inherit !important',
-                }
-              }}
+    <>
+      <Head>
+        <title>젤리레터 🐾💌 - 답장하기</title>
+      </Head>
+      <Wrapper
+        disableTitle
+        disableBorder
+        topElement={
+          <div className="flex items-center h-11 w-full mb-2">
+            <Image
+              className="cursor-pointer mx-5"
+              src="/images/icon_home.svg"
+              alt="BigLogoImage"
+              width={24}
+              height={24}
+              onClick={() => router.push('/')}
             />
-            <span>-</span>
-            <TextField
-              name="part3"
-              value={phoneNumber.part3}
-              onChange={handleChange}
-              inputProps={{ maxLength: 4 }}
-              sx={{
-                width: '80px',
-                '& input': {
-                  padding: '10px !important',
-                  backgroundColor: 'inherit !important',
-                  color: 'inherit !important',
-                }
-              }}
-            />
-          </Box>
-        </div>
-      }
-      buttonElement={
-        <div className='flex gap-1.5'>
-          <button className='w-1/4 h-14 text-white bg-[#909195] rounded-[20px]' onClick={() => router.back()}><span>이전</span></button>
-          <button className='w-3/4 h-14 text-white bg-accent rounded-[20px]' onClick={handleSubmit}><span>제출하기</span></button>
-        </div>
-      }
-    />
+          </div>
+        }
+        formElement={
+          <div className="flex flex-col h-full justify-center items-center gap-5">
+            <div className="w-[200px] text-gray-950 text-center">
+              답장 기능은 준비 중이에요
+              <br />
+              오픈하면 알려드릴게요!
+            </div>
+            <Box display="flex" alignItems="center" gap={1}>
+              <div>010</div>
+              <span>-</span>
+              <TextField
+                name="part2"
+                value={phoneNumber.part2}
+                onChange={handleChange}
+                inputProps={{ maxLength: 4 }}
+                sx={{
+                  width: '80px',
+                  '& input': {
+                    padding: '10px !important',
+                    backgroundColor: 'inherit !important',
+                    color: 'inherit !important',
+                  },
+                }}
+              />
+              <span>-</span>
+              <TextField
+                name="part3"
+                value={phoneNumber.part3}
+                onChange={handleChange}
+                inputProps={{ maxLength: 4 }}
+                sx={{
+                  width: '80px',
+                  '& input': {
+                    padding: '10px !important',
+                    backgroundColor: 'inherit !important',
+                    color: 'inherit !important',
+                  },
+                }}
+              />
+            </Box>
+          </div>
+        }
+        buttonElement={
+          <div className="flex gap-1.5">
+            <button
+              className="w-1/4 h-14 text-white bg-[#909195] rounded-[20px]"
+              onClick={() => router.back()}
+            >
+              <span>이전</span>
+            </button>
+            <button
+              className="w-3/4 h-14 text-white bg-accent rounded-[20px]"
+              onClick={handleSubmit}
+            >
+              <span>제출하기</span>
+            </button>
+          </div>
+        }
+      />
+    </>
   );
 }
 

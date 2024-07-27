@@ -8,6 +8,7 @@ import { GetServerSideProps } from 'next';
 import CounselingWrapper from '@/components/counseling/CounselingWrapper';
 import { ParsedUrlQuery } from 'querystring';
 import { useForm } from '@/hooks/useForm';
+import Head from 'next/head';
 
 function replaceNewlinesWithBr(inputText: string) {
   return inputText.replace(/(?:\r\\n|\r|\n)/g, '<br>');
@@ -44,79 +45,84 @@ export default function Letter({letterContent, counselingContent}: Props) {
   },[]);
 
   return (
-    <Wrapper
-      disableTitle
-      disableBorder
-      topElement={
-        <div className="flex items-center h-11 w-full mb-2">
-          <Image
-            className="cursor-pointer mx-5"
-            src="/images/icon_home.svg"
-            alt="BigLogoImage"
-            width={24}
-            height={24}
-            onClick={() => router.push('/')}
-          />
-        </div>
-      }
-      formElement={
-        <div>
-          <LetterWrapper
-            content={
-              <div className="px-[26px] flex flex-col gap-3">
-                {previewImage ? (
-                  <Image
-                    className="w-full rounded-lg"
-                    src={previewImage}
-                    alt="Letter edge"
-                    width={388}
-                    height={388}
-                  />
-                ) : null}
-                <div
-                  className="font-gangwon text-2xl leading-[40px]"
-                  dangerouslySetInnerHTML={{ __html: letterContent }}
-                ></div>
-              </div>
-            }
-          />
-          <div className="my-5 flex gap-2 justify-center items-center">
-            <button
-              className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
-              onClick={copy}
-            >
-              <Image
-                src="/images/icon_copy.svg"
-                alt="복사하기"
-                width={24}
-                height={24}
-              />
-              <span className="font-bold">공유하기</span>
-            </button>
-            <button
-              className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
-              onClick={() => router.push('/reply')}
-            >
-              <Image
-                src="/images/icon_pen.svg"
-                alt="답장하기"
-                width={24}
-                height={24}
-              />
-              <span className="font-bold">답장하기</span>
-            </button>
+    <>
+      <Head>
+        <title>젤리레터 🐾💌 - 편지보기</title>
+      </Head>
+      <Wrapper
+        disableTitle
+        disableBorder
+        topElement={
+          <div className="flex items-center h-11 w-full mb-2">
+            <Image
+              className="cursor-pointer mx-5"
+              src="/images/icon_home.svg"
+              alt="BigLogoImage"
+              width={24}
+              height={24}
+              onClick={() => router.push("/")}
+            />
           </div>
-          <CounselingWrapper
-            content={
-              <div
-                className="px-[26px] leading-[36px]"
-                dangerouslySetInnerHTML={{ __html: counselingContent }}
-              ></div>
-            }
-          />
-        </div>
-      }
-    />
+        }
+        formElement={
+          <div>
+            <LetterWrapper
+              content={
+                <div className="px-[26px] flex flex-col gap-3">
+                  {previewImage ? (
+                    <Image
+                      className="w-full rounded-lg"
+                      src={previewImage}
+                      alt="Letter edge"
+                      width={388}
+                      height={388}
+                    />
+                  ) : null}
+                  <div
+                    className="font-gangwon text-2xl leading-[40px]"
+                    dangerouslySetInnerHTML={{ __html: letterContent }}
+                  ></div>
+                </div>
+              }
+            />
+            <div className="my-5 flex gap-2 justify-center items-center">
+              <button
+                className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
+                onClick={copy}
+              >
+                <Image
+                  src="/images/icon_copy.svg"
+                  alt="복사하기"
+                  width={24}
+                  height={24}
+                />
+                <span className="font-bold">공유하기</span>
+              </button>
+              <button
+                className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
+                onClick={() => router.push("/reply")}
+              >
+                <Image
+                  src="/images/icon_pen.svg"
+                  alt="답장하기"
+                  width={24}
+                  height={24}
+                />
+                <span className="font-bold">답장하기</span>
+              </button>
+            </div>
+            <CounselingWrapper
+              content={
+                <div
+                  className="px-[26px] leading-[36px]"
+                  dangerouslySetInnerHTML={{ __html: counselingContent }}
+                ></div>
+              }
+            />
+          </div>
+        }
+      />
+    </>
   );
 }
 
