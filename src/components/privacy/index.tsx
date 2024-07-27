@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
-import { useRouter } from 'next/router';
+import { useModal } from '@/hooks/useModal';
 
 export default function Privacy() {
-  const router = useRouter();
+  const {hideModal} = useModal();
 
   return (
     <Wrapper
@@ -18,13 +18,12 @@ export default function Privacy() {
           <br></br><br></br>3. 보유 기간 : <b className='font-bold'>처리목적 달성 또는 회원 탈퇴일로부터 15일(단, 부정 가입 방지를 위해 수집한 정보들은 1년 간 보관하며, 법령에 특별한 규정이 있는 경우 관련 법령에 따라 보관)</b>
           <br></br><br></br><br></br>
           ※ 서비스 제공 과정에서 약관 및 개인정보 처리 등에 관한 동의 이력, 서비스 이용 기록 및 디바이스 정보, 채팅 기록, 쿠키가 생성 · 수집될 수 있습니다.
-          <br></br>
           귀하는 개인정보 수집에 동의하지 않을 권리가 있습니다.<br></br>다만 서비스 제공에 필요한 최소한의 개인정보이므로, 동의해주셔야 서비스 이용이 가능합니다.
         </div>
       }
       buttonElement={
         <div className='flex gap-1.5'>
-          <button className='w-full h-14 text-white bg-primary rounded-[20px]' onClick={() => router.push('/form/step2')}><span>닫기</span></button>
+          <button className='w-full h-14 text-white bg-primary rounded-[20px]' onClick={hideModal}><span>닫기</span></button>
         </div>
       }
     />

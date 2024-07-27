@@ -18,7 +18,7 @@ const ToastMessage = () => {
     if (toastMessage.show) {
       const timer = setTimeout(() => {
         handleClose();
-      }, 3000); // 3초 후에 메시지를 사라지게 합니다.
+      }, 1000); // 1초 후에 메시지를 사라지게 합니다.
 
       return () => clearTimeout(timer);
     }

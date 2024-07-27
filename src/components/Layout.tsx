@@ -1,5 +1,6 @@
 import { useThemeMode } from '@/hooks/useThemeMode';
 import React from 'react';
+import Image from 'next/image';
 
 const Layout = ({ children, className }: { children: React.ReactNode, className?: string }) => {
   const { mode } = useThemeMode();
@@ -7,13 +8,10 @@ const Layout = ({ children, className }: { children: React.ReactNode, className?
   return (
     <div
       className="container"
-      style={{
-        backgroundImage: mode.isDay == undefined ? 'none' : mode.isDay === true ? 'url(/images/background_day.png)' : 'url(/images/background_night.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
     >
-      <div className={`wrapper relative ${className ?? ''}`}>{children}</div>
+      { mode.isDay && <Image className='background-setting' src='/images/background_day.png' alt='따사로운 햇살과 구름' width={1440} height={960} />}
+      { mode.isDay === false && <Image className='background-setting' src='/images/background_night.png' alt='반짝이는 별빛과 구름' width={1440} height={960} />}
+      <div id='modal-standard' className={`wrapper relative ${className ?? ''}`}>{children}</div>
     </div>
   );
 };

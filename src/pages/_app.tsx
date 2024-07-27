@@ -10,6 +10,7 @@ import { ThemeModeProvider } from '@/hooks/useThemeMode';
 import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
 import { ToastMessageProvider } from '@/hooks/useToastMessage';
 import ToastMessage from '@/components/toastMessage/ToastMessage';
+import { ModalProvider } from '@/hooks/useModal';
 
 const theme = createTheme({
   palette: {
@@ -73,10 +74,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeModeProvider>
         <FormProvider>
           <ToastMessageProvider>
-            <Layout className={layoutClassName}>
-              <Component {...rest} />
-              <ToastMessage />
-            </Layout>
+            <ModalProvider>
+              <Layout className={layoutClassName}>
+                <Component {...rest} />
+                <ToastMessage />
+              </Layout>
+            </ModalProvider>
           </ToastMessageProvider>
         </FormProvider>
       </ThemeModeProvider>

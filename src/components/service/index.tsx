@@ -1,16 +1,16 @@
 import React from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
-import { useRouter } from 'next/router';
+import { useModal } from '@/hooks/useModal';
 
 export default function Service() {
-  const router = useRouter();
+  const {hideModal} = useModal();
 
   return (
     <Wrapper
       isFloatingButton
       titleElement={<div className='text-center'>개인정보 수집 및 이용약관</div>}
       formElement={
-        <div className='text-sm'>
+        <div className='text-sm pb-10'>
            제1조(목적)
 
           <br></br><br></br>이 약관은 ㈜젤리레터(이하 “서비스”라 합니다)가 제공하는 서비스 이용과 관련하여 회사와 이용자간의 권리·의무 및 기타 필요한 제반사항을 정함을 목적으로 합니다.
@@ -275,7 +275,7 @@ export default function Service() {
       }
       buttonElement={
         <div className='flex gap-1.5'>
-          <button className='w-full h-14 text-white bg-primary rounded-[20px]' onClick={() => router.push('/form/step2')}><span>닫기</span></button>
+          <button className='w-full h-14 text-white bg-primary rounded-[20px]' onClick={hideModal}><span>닫기</span></button>
         </div>
       }
     />

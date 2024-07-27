@@ -6,7 +6,10 @@ import { useRouter } from 'next/router';
 import { useForm } from '@/hooks/useForm';
 import Image from 'next/image';
 import { GetServerSideProps } from 'next';
+import { useModal } from '@/hooks/useModal';
 import { useToastMessage } from '@/hooks/useToastMessage';
+import Privacy from '@/components/privacy';
+import Service from '@/components/service';
 import * as hangul from 'hangul-js';
 
 
@@ -26,11 +29,13 @@ export default function Step2({characterOptions}: Props) {
   const router = useRouter();
   const { formData, setFormData } = useForm();
   const {setToastMessage} = useToastMessage();
+  const {showModal} = useModal();
   const [petImage, setPetImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [privacyAgree, setPrivacyAgree] = useState<boolean>(true);
   const [serviceAgree, setServiceAgree] = useState<boolean>(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
 
   const isEndsWithConsonant = useMemo(() => {
     return hangul.endsWithConsonant(formData.name);
@@ -103,6 +108,17 @@ export default function Step2({characterOptions}: Props) {
     }
   }, [characterOptions, formData, petImage, router, setToastMessage]);
 
+  const handleOpenPrivacy = () => {
+    showModal(
+      <Privacy />
+    );
+  };
+
+  const handleOpenService = () => {
+    showModal(
+      <Service />
+    );
+  };
 
   return (
     <Wrapper
@@ -178,7 +194,7 @@ export default function Step2({characterOptions}: Props) {
                 label="개인정보 수집 및 이용에 동의합니다."
                 sx={{fontSize: '16px'}}
               />
-              <span className='text-base text-gray-400' onClick={() => router.push('/privacy')}>상세보기</span>
+              <span className='text-base text-gray-400 w-[60px] cursor-pointer' onClick={handleOpenPrivacy}>상세보기</span>
             </div>
             <div className='w-full flex items-center justify-between'>
               <FormControlLabel
@@ -186,7 +202,7 @@ export default function Step2({characterOptions}: Props) {
                 label="서비스 이용약관에 동의합니다."
                 sx={{fontSize: '16px'}}
               />
-              <span className='text-base text-gray-400' onClick={() => router.push('/service')}>상세보기</span>
+              <span className='text-base text-gray-400 w-[60px] cursor-pointer' onClick={handleOpenService}>상세보기</span>
             </div>
           </FormControl>
         </Box>
