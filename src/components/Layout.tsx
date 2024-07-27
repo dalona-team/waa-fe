@@ -8,9 +8,7 @@ const Layout = ({ children, className }: { children: React.ReactNode, className?
     <div
       className="container"
       style={{
-        backgroundImage: mode.isDay
-          ? 'url(/images/background_day.png)'
-          : 'url(/images/background_night.png)',
+        backgroundImage: mode.isDay == undefined ? 'none' : mode.isDay === true ? 'url(/images/background_day.png)' : 'url(/images/background_night.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
