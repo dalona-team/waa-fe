@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 interface ToastMessage {
   show: boolean;
   body: string;
+  className?: string
 }
 
 interface ToastMessageContextType {
@@ -17,6 +18,7 @@ export const ToastMessageProvider = ({ children }: { children: ReactNode }) => {
   const [toastMessage, setToastMessage] = useState<ToastMessage>({
     show: false,
     body: '',
+    className: '',
   });
 
   return (

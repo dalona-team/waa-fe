@@ -27,7 +27,7 @@ const ToastMessage = () => {
   if(!toastMessage.show) return null;
 
   return (
-    <div className={`absolute w-full bottom-[90px] flex justify-center items-center ${fadeOut ? 'fade-out' : ''}`}>
+    <div className={`absolute w-full bottom-[90px] flex justify-center items-center ${fadeOut ? 'fade-out' : ''} ${toastMessage.className}`}>
       <span className='inline-block px-[30px] h-[48px] rounded-[20px] bg-[#000000f0] text-white text-center leading-[48px]'>
         {toastMessage.body}
       </span>
