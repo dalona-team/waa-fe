@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/next-script-for-ga */
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
@@ -31,6 +32,20 @@ export default function Document() {
         <meta
           name="twitter:image"
           content="https://jellyletter.netlify.app/og_image.png"
+        />
+        {/* GA 스크립트 추가 */}
+        <script async src={'https://www.googletagmanager.com/gtag/js?id=G-TFFWTQ1EX9'}></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-TFFWTQ1EX9', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
         />
       </Head>
       <body>
