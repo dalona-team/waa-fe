@@ -35,7 +35,7 @@ export default function Step1() {
     <Wrapper
       formElement={
         <>
-          <div className="px-5 text-base font-bold">
+          <div className="text-base font-bold">
             별나라에서 내새꾸를 찾기 위해 필수 정보를 입력해주세요.
           </div>
           <Box component="form" noValidate autoComplete="off">
