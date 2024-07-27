@@ -60,7 +60,7 @@ export default function Letter({letterContent, counselingContent}: Props) {
               alt="BigLogoImage"
               width={24}
               height={24}
-              onClick={() => router.push("/")}
+              onClick={() => router.push('/')}
             />
           </div>
         }
@@ -100,7 +100,7 @@ export default function Letter({letterContent, counselingContent}: Props) {
               </button>
               <button
                 className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
-                onClick={() => router.push("/reply")}
+                onClick={() => router.push('/reply')}
               >
                 <Image
                   src="/images/icon_pen.svg"
