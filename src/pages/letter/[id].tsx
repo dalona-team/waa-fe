@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
 import { useToastMessage } from '@/hooks/useToastMessage';
@@ -26,7 +26,7 @@ export default function Letter({letterContent, counselingContent, imageUrl}: Pro
   const {setToastMessage} = useToastMessage();
   const { resetFormData } = useForm();
 
-  const copy = () => {
+  const copy = useCallback(() => {
     const link = window.location.href; // 현재 페이지의 URL을 가져옵니다.
     navigator.clipboard.writeText(link).then(() => {
       setToastMessage({ show: true, body: '링크가 복사 되었습니다.', className: '!bottom-[30px]' });
@@ -34,7 +34,7 @@ export default function Letter({letterContent, counselingContent, imageUrl}: Pro
       // eslint-disable-next-line no-console
       console.error('Failed to copy: ', err);
     });
-  };
+  }, [setToastMessage]);
 
   useEffect(() => {
     resetFormData();

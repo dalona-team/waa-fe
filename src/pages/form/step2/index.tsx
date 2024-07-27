@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Box, TextField, FormControl, FormLabel, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
@@ -32,26 +32,25 @@ export default function Step2({characterOptions}: Props) {
   const [serviceAgree, setServiceAgree] = useState<boolean>(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-
   const isEndsWithConsonant = useMemo(() => {
     return hangul.endsWithConsonant(formData.name);
   }, [formData.name]);
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    if(event.target.checked) {
+    if (event.target.checked) {
       setFormData({ character: [...formData.character ?? [], value] });
     } else {
       setFormData({ character: formData.character?.filter(item => item !== value) });
     }
-  };
+  }, [formData.character, setFormData]);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ [name]: value });
-  };
+  }, [setFormData]);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setPetImage(file);
@@ -61,18 +60,18 @@ export default function Step2({characterOptions}: Props) {
       };
       reader.readAsDataURL(file);
     }
-  };
+  }, []);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = useCallback(() => {
     fileInputRef.current?.click();
-  };
+  }, []);
 
-  const handleResetImage = () => {
+  const handleResetImage = useCallback(() => {
     setPreviewImage(null);
     setPetImage(null);
-  };
+  }, []);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     const petReqDto = {
       name: formData.name,
       species: formData.species,
@@ -80,13 +79,12 @@ export default function Step2({characterOptions}: Props) {
       specialOwnerNickname: formData.specialOwnerNickname,
       toyAndTreat: formData.toyAndTreat,
       memory: formData.memory,
-      petInfos: characterOptions.filter(item => formData.character?.includes(String(item.code))).map(item => ({groupId: 'G0001', code: item.code})),
+      petInfos: characterOptions.filter(item => formData.character?.includes(String(item.code))).map(item => ({ groupId: 'G0001', code: item.code })),
     };
 
     const formDataReq = new FormData();
     formDataReq.append('petReqDto', JSON.stringify(petReqDto)); // JSON 데이터를 문자열로 추가
     if (petImage) formDataReq.append('petImage', petImage);
-
 
     try {
       const response = await fetch('http://223.130.153.29:8080/pet', {
@@ -103,7 +101,8 @@ export default function Step2({characterOptions}: Props) {
     } catch (error) {
       setToastMessage({ show: true, body: '오류가 발생했습니다.' });
     }
-  };
+  }, [characterOptions, formData, petImage, router, setToastMessage]);
+
 
   return (
     <Wrapper

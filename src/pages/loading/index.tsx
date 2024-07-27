@@ -2,52 +2,50 @@ import { useForm } from '@/hooks/useForm';
 import { useToastMessage } from '@/hooks/useToastMessage';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useCallback } from 'react';
 import * as hangul from 'hangul-js';
 
 export default function Loading() {
   const router = useRouter();
   const hasFetched = useRef(false); // API 요청이 한 번만 실행되도록 하기 위한 플래그
   const { formData } = useForm();
-  const {setToastMessage} = useToastMessage();
+  const { setToastMessage } = useToastMessage();
 
   const isEndsWithConsonant = useMemo(() => {
     return hangul.endsWithConsonant(formData.name);
   }, [formData.name]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { petId } = router.query;
+  const fetchData = useCallback(async () => {
+    const { petId } = router.query;
 
-      if (petId && !hasFetched.current) {
-        hasFetched.current = true; // API 요청이 실행되었음을 표시
-        router.replace(router.pathname, undefined, { shallow: true });
+    if (petId && !hasFetched.current) {
+      hasFetched.current = true; // API 요청이 실행되었음을 표시
+      router.replace(router.pathname, undefined, { shallow: true });
 
-        try {
-          const response = await fetch('http://223.130.153.29:8080/letter', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id: petId }),
-          });
+      try {
+        const response = await fetch('http://223.130.153.29:8080/letter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: petId }),
+        });
 
-          if (!response.ok) {
-            throw new Error('Failed to fetch data');
-          }
-
-          const data = await response.json();
-          router.push(`/letter/${data.shareKey}`);
-
-        } catch (error) {
-          setToastMessage({ show: true, body: '오류가 발생했습니다.' });
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
         }
-      }
-    };
 
+        const data = await response.json();
+        router.push(`/letter/${data.shareKey}`);
+      } catch (error) {
+        setToastMessage({ show: true, body: '오류가 발생했습니다.' });
+      }
+    }
+  }, [router, setToastMessage]);
+
+  useEffect(() => {
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query, router.pathname]);
+  }, [fetchData]);
 
   return (
     <div className="flex justify-center items-center flex-col gap-2 h-full">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
 import { useToastMessage } from '@/hooks/useToastMessage';
@@ -8,18 +8,18 @@ import TextField from '@mui/material/TextField';
 
 export default function Reply() {
   const router = useRouter();
-  const {setToastMessage} = useToastMessage();
+  const { setToastMessage } = useToastMessage();
   const [phoneNumber, setPhoneNumber] = useState({ part1: '010', part2: '', part3: '' });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (/^\d*$/.test(value)) { // 숫자인지 확인
       setPhoneNumber({ ...phoneNumber, [name]: value });
     }
-  };
+  }, [phoneNumber]);
 
-  const handleSubmit = async () => {
-    if(phoneNumber.part2.length < 4 || phoneNumber.part3.length < 4) {
+  const handleSubmit = useCallback(async () => {
+    if (phoneNumber.part2.length < 4 || phoneNumber.part3.length < 4) {
       setToastMessage({ show: true, body: '전화번호를 모두 입력해주세요.' });
       return;
     }
@@ -31,14 +31,14 @@ export default function Reply() {
         },
         body: JSON.stringify({ userPhone: `${phoneNumber.part1}${phoneNumber.part2}${phoneNumber.part3}` }),
       });
-      if(!response.ok) {
+      if (!response.ok) {
         throw new Error('Failed to post data');
       }
       setToastMessage({ show: true, body: '답장이 예약되었습니다.' });
     } catch (error) {
       setToastMessage({ show: true, body: '오류가 발생했습니다.' });
     }
-  };
+  }, [phoneNumber, setToastMessage]);
 
   return (
     <Wrapper
@@ -94,7 +94,6 @@ export default function Reply() {
     />
   );
 }
-
 
 export async function getStaticProps() {
   return {

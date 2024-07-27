@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Box } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -10,26 +10,26 @@ export default function Step1() {
   const { formData, setFormData } = useForm();
   const {setToastMessage} = useToastMessage();
 
-  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRadioChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setFormData({ ownerNickname: value });
-  };
+  }, [setFormData]);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ [name]: value });
-    if(formData.ownerNickname !== 'special' && name === 'specialOwnerNickname' && value.length > 0) {
+    if (formData.ownerNickname !== 'special' && name === 'specialOwnerNickname' && value.length > 0) {
       setFormData({ ownerNickname: 'special' });
     }
-  };
+  }, [formData.ownerNickname, setFormData]);
 
-  const validate = () => {
-    if(!formData.name || !formData.species || (formData.ownerNickname === 'special' && !formData.specialOwnerNickname) || !formData.ownerNickname) {
-      setToastMessage({show: true, body: '필수 내용을 입력해주세요.' });
+  const validate = useCallback(() => {
+    if (!formData.name || !formData.species || (formData.ownerNickname === 'special' && !formData.specialOwnerNickname) || !formData.ownerNickname) {
+      setToastMessage({ show: true, body: '필수 내용을 입력해주세요.' });
       return;
     }
     router.push('/form/step2');
-  };
+  }, [formData, router, setToastMessage]);
 
   return (
     <Wrapper
