@@ -24,7 +24,7 @@ export default function Reply() {
       return;
     }
     try {
-      const response = await fetch('http://223.130.153.29:8080/heart', {
+      const response = await fetch('/api/heart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
