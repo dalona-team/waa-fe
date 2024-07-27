@@ -5,7 +5,6 @@ interface FormData {
   species: 'CAT' | 'DOG' | null;
   ownerNickname?: string;
   specialOwnerNickname?: string;
-  extraDesc?: string;
   character?: string[];
   toyAndTreat?: string;
   memory?: string;
@@ -15,6 +14,7 @@ interface FormContextType {
   formData: FormData;
   // eslint-disable-next-line no-unused-vars
   setFormData: (data: Partial<FormData>) => void;
+  resetFormData: () => void;
 }
 
 const FormContext = createContext<FormContextType | undefined>(undefined);
@@ -25,7 +25,6 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
     species: null,
     ownerNickname: '',
     specialOwnerNickname: '',
-    extraDesc: '',
     character: [],
     toyAndTreat: '',
     memory: '',
@@ -39,6 +38,19 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
+  const resetFormData = useCallback(() => {
+    localStorage.removeItem('formData');
+    setFormDataState({
+      name: '',
+      species: null,
+      ownerNickname: '',
+      specialOwnerNickname: '',
+      character: [],
+      toyAndTreat: '',
+      memory: '',
+    });
+  }, []);
+
   useEffect(() => {
     const localStorageData = localStorage.getItem('formData');
     if (localStorageData) {
@@ -48,7 +60,6 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
         species: parsedData.species,
         specialOwnerNickname: parsedData.specialOwnerNickname,
         ownerNickname: parsedData.specialOwnerNickname ? 'special' : parsedData.ownerNickname,
-        extraDesc: parsedData.extraDesc,
         character: parsedData.character ?? [],
         toyAndTreat: parsedData.toyAndTreat,
         memory: parsedData.memory,
@@ -57,7 +68,7 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <FormContext.Provider value={{ formData, setFormData }}>
+    <FormContext.Provider value={{ formData, setFormData, resetFormData }}>
       {children}
     </FormContext.Provider>
   );

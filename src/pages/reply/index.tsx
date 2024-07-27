@@ -13,7 +13,9 @@ export default function Reply() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setPhoneNumber({ ...phoneNumber, [name]: value });
+    if (/^\d*$/.test(value)) { // 숫자인지 확인
+      setPhoneNumber({ ...phoneNumber, [name]: value });
+    }
   };
 
   const handleSubmit = async () => {
@@ -52,7 +54,6 @@ export default function Reply() {
             <div>010</div>
             <span>-</span>
             <TextField
-              type='number'
               name="part2"
               value={phoneNumber.part2}
               onChange={handleChange}
@@ -68,7 +69,6 @@ export default function Reply() {
             />
             <span>-</span>
             <TextField
-              type='number'
               name="part3"
               value={phoneNumber.part3}
               onChange={handleChange}
@@ -87,7 +87,7 @@ export default function Reply() {
       }
       buttonElement={
         <div className='flex gap-1.5'>
-          <button className='w-1/4 h-14 text-white bg-[#909195] rounded-[20px]' onClick={() => router.push('/letter')}><span>이전</span></button>
+          <button className='w-1/4 h-14 text-white bg-[#909195] rounded-[20px]' onClick={() => router.back()}><span>이전</span></button>
           <button className='w-3/4 h-14 text-white bg-accent rounded-[20px]' onClick={handleSubmit}><span>제출하기</span></button>
         </div>
       }

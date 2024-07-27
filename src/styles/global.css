@@ -46,3 +46,7 @@ body{
     display: none; /* Chrome, Safari, Opera*/
   }
 }
+
+br + .jelly + br {
+  display: none;
+}

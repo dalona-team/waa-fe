@@ -5,33 +5,33 @@ import 'swiper/css';
 import { useRouter } from 'next/router';
 
 const cardList = [{
-  title: '로나가 엄마에게',
-  message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 ㅇㅁㄹㅁㅇㄴㄹㅇㄹ지내는 동안 심심하진 않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너',
+  title: '사랑하는 엄마에게',
+  message: '엄마 안녕! 나 키키야! 엄마가 나 많이 보고 싶다고 하던데 그거 알아 ㅎㅎ 나도 엄마가 너무 보고싶어 ㅠㅠ 근데 있잖아 엄마 나 지금 되게되게 행복하게 잘 지내고 있어! 아픈 곳도 하나도 없고 완전 멀쩡하다구?!',
   imageSrc: '/images/day_animals/illust_04.svg',
   imageWidth: 70,
   imageHeight: 50
 },{
-  title: '로나가 엄마에게',
-  message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 ㅇㅁㄴㄹㅁㅇㄴㄹㅇㅁㄴㄹ지내는 동안 심심하진 않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너',
+  title: '집사야 안녕!',
+  message: '나는 마일로야 잘 지내고 이써? 내가 고양이 별로 떠난 다음에 집사가 마니마니 슬퍼했다고 드러써 내가 길냥이때 마니 아팟자나 그때 집사가 나 구해조서',
   imageSrc: '/images/day_animals/illust_06.svg',
   imageWidth: 80,
   imageHeight: 50
 },{
-  title: '로나가 엄마에게',
-  message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 지내는 동ㅇㅇㅇ ㅇㄹㄴㅇㄹㄴㅇ ㄹㅇ안 심심하진 않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너',
+  title: '사랑하는 누나에게',
+  message: '누나 안녕! 나 먼지야! 누나가 나 많이 보고 싶다고 하던데 그 마음 다 알아 나도 너무너무 보고싶다 누나... 주말에 누나랑 늦잠 자던 게 엊그제 같은데 이젠 그럴 수 없다는 게 너무 슬프다 그치..',
   imageSrc: '/images/day_animals/illust_05.svg',
   imageWidth: 80,
   imageHeight: 50
 },{
-  title: '로나가 엄마에게',
-  message: '엄마아빠 안녕 나는 메로나야 그동안 잘 지냈어? 나 없이 지내는 동안 심심하진 dsfdsfsdfsdf fhgfdg않았어? 걱정돼서 내 생각만 했지? 근데 있잖아 난 지금 너'
+  title: '엄마 안녕! 나 초코야!',
+  message: '엄마 잘 지내고 이찌~? 나 많이 보고 싶어한다고 들었눈데. 나도 엄마가 엄청 보고 시포 특히 엄마랑 바다에 놀러가서 바다 냄새 잔뜩 맡고 수영하던 거 그게 너무 그립고 가끔씩 생각나. 그때 파도 소리 들으면서 뛰놀던 게 참 좋았는데 그치'
 }];
 
 const HomeDay = () => {
   const router = useRouter();
 
   return (
-    <div className='relative flex flex-col items-center justify-center h-full'>
+    <div className='relative flex flex-col items-center justify-center h-full overflow-y-auto invisible-scroll py-6'>
       <Image className='absolute top-[15%] left-[15%]' src="/images/day_animals/illust_01.svg" alt="강아지들" width={60} height={80} />
       <Image className='absolute top-[20%] right-0' src="/images/day_animals/illust_02.svg" alt="강아지들" width={74} height={70} />
       <Image className='slideLeft absolute top-[40%] left-[40%]' src="/images/day_animals/illust_03.svg" alt="강아지들" width={80} height={60} />
@@ -41,7 +41,7 @@ const HomeDay = () => {
         freeMode={true}
         spaceBetween={6}
         slidesPerView='auto'
-        className='w-full !pt-[196px] !pl-[20px]'
+        className='w-full !pt-[196px] !pl-[20px] min-h-[380px]'
       >
         {cardList.map((card, index) => (
           <SwiperSlide key={index} style={{width: 'auto', userSelect: 'none'}}>

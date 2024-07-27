@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useForm } from '@/hooks/useForm';
 import Image from 'next/image';
 import { GetServerSideProps } from 'next';
+import { useToastMessage } from '@/hooks/useToastMessage';
 
 type Props = {
   characterOptions: {
@@ -22,6 +23,7 @@ type Props = {
 export default function Step2({characterOptions}: Props) {
   const router = useRouter();
   const { formData, setFormData } = useForm();
+  const {setToastMessage} = useToastMessage();
   const [petImage, setPetImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [privacyAgree, setPrivacyAgree] = useState<boolean>(true);
@@ -69,20 +71,19 @@ export default function Step2({characterOptions}: Props) {
       species: formData.species,
       ownerNickname: formData.ownerNickname,
       specialOwnerNickname: formData.specialOwnerNickname,
-      extraDesc: formData.extraDesc,
-      petInfos: characterOptions.filter(item => formData.character?.includes(String(item.code))),
+      toyAndTreat: formData.toyAndTreat,
+      memory: formData.memory,
+      petInfos: characterOptions.filter(item => formData.character?.includes(String(item.code))).map(item => ({groupId: 'G0001', code: item.code})),
     };
 
     const formDataReq = new FormData();
-    formDataReq.append('petReqDto', new Blob([JSON.stringify(petReqDto)], { type: 'application/json' }));
-    if(petImage) formDataReq.append('petImage', petImage);
+    formDataReq.append('petReqDto', JSON.stringify(petReqDto)); // JSON 데이터를 문자열로 추가
+    if (petImage) formDataReq.append('petImage', petImage);
+
 
     try {
       const response = await fetch('http://223.130.153.29:8080/pet', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: formDataReq,
       });
 
@@ -91,9 +92,9 @@ export default function Step2({characterOptions}: Props) {
       }
 
       const data = await response.json();
-      console.log(data);
+      router.push(`/loading?petId=${data.id}`);
     } catch (error) {
-      console.error('Error:', error);
+      setToastMessage({ show: true, body: '오류가 발생했습니다.' });
     }
   };
 
@@ -186,7 +187,7 @@ export default function Step2({characterOptions}: Props) {
       buttonElement={
         <div className='flex gap-1.5'>
           <button className='w-1/4 h-14 text-white bg-secondary rounded-[20px]' onClick={() => router.push('/form/step1')}><span>이전</span></button>
-          <button className='w-3/4 h-14 text-white bg-primary rounded-[20px]' onClick={() => router.push('/loading')}><span>다음</span></button>
+          <button className='w-3/4 h-14 text-white bg-primary rounded-[20px]' onClick={handleSubmit}><span>다음</span></button>
         </div>
       }
     />
