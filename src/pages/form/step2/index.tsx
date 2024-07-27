@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { use, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Box, TextField, FormControl, FormLabel, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
@@ -30,7 +30,6 @@ export default function Step2({characterOptions}: Props) {
   const { formData, setFormData } = useForm();
   const {setToastMessage} = useToastMessage();
   const {showModal} = useModal();
-  const [petImage, setPetImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [privacyAgree, setPrivacyAgree] = useState<boolean>(true);
   const [serviceAgree, setServiceAgree] = useState<boolean>(true);
@@ -58,10 +57,10 @@ export default function Step2({characterOptions}: Props) {
   const handleImageChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setPetImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result as string);
+        localStorage.setItem('previewImage', reader.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -73,28 +72,24 @@ export default function Step2({characterOptions}: Props) {
 
   const handleResetImage = useCallback(() => {
     setPreviewImage(null);
-    setPetImage(null);
   }, []);
 
   const handleSubmit = useCallback(async () => {
-    const petReqDto = {
-      name: formData.name,
-      species: formData.species,
-      ownerNickname: formData.ownerNickname === 'special' ? null : formData.ownerNickname,
-      specialOwnerNickname: formData.specialOwnerNickname,
-      toyAndTreat: formData.toyAndTreat,
-      memory: formData.memory,
-      petInfos: characterOptions.filter(item => formData.character?.includes(String(item.code))).map(item => ({ groupId: 'G0001', code: item.code })),
-    };
-
-    const formDataReq = new FormData();
-    formDataReq.append('petReqDto', JSON.stringify(petReqDto)); // JSON 데이터를 문자열로 추가
-    if (petImage) formDataReq.append('petImage', petImage);
-
     try {
-      const response = await fetch('http://223.130.153.29:8080/pet', {
+      const response = await fetch('/api/pet', {
         method: 'POST',
-        body: formDataReq,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          species: formData.species,
+          ownerNickname: formData.ownerNickname === 'special' ? null : formData.ownerNickname,
+          specialOwnerNickname: formData.specialOwnerNickname,
+          toyAndTreat: formData.toyAndTreat,
+          memory: formData.memory,
+          petInfos: characterOptions.filter(item => formData.character?.includes(String(item.code))).map(item => ({ groupId: 'G0001', code: item.code })),
+        }),
       });
 
       if (!response.ok) {
@@ -106,7 +101,7 @@ export default function Step2({characterOptions}: Props) {
     } catch (error) {
       setToastMessage({ show: true, body: '오류가 발생했습니다.' });
     }
-  }, [characterOptions, formData, petImage, router, setToastMessage]);
+  }, [characterOptions, formData, router, setToastMessage]);
 
   const handleOpenPrivacy = () => {
     showModal(
@@ -119,6 +114,11 @@ export default function Step2({characterOptions}: Props) {
       <Service />
     );
   };
+
+  useEffect(() => {
+    const image = localStorage?.getItem('previewImage');
+    setPreviewImage(image ?? null);
+  }, []);
 
   return (
     <Wrapper
