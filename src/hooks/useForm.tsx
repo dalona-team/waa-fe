@@ -40,15 +40,6 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
 
   const resetFormData = useCallback(() => {
     localStorage.removeItem('formData');
-    setFormDataState({
-      name: '',
-      species: null,
-      ownerNickname: '',
-      specialOwnerNickname: '',
-      character: [],
-      toyAndTreat: '',
-      memory: '',
-    });
   }, []);
 
   useEffect(() => {
@@ -63,6 +54,16 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
         character: parsedData.character ?? [],
         toyAndTreat: parsedData.toyAndTreat,
         memory: parsedData.memory,
+      });
+    }else{
+      setFormDataState({
+        name: '',
+        species: null,
+        ownerNickname: '',
+        specialOwnerNickname: '',
+        character: [],
+        toyAndTreat: '',
+        memory: '',
       });
     }
   }, []);
