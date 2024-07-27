@@ -192,7 +192,7 @@ export default function Step2({characterOptions}: Props) {
               <FormControlLabel
                 control={<Checkbox checked={privacyAgree} onChange={(e) => setPrivacyAgree(e.target.checked)} />}
                 label="개인정보 수집 및 이용에 동의합니다."
-                sx={{fontSize: '16px'}}
+                sx={{fontSize: '16px', flex: 1}}
               />
               <span className='text-base text-gray-400 w-[60px] cursor-pointer' onClick={handleOpenPrivacy}>상세보기</span>
             </div>
@@ -200,7 +200,7 @@ export default function Step2({characterOptions}: Props) {
               <FormControlLabel
                 control={<Checkbox checked={serviceAgree} onChange={(e) => setServiceAgree(e.target.checked)} />}
                 label="서비스 이용약관에 동의합니다."
-                sx={{fontSize: '16px'}}
+                sx={{fontSize: '16px', flex: 1}}
               />
               <span className='text-base text-gray-400 w-[60px] cursor-pointer' onClick={handleOpenService}>상세보기</span>
             </div>
