@@ -10,7 +10,7 @@ export default function Document() {
         <meta name="description" content="강아지/고양이 별에 있는 반려동물이 보내주는 AI 편지 서비스" />
         <meta property="og:title" content="젤리레터 🐾💌" />
         <meta property="og:description" content="강아지/고양이 별에 있는 반려동물이 보내주는 AI 편지 서비스" />
-        <meta property="og:image" content="/images/og-image.png" />
+        <meta property="og:image" content="/images/og_image.png" />
         <meta property="og:url" content="https://jellyletter.netlify.app/" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
