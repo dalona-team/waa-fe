@@ -79,12 +79,12 @@ export default function Step1() {
           <FormControl component="fieldset" margin="normal">
             <FormLabel component="legend" className='pb-4'><i className='required'>*</i><span className='font-bold text-base text-gray-950'>당신을 어떻게 불렀나요?</span></FormLabel>
             <RadioGroup row onChange={handleRadioChange} value={formData.ownerNickname}>
-              <FormControlLabel className='w-1/3 mr-0' value="엄마" control={<Radio />} label="엄마" />
-              <FormControlLabel className='w-1/3 mr-0' value="아빠" control={<Radio />} label="아빠" />
-              <FormControlLabel className='w-1/3 mr-0' value="집사" control={<Radio />} label="집사" />
-              <FormControlLabel className='w-1/3 mr-0' value="언니" control={<Radio />} label="언니" />
-              <FormControlLabel className='w-1/3 mr-0' value="누나" control={<Radio />} label="누나" />
-              <FormControlLabel className='w-1/3 mr-0' value="오빠" control={<Radio />} label="오빠" />
+              <FormControlLabel className='w-1/3 !mr-2' value="엄마" control={<Radio />} label="엄마" />
+              <FormControlLabel className='w-1/3 !mr-2' value="아빠" control={<Radio />} label="아빠" />
+              <FormControlLabel className='w-1/3 !mr-2' value="집사" control={<Radio />} label="집사" />
+              <FormControlLabel className='w-1/3 !mr-2' value="언니" control={<Radio />} label="언니" />
+              <FormControlLabel className='w-1/3 !mr-2' value="누나" control={<Radio />} label="누나" />
+              <FormControlLabel className='w-1/3 !mr-2' value="오빠" control={<Radio />} label="오빠" />
               <FormControlLabel className='w-30' value="special" control={<Radio />} label="특별한 명칭" />
             </RadioGroup>
             <TextField

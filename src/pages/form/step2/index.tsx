@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { Box, TextField, FormControl, FormLabel, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
@@ -7,6 +7,8 @@ import { useForm } from '@/hooks/useForm';
 import Image from 'next/image';
 import { GetServerSideProps } from 'next';
 import { useToastMessage } from '@/hooks/useToastMessage';
+import * as hangul from 'hangul-js';
+
 
 type Props = {
   characterOptions: {
@@ -29,6 +31,11 @@ export default function Step2({characterOptions}: Props) {
   const [privacyAgree, setPrivacyAgree] = useState<boolean>(true);
   const [serviceAgree, setServiceAgree] = useState<boolean>(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+
+  const isEndsWithConsonant = useMemo(() => {
+    return hangul.endsWithConsonant(formData.name);
+  }, [formData.name]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -69,7 +76,7 @@ export default function Step2({characterOptions}: Props) {
     const petReqDto = {
       name: formData.name,
       species: formData.species,
-      ownerNickname: formData.ownerNickname,
+      ownerNickname: formData.ownerNickname === 'special' ? null : formData.ownerNickname,
       specialOwnerNickname: formData.specialOwnerNickname,
       toyAndTreat: formData.toyAndTreat,
       memory: formData.memory,
@@ -104,7 +111,7 @@ export default function Step2({characterOptions}: Props) {
       formElement={
         <Box component="form" noValidate autoComplete="off">
           <FormControl component="fieldset" margin="normal">
-            <FormLabel component="legend" className='pb-4'><span className='font-bold text-base text-gray-950'>반려동물의 성격을 알려주세요. (중복 선택 가능)</span></FormLabel>
+            <FormLabel component="legend" className='pb-4'><span className='font-bold text-base text-gray-950'>{formData.name.length ? formData.name : '내새꾸'}{isEndsWithConsonant ? '이' : ''}의 성격을 알려주세요. (중복 선택 가능)</span></FormLabel>
             <FormGroup row className='mt-4' onChange={handleCheckboxChange}>
               {
                 characterOptions.map(item => (
@@ -116,7 +123,7 @@ export default function Step2({characterOptions}: Props) {
           <div className='px-5 border border-line1 border-dashed my-4'></div>
           <FormControl sx={{ display: 'flex', flexDirection: 'column'}}>
             <FormLabel component="legend">
-              <span className='font-bold text-base text-gray-950'>내새꾸가 좋아하는 장난감, 간식을 알려주시겠어요?</span>
+              <span className='font-bold text-base text-gray-950'>{formData.name.length ? formData.name : '내새꾸'}{isEndsWithConsonant ? '이' : ''}가 좋아하는 장난감, 간식을 알려주시겠어요?</span>
             </FormLabel>
             <TextField
               fullWidth
@@ -131,7 +138,7 @@ export default function Step2({characterOptions}: Props) {
           <div className='px-5 border border-line1 border-dashed my-4'></div>
           <FormControl sx={{ display: 'flex', flexDirection: 'column', paddingBottom: '16px'}}>
             <FormLabel component="legend">
-              <span className='font-bold text-base text-gray-950'>내새꾸와 함께한 특별한 추억이 있으면 알려주시겠어요?</span>
+              <span className='font-bold text-base text-gray-950'>{formData.name.length ? formData.name : '내새꾸'}{isEndsWithConsonant ? '이' : ''}와 함께한 특별한 추억이 있으면 알려주시겠어요?</span>
             </FormLabel>
             <TextField
               fullWidth
@@ -148,7 +155,7 @@ export default function Step2({characterOptions}: Props) {
           </FormControl>
           <div className='px-5 border border-line1 border-dashed my-4'></div>
           <div className='flex justify-between items-center'>
-            <div className='font-bold text-base text-gray-950'>내새꾸 사진을 <br />보여주시겠어요?</div>
+            <div className='font-bold text-base text-gray-950'>{formData.name.length ? formData.name : '내새꾸'} 사진을 <br />보여주시겠어요?</div>
             <div>
               {!previewImage ? (<button type='button' className='w-[100px] h-[100px] px-3 py-3 border-2 border-line1 border-dashed' onClick={handleButtonClick}>
                 <span className='text-base text-gray-800'>사진<br />첨부하기</span>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
 import { useToastMessage } from '@/hooks/useToastMessage';
@@ -7,6 +7,7 @@ import LetterWrapper from '@/components/letter/LetterWrapper';
 import { GetServerSideProps } from 'next';
 import CounselingWrapper from '@/components/counseling/CounselingWrapper';
 import { ParsedUrlQuery } from 'querystring';
+import { useForm } from '@/hooks/useForm';
 
 function replaceNewlinesWithBr(inputText: string) {
   return inputText.replace(/(?:\r\\n|\r|\n)/g, '<br>');
@@ -23,6 +24,7 @@ type Props = {
 export default function Letter({letterContent, counselingContent, imageUrl}: Props) {
   const router = useRouter();
   const {setToastMessage} = useToastMessage();
+  const { resetFormData } = useForm();
 
   const copy = () => {
     const link = window.location.href; // 현재 페이지의 URL을 가져옵니다.
@@ -33,6 +35,10 @@ export default function Letter({letterContent, counselingContent, imageUrl}: Pro
       console.error('Failed to copy: ', err);
     });
   };
+
+  useEffect(() => {
+    resetFormData();
+  });
 
   return (
     <Wrapper
