@@ -65,13 +65,15 @@ const theme = createTheme({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { layoutClassName, ...rest} = pageProps;
+
   return (
     <ThemeProvider theme={theme}>
       <ThemeModeProvider>
         <FormProvider>
           <ToastMessageProvider>
-            <Layout>
-              <Component {...pageProps} />
+            <Layout className={layoutClassName}>
+              <Component {...rest} />
               <ToastMessage />
             </Layout>
           </ToastMessageProvider>
