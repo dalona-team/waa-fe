@@ -12,7 +12,7 @@ const Wrapper = (
         </div>}
         {!disableTitle && <div className='px-5 text-base font-bold'>{titleElement}</div>}
         {!disableBorder && <div className='px-5 border border-line1 border-dashed my-4'></div>}
-        <div className={`responsive-padding px-5 flex-1 flex flex-col w-full invisible-scroll ${isFloatingButton ? 'pb-14' : ''}`}>
+        <div className={`px-5 flex-1 flex flex-col w-full invisible-scroll ${isFloatingButton ? 'pb-14' : ''}`}>
           <div className='flex-1'>{formElement}</div>
         </div>
         {isFloatingButton ? <div className='absolute bottom-3 left-5 h-16 w-[calc(100%-40px)]'>{buttonElement}</div> : buttonElement ? <div className='px-5 pt-5 pb-5'>{buttonElement}</div>: null}

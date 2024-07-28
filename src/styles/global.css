@@ -69,8 +69,3 @@ br + .jelly + br {
   background: #FFF;
   z-index: 99;
 }
-@media screen and (max-width: 361px) {
-  .responsive-padding{
-    padding: 0 10px !important;
-  }
-}
