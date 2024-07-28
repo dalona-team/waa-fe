@@ -26,6 +26,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontFamily: 'NanumSquareNeo',
+          fontSize: '15px',
         },
       },
     },

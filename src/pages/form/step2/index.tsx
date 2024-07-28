@@ -260,7 +260,7 @@ export default function Step2({characterOptions}: Props) {
                 )}
               </div>
             </div>
-            <div className="h-2 bg-line1 my-4"></div>
+            <div className="h-[1px] bg-line1 my-4"></div>
             <FormControl
               className="w-full"
               component="fieldset"
@@ -275,7 +275,7 @@ export default function Step2({characterOptions}: Props) {
                     />
                   }
                   label="개인정보 수집 및 이용에 동의합니다."
-                  sx={{ fontSize: '16px', flex: 1 }}
+                  sx={{ fontSize: '15px', flex: 1 }}
                 />
                 <span
                   className="text-base text-gray-400 w-[60px] cursor-pointer"
@@ -293,7 +293,7 @@ export default function Step2({characterOptions}: Props) {
                     />
                   }
                   label="서비스 이용약관에 동의합니다."
-                  sx={{ fontSize: '16px', flex: 1 }}
+                  sx={{ fontSize: '15px', flex: 1 }}
                 />
                 <span
                   className="text-base text-gray-400 w-[60px] cursor-pointer"
