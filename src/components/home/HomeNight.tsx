@@ -83,13 +83,13 @@ const HomeNight = () => {
           {cardList.map((card, index) => (
             <SwiperSlide
               key={index}
-              style={{ width: "auto", userSelect: "none" }}
+              style={{ width: 'auto', userSelect: 'none' }}
             >
               <div className="relative w-40 h-[184px] font-gangwon leading-tight pl-5 pr-5 pt-2.5 pb-4 bg-white rounded-xl flex flex-col justify-center text-lg font-normal text-left">
                 {card.imageSrc ? (
                   <div
                     className="absolute left-0 w-full flex justify-center"
-                    style={{ bottom: "96%" }}
+                    style={{ bottom: '96%' }}
                   >
                     <Image
                       src={card.imageSrc}
@@ -108,7 +108,7 @@ const HomeNight = () => {
               </div>
             </SwiperSlide>
           ))}
-          <SwiperSlide style={{ width: "auto", userSelect: "none" }}>
+          <SwiperSlide style={{ width: 'auto', userSelect: 'none' }}>
             <Image
               priority
               className="my-10"
@@ -116,7 +116,7 @@ const HomeNight = () => {
               alt="강아지들"
               width={200}
               height={100}
-              style={{ marginLeft: "-6px" }}
+              style={{ marginLeft: '-6px' }}
             />
           </SwiperSlide>
         </Swiper>
@@ -124,7 +124,7 @@ const HomeNight = () => {
           <button
             role="button"
             className="h-[52px] px-7 py-3 bg-primary rounded-[20px] shadow flex justify-center items-center"
-            onClick={() => router.push("/form/step1")}
+            onClick={() => router.push('/form/step1')}
           >
             <span className="text-center text-white text-sm font-bold">
               내새꾸에게 편지 신청
