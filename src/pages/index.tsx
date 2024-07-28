@@ -18,7 +18,7 @@ export default function Home() {
       <Head>
         <title>젤리레터 🐾💌</title>
       </Head>
-      ;{mode.isDay ? <HomeDay /> : <HomeNight />}
+      {mode.isDay ? <HomeDay /> : <HomeNight />}
     </>
   );
 }
