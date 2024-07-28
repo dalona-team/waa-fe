@@ -15,6 +15,7 @@ const config: Config = {
         line1: 'rgba(0, 0, 0, 0.08)',
         mint: '#CEF4E9',
         yellow: '#F8ED64',
+        dark: '#03345C',
         // 추가 색상 변수
       },
       textColor: {
@@ -31,12 +32,10 @@ const config: Config = {
         b40: 'rgba(0, 0, 0, 0.4)',
       },
       fontSize: {
-        base: '15px'
-      }
+        base: '15px',
+      },
     },
   },
-  plugins: [
-    require('@tailwindcss/line-clamp'),
-  ],
+  plugins: [require('@tailwindcss/line-clamp')],
 };
 export default config;
