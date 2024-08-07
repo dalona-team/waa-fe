@@ -11,7 +11,7 @@ const Layout = ({ children, className }: { children: React.ReactNode, className?
     >
       { mode.isDay && <Image className='background-setting' src='/images/background_day.png' alt='따사로운 햇살과 구름' width={1440} height={960} />}
       { mode.isDay === false && <Image className='background-setting' src='/images/background_night.png' alt='반짝이는 별빛과 구름' width={1440} height={960} />}
-      <div id='modal-standard' className={`wrapper relative ${className ?? ''}`}>{children}</div>
+      <div id='modal-standard' className={`wrapper relative overflow-hidden ${className ?? ''}`}>{children}</div>
     </div>
   );
 };
