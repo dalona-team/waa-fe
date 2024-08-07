@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useForm } from '@/hooks/useForm';
 import { useToastMessage } from '@/hooks/useToastMessage';
 import Head from 'next/head';
-import CustomChip from '@/components/CustomChip';
+import CustomChip from '@/components/customChip/CustomChip';
 import { GetServerSideProps } from 'next';
 
 type Props = {
@@ -56,7 +56,7 @@ export default function Step1({characterOptions}: Props) {
         formElement={
           <>
             {step === 1 && <div className='flex flex-col gap-1 justify-center items-center'>
-              <div className='text-base font-bold text-b940 text-lg'>내새꾸 이름을 알려주세요.</div>
+              <div className='text-base font-bold text-b940 text-lg text-center'>내새꾸 이름을 알려주세요.</div>
               <TextField
                 className='max-w-[240px]'
                 fullWidth
@@ -74,10 +74,10 @@ export default function Step1({characterOptions}: Props) {
                     borderRadius: '0px',
                     '& fieldset': {
                       border: 'none',
-                      borderBottom: '2px solid #1A9058',
+                      borderBottom: '2px solid #baddcc',
                     },
                     '&:hover fieldset': {
-                      borderBottom: '2px solid #1A9058',
+                      borderBottom: '2px solid #baddcc',
                     },
                     '&.Mui-focused fieldset': {
                       borderBottom: '2px solid #1A9058',
@@ -87,7 +87,7 @@ export default function Step1({characterOptions}: Props) {
             </div> }
             {step === 2 &&
             <div className='flex flex-col gap-6 justify-center items-center'>
-              <div className='text-base font-bold text-b940 text-lg'>어느 별에서 찾아야 될까요?</div>
+              <div className='text-base font-bold text-b940 text-lg text-center'>어느 별에서 찾아야 될까요?</div>
               <div className='flex flex-row gap-1.5'>
                 <CustomChip
                   label="강아지별"
@@ -103,7 +103,7 @@ export default function Step1({characterOptions}: Props) {
             </div>}
             {step === 3 &&
             <div className='flex flex-col gap-6 justify-center items-center'>
-              <div className='text-base font-bold text-b940 text-lg'>당신을 어떻게 불렀나요?</div>
+              <div className='text-base font-bold text-b940 text-lg text-center'>당신을 어떻게 불렀나요?</div>
               <div className='flex flex-col gap-3'>
                 <div className='flex flex-row gap-1.5'>
                   <CustomChip
@@ -143,9 +143,9 @@ export default function Step1({characterOptions}: Props) {
                   <CustomChip
                     label="직접 입력하기"
                     selected={formData.ownerNickname === 'special'}
-                    onClick={() => setFormData({ ownerNickname: 'special', specialOwnerNickname: '' })}
+                    onClick={() => setFormData({ ownerNickname: 'special', specialOwnerNickname: undefined })}
                   />
-                  { formData.ownerNickname === 'special' && <TextField
+                  {formData.ownerNickname === 'special' && <TextField
                     className='max-w-[240px]'
                     fullWidth
                     margin="normal"
@@ -162,10 +162,10 @@ export default function Step1({characterOptions}: Props) {
                         borderRadius: '0px',
                         '& fieldset': {
                           border: 'none',
-                          borderBottom: '2px solid #1A9058',
+                          borderBottom: '2px solid #baddcc',
                         },
                         '&:hover fieldset': {
-                          borderBottom: '2px solid #1A9058',
+                          borderBottom: '2px solid #baddcc',
                         },
                         '&.Mui-focused fieldset': {
                           borderBottom: '2px solid #1A9058',
@@ -177,7 +177,7 @@ export default function Step1({characterOptions}: Props) {
             </div>}
             {step === 4 &&
             <div className='flex flex-col gap-6 justify-center items-center'>
-              <div className='text-base font-bold text-b940 text-lg'>내새꾸 성격을 모두 선택해 주세요.</div>
+              <div className='text-base font-bold text-b940 text-lg text-center'>내새꾸 성격을 모두 선택해 주세요.</div>
               <div className='flex flex-col gap-3 w-[306px]'>
                 <div className='grid grid-cols-2 gap-x-1.5 gap-y-3'>
                   {characterOptions.map((item) => (
@@ -203,7 +203,7 @@ export default function Step1({characterOptions}: Props) {
               <span>이전</span>
             </button>
             <button
-              disabled={!formData.name || !formData.species || !formData.ownerNickname && !(formData.ownerNickname == 'special' && formData.specialOwnerNickname) || !formData.character?.length}
+              disabled={!formData.name || !formData.species || !formData.ownerNickname || (formData.ownerNickname === 'special' && !formData.specialOwnerNickname?.length) || !formData.character?.length}
               className="w-3/4 h-14 text-white bg-primary rounded-[20px]"
               onClick={() => step > 3 ? validate() : setStep(step + 1)}
             >
@@ -216,17 +216,9 @@ export default function Step1({characterOptions}: Props) {
   );
 }
 
-// export async function getStaticProps() {
-//   return {
-//     props: {
-//       layoutClassName: 'bg-mint',
-//     },
-//   };
-// }
-
 // eslint-disable-next-line no-unused-vars
 export const getServerSideProps: GetServerSideProps = async (_context) => {
-  const res = await fetch('http://www.jellyletter.site:8080/api/info?groupId=G0001');
+  const res = await fetch('https://www.jellyletter.site:8080/api/info?groupId=G0001');
   const data = await res.json();
   const options = data.filter((item: any) => item.useYn === 'Y').map((item: any) => ({
     code: item.code,

@@ -7,6 +7,7 @@ export default function Service() {
 
   return (
     <Wrapper
+      className='bg-mint'
       isFloatingButton
       titleElement={<div className='text-center'>개인정보 수집 및 이용약관</div>}
       formElement={
@@ -280,12 +281,4 @@ export default function Service() {
       }
     />
   );
-}
-
-export async function getStaticProps() {
-  return {
-    props: {
-      layoutClassName: 'bg-white',
-    },
-  };
 }

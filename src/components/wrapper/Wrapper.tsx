@@ -2,10 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 
 const Wrapper = (
-  { topElement, disableBorder, disableTitle = false, titleElement, formElement, buttonElement, isFloatingButton = false }:
-  { topElement?: React.ReactNode, disableBorder?: boolean, disableTitle?: boolean, titleElement?: string | React.ReactNode, formElement: React.ReactNode, buttonElement?: React.ReactNode, isFloatingButton?: boolean }) => {
+  { className, topElement, disableBorder, disableTitle = false, titleElement, formElement, buttonElement, isFloatingButton = false }:
+  { className?: string, topElement?: React.ReactNode, disableBorder?: boolean, disableTitle?: boolean, titleElement?: string | React.ReactNode, formElement: React.ReactNode, buttonElement?: React.ReactNode, isFloatingButton?: boolean }) => {
   return (
-    <div className="relative h-full w-full flex flex-1">
+    <div className={`relative h-full w-full flex flex-1 ${className}`}>
       <div className='flex flex-col w-full'>
         {topElement ? topElement : <div className='flex justify-center items-center h-11 w-full mb-2'>
           <Image src="/images/logo.svg" alt="BigLogoImage" width={24} height={24} />

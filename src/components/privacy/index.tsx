@@ -8,6 +8,7 @@ export default function Privacy() {
 
   return (
     <Wrapper
+      className='bg-mint'
       isFloatingButton
       titleElement={<div className='text-center'>서비스 이용약관</div>}
       formElement={
@@ -28,12 +29,4 @@ export default function Privacy() {
       }
     />
   );
-}
-
-export async function getStaticProps() {
-  return {
-    props: {
-      layoutClassName: 'bg-white',
-    },
-  };
 }

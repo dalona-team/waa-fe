@@ -5,7 +5,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { userPhone } = req.body;
 
     try {
-      const response = await fetch('http://www.jellyletter.site:8080/api/heart', {
+      const response = await fetch('https://www.jellyletter.site:8080/api/heart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
