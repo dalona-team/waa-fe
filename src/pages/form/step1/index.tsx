@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { TextField } from '@mui/material';
 import { useRouter } from 'next/router';
@@ -24,6 +24,19 @@ export default function Step1({characterOptions}: Props) {
   const { formData, setFormData } = useForm();
   const {setToastMessage} = useToastMessage();
   const [step, setStep] = useState(1);
+
+  const isButtonDisabled = useMemo(() => {
+    switch(step) {
+    case 1:
+      return !formData.name;
+    case 2:
+      return !formData.species;
+    case 3:
+      return !formData.ownerNickname || (formData.ownerNickname === 'special' && !formData.specialOwnerNickname);
+    case 4:
+      return !formData.character?.length;
+    }
+  }, [formData, step]);
 
   const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -53,6 +66,8 @@ export default function Step1({characterOptions}: Props) {
       </Head>
       <Wrapper
         disableBorder
+        hasProgressBar={true}
+        percent={(step - 1) * (100 / 7)}
         formElement={
           <>
             {step === 1 && <div className='flex flex-col gap-1 justify-center items-center'>
@@ -203,7 +218,7 @@ export default function Step1({characterOptions}: Props) {
               <span>이전</span>
             </button>
             <button
-              disabled={!formData.name || !formData.species || !formData.ownerNickname || (formData.ownerNickname === 'special' && !formData.specialOwnerNickname?.length) || !formData.character?.length}
+              disabled={isButtonDisabled}
               className="w-3/4 h-14 text-white bg-primary rounded-[20px]"
               onClick={() => step > 3 ? validate() : setStep(step + 1)}
             >

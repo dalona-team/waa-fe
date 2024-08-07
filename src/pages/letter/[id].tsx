@@ -9,23 +9,30 @@ import CounselingWrapper from '@/components/counseling/CounselingWrapper';
 import { ParsedUrlQuery } from 'querystring';
 import { useForm } from '@/hooks/useForm';
 import Head from 'next/head';
+import { useModal } from '@/hooks/useModal';
+import Drawer from '@/components/drawer/Drawer';
+import Cookies from 'js-cookie';
 
 function replaceNewlinesWithBr(inputText: string) {
-  return inputText.replace(/(?:\r\\n|\r|\n)/g, '<br>');
+  return inputText.replace(/(?:\r\\n|\r|\n)/g, '<br /> ');
 }
 
-
 type Props = {
+  petId: string;
+  petName: string;
   letterContent: string;
-  counselingContent: string
+  imageUrl: string;
+  counselingContent: string;
+  addedMessage: string;
 };
 
 
-export default function Letter({letterContent, counselingContent}: Props) {
+export default function Letter({petId, petName, letterContent, counselingContent, imageUrl, addedMessage}: Props) {
   const router = useRouter();
   const {setToastMessage} = useToastMessage();
   const { resetFormData } = useForm();
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const { showModal } = useModal();
+  const [isLogin, setIsLogin] = useState(false);
 
   const copy = useCallback(() => {
     const link = window.location.href; // 현재 페이지의 URL을 가져옵니다.
@@ -37,12 +44,20 @@ export default function Letter({letterContent, counselingContent}: Props) {
     });
   }, [setToastMessage]);
 
+  const handleMenuClick = () => {
+    showModal(<Drawer />);
+  };
+
+  const handleLogin = () => {
+    localStorage.setItem('redirectUrl', `/reply?petId=${petId}&petName=${petName}`);
+    router.push('/login');
+  };
+
   useEffect(() => {
+    const hasToken = Cookies.get('accessToken');
+    setIsLogin(hasToken ? true : false);
     resetFormData();
-    const image = localStorage.getItem('previewImage');
-    if(image) setPreviewImage(image);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  },[resetFormData]);
 
   return (
     <>
@@ -53,7 +68,7 @@ export default function Letter({letterContent, counselingContent}: Props) {
         disableTitle
         disableBorder
         topElement={
-          <div className="flex items-center h-11 w-full mb-2">
+          <div className="flex items-center justify-between h-11 w-full mb-2">
             <Image
               className="cursor-pointer mx-5"
               src="/images/icon_home.svg"
@@ -62,6 +77,14 @@ export default function Letter({letterContent, counselingContent}: Props) {
               height={24}
               onClick={() => router.push('/')}
             />
+            <Image
+              className="cursor-pointer mx-5"
+              src="/images/icon_menu.svg"
+              alt="HamburgerMenu"
+              width={24}
+              height={24}
+              onClick={handleMenuClick}
+            />
           </div>
         }
         formElement={
@@ -69,10 +92,15 @@ export default function Letter({letterContent, counselingContent}: Props) {
             <LetterWrapper
               content={
                 <div className="px-[26px] flex flex-col gap-3">
-                  {previewImage ? (
-                    <Image
+                  <div
+                    className="font-gangwon text-2xl leading-[40px]"
+                    dangerouslySetInnerHTML={{ __html: letterContent }}
+                  ></div>
+                  {imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
                       className="w-full rounded-lg"
-                      src={previewImage}
+                      src={imageUrl}
                       alt="Letter edge"
                       width={388}
                       height={388}
@@ -80,7 +108,7 @@ export default function Letter({letterContent, counselingContent}: Props) {
                   ) : null}
                   <div
                     className="font-gangwon text-2xl leading-[40px]"
-                    dangerouslySetInnerHTML={{ __html: letterContent }}
+                    dangerouslySetInnerHTML={{ __html: addedMessage }}
                   ></div>
                 </div>
               }
@@ -100,7 +128,7 @@ export default function Letter({letterContent, counselingContent}: Props) {
               </button>
               <button
                 className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
-                onClick={() => router.push('/reply')}
+                onClick={() => isLogin ? router.push(`/reply?petId=${petId}&petName=${petName}`) : handleLogin()}
               >
                 <Image
                   src="/images/icon_pen.svg"
@@ -135,20 +163,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const counselingRes = await fetch(`https://www.jellyletter.site:8080/api/counseling?petId=${data.petResDto.id}`);
   const counselingData = await counselingRes.json();
 
-  // const imageUrl = data.petResDto.imageUrl;
+  const imageUrl = data.petAiImage.imageUrl;
+  const addedMessage = `${data.petAiImage.message} <img class="inline-block" src="/images/icon_ jelly.svg" alt="강아지 발바닥" />`;
 
   const content = data.content.toString();
-  const outputText = content.replace(/\n/g,'<img class="inline-block jelly" src="/images/icon_ jelly.svg" alt="강아지 발바닥" /><br />');
+  const outputText = content.replace(/\n/g,'<img class="inline-block jelly" src="/images/icon_ jelly.svg" alt="강아지 발바닥" /><br /> ');
 
   const counselingContent = counselingData.content;
   const counselingOutput = replaceNewlinesWithBr(counselingContent);
+
+  const petId = String(data.petResDto.id);
+  const petName = data.petResDto.name;
 
   return {
     props: {
       layoutClassName: 'bg-mint',
       letterContent: `${outputText} <img class="inline-block" src="/images/icon_ jelly.svg" alt="강아지 발바닥" />`,
-      counselingContent: counselingOutput
-      // imageUrl,
+      counselingContent: counselingOutput,
+      imageUrl,
+      addedMessage,
+      petId,
+      petName
     },
   };
 };

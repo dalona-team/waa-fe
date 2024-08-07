@@ -1,45 +1,22 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Box, TextField, FormControl, FormLabel, FormControlLabel, Checkbox, FormGroup } from '@mui/material';
+import React, { useCallback, useState } from 'react';
+import {  FormControl, FormControlLabel, Checkbox } from '@mui/material';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
 import { useForm } from '@/hooks/useForm';
-import Image from 'next/image';
-import { GetServerSideProps } from 'next';
 import { useModal } from '@/hooks/useModal';
 import { useToastMessage } from '@/hooks/useToastMessage';
 import Privacy from '@/components/privacy';
 import Service from '@/components/service';
-import * as hangul from 'hangul-js';
 import Head from 'next/head';
-import Drawer from '@/components/drawer/Drawer';
 
 export default function Step2() {
   const router = useRouter();
+  // eslint-disable-next-line no-unused-vars
   const { formData, setFormData } = useForm();
   const {setToastMessage} = useToastMessage();
   const {showModal} = useModal();
   const [privacyAgree, setPrivacyAgree] = useState<boolean>(true);
   const [serviceAgree, setServiceAgree] = useState<boolean>(true);
-
-
-  const isEndsWithConsonant = useMemo(() => {
-    return hangul.endsWithConsonant(formData.name);
-  }, [formData.name]);
-
-  const handleCheckboxChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    if (event.target.checked) {
-      setFormData({ character: [...formData.character ?? [], value] });
-    } else {
-      setFormData({ character: formData.character?.filter(item => item !== value) });
-    }
-  }, [formData.character, setFormData]);
-
-  const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData({ [name]: value });
-  }, [setFormData]);
 
   const handleSubmit = useCallback(async () => {
     try {
@@ -72,7 +49,7 @@ export default function Step2() {
 
   const handleOpenPrivacy = () => {
     showModal(
-      <Drawer />
+      <Privacy />
     );
   };
 
@@ -89,6 +66,8 @@ export default function Step2() {
       </Head>
       <Wrapper
         disableBorder
+        hasProgressBar={true}
+        percent={94}
         formElement={
           <>
             <div className='flex flex-col gap-1 justify-center items-center'>

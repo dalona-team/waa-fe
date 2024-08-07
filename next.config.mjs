@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['jellyletter.kr.object.ncloudstorage.com'],
+    domains: ['kr.object.ncloudstorage.com', 'jellyletter.kr.object.ncloudstorage.com'],
   },
 };
 

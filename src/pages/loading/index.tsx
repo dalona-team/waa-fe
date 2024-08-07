@@ -24,7 +24,7 @@ export default function Loading() {
       router.replace(router.pathname, undefined, { shallow: true });
 
       try {
-        const response = await fetch('/api/letter', {
+        const response = await fetch('/api/letter/pet', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

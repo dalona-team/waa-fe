@@ -1,13 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
+import ProgressBar from '../ProgressBar';
 
 const Wrapper = (
-  { className, topElement, disableBorder, disableTitle = false, titleElement, formElement, buttonElement, isFloatingButton = false }:
-  { className?: string, topElement?: React.ReactNode, disableBorder?: boolean, disableTitle?: boolean, titleElement?: string | React.ReactNode, formElement: React.ReactNode, buttonElement?: React.ReactNode, isFloatingButton?: boolean }) => {
+  { className, topElement, hasProgressBar = false, percent, disableBorder, disableTitle = false, titleElement, formElement, buttonElement, isFloatingButton = false }:
+  { className?: string, topElement?: React.ReactNode, hasProgressBar?: boolean, percent?: number, disableBorder?: boolean, disableTitle?: boolean, titleElement?: string | React.ReactNode, formElement: React.ReactNode, buttonElement?: React.ReactNode, isFloatingButton?: boolean }) => {
   return (
     <div className={`relative h-full w-full flex flex-1 ${className}`}>
       <div className='flex flex-col w-full'>
-        {topElement ? topElement : <div className='flex justify-center items-center h-11 w-full mb-2'>
+        {hasProgressBar && percent !== undefined && <div className='flex justify-center items-center h-[72px] w-full mb-2'>
+          <ProgressBar percent={percent} />
+        </div>}
+        {topElement ? topElement : !hasProgressBar && <div className='flex justify-center items-center h-11 w-full mt-4 mb-2'>
           <Image src="/images/logo.svg" alt="BigLogoImage" width={24} height={24} />
         </div>}
         {!disableTitle && <div className='px-5 text-base font-bold'>{titleElement}</div>}

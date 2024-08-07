@@ -22,6 +22,8 @@ export default function Step2() {
       </Head>
       <Wrapper
         disableBorder
+        hasProgressBar={true}
+        percent={(step + 4) * (100 / 7)}
         formElement={
           <>
             {step === 1 &&
