@@ -9,6 +9,7 @@ import Head from 'next/head';
 export default function Reply() {
   const router = useRouter();
   const { petId, petName } = router.query;
+  const [isConnected, setIsConnected] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
   const {setToastMessage} = useToastMessage();
 
@@ -34,11 +35,36 @@ export default function Reply() {
       }
 
       const data = await response.json();
-      router.push(`/loading?petId=${data.id}`);
+      router.push(`/loading/reply?petId=${data.petResDto.id}`);
     } catch (error) {
       setToastMessage({ show: true, body: '오류가 발생했습니다.' });
     }
   }, [content, petId, router, setToastMessage]);
+
+  const handleConnect = useCallback(async () => {
+    const userId = localStorage.getItem('userId');
+    if(isConnected || !userId || !petId) return;
+    try {
+      await fetch('/api/user-pet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          petId: petId,
+          userId: userId ?? ''
+        }),
+      });
+    } catch (error) {
+      setToastMessage({ show: true, body: '오류가 발생했습니다.' });
+    } finally {
+      setIsConnected(true);
+    }
+  }, [isConnected, petId, setToastMessage]);
+
+  useEffect(() => {
+    handleConnect();
+  }, [handleConnect]);
 
   return (
     <>

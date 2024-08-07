@@ -29,6 +29,7 @@ type Props = {
 
 export default function Letter({petId, petName, letterContent, counselingContent, imageUrl, addedMessage}: Props) {
   const router = useRouter();
+  const { isReply } = router.query;
   const {setToastMessage} = useToastMessage();
   const { resetFormData } = useForm();
   const { showModal } = useModal();
@@ -126,7 +127,7 @@ export default function Letter({petId, petName, letterContent, counselingContent
                 />
                 <span className="font-bold">공유하기</span>
               </button>
-              <button
+              {isReply ? null : <button
                 className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
                 onClick={() => isLogin ? router.push(`/reply?petId=${petId}&petName=${petName}`) : handleLogin()}
               >
@@ -137,7 +138,7 @@ export default function Letter({petId, petName, letterContent, counselingContent
                   height={24}
                 />
                 <span className="font-bold">답장하기</span>
-              </button>
+              </button>}
             </div>
             <CounselingWrapper
               content={

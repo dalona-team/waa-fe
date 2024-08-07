@@ -2,16 +2,16 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { petId, content } = req.body;
+    const { id } = req.body;
 
     try {
-      const response = await fetch('https://www.jellyletter.site:8080/api/letter/human-reply', {
+      const response = await fetch('https://www.jellyletter.site:8080/api/letter/pet-reply', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': req.cookies.accessToken ?? ''
         },
-        body: JSON.stringify({ petId, content }),
+        body: JSON.stringify({ id }),
       });
 
       if (!response.ok) {

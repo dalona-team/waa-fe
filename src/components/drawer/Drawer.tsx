@@ -73,13 +73,13 @@ export default function Service() {
           <div className="h-[52px] flex items-center cursor-pointer" onClick={() => { router.push('/'); hideModal(); }}>
             <span className='text-black/80 text-lg'>젤리레터 홈</span>
           </div>
-          <div className="h-[52px] flex items-center">
+          <div className="h-[52px] flex items-center cursor-pointer">
             <span className='text-black/80 text-lg'>MY 레터 보기</span>
           </div>
           <div className="pt-6 pb-4">
             <div className="bg-black/10 h-[1px]" />
           </div>
-          <div className="h-[52px] flex items-center" onClick={() => window.open('https://tame-griffin-5f8.notion.site/cc864a2ce9e3425d9410ec0723dafe7d?pvs=25', '_blank')}>
+          <div className="h-[52px] flex items-center cursor-pointer" onClick={() => window.open('https://tame-griffin-5f8.notion.site/cc864a2ce9e3425d9410ec0723dafe7d?pvs=25', '_blank')}>
             <span className='text-black/80 text-lg'>서비스 소개</span>
           </div>
           <div className="h-[52px] flex items-center">
@@ -88,7 +88,7 @@ export default function Service() {
           <div className="pt-6 pb-4">
             <div className="bg-black/10 h-[1px]" />
           </div>
-          <div className="h-[52px] flex items-center">
+          <div className="h-[52px] flex items-center cursor-pointer">
             <span className='text-black/80 text-lg'>로그아웃</span>
           </div>
         </div>
