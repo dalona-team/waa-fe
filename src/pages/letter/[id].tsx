@@ -129,10 +129,10 @@ export default function Letter({letterContent, counselingContent}: Props) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params as ParsedUrlQuery;
-  const res = await fetch(`http://223.130.153.29:8080/letter?shareKey=${id}`);
+  const res = await fetch(`http://www.jellyletter.site:8080/api/letter?shareKey=${id}`);
   const data = await res.json();
 
-  const counselingRes = await fetch(`http://223.130.153.29:8080/counseling?petId=${data.petResDto.id}`);
+  const counselingRes = await fetch(`http://www.jellyletter.site:8080/api/counseling?petId=${data.petResDto.id}`);
   const counselingData = await counselingRes.json();
 
   // const imageUrl = data.petResDto.imageUrl;

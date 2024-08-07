@@ -16,10 +16,15 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#1A9058', // primary color
+      contrastText: '#FFFFFF',
     },
     secondary: {
       main: '#909195', // secondary color
-    }
+    },
+    info: {
+      main: '#d6d6d6', // info color
+      contrastText: '#2b312f',
+    },
   },
   components: {
     MuiTypography: {
@@ -34,7 +39,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           height: '44px',
-          borderColor: alpha('#000000', 0.16)
+          borderColor: '#1A9058'
         },
       },
     },
@@ -63,7 +68,7 @@ const theme = createTheme({
           },
         },
       },
-    },
+    }
   },
 });
 

@@ -1,28 +1,42 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
-import { TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Box } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useForm } from '@/hooks/useForm';
 import { useToastMessage } from '@/hooks/useToastMessage';
 import Head from 'next/head';
+import CustomChip from '@/components/CustomChip';
+import { GetServerSideProps } from 'next';
 
-export default function Step1() {
+type Props = {
+  characterOptions: {
+    groupId: string,
+    groupName: string,
+    code: number,
+    codeName: string,
+    orders: number,
+    useYn: 'Y' | 'N'
+  }[];
+};
+
+export default function Step1({characterOptions}: Props) {
   const router = useRouter();
   const { formData, setFormData } = useForm();
   const {setToastMessage} = useToastMessage();
-
-  const handleRadioChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setFormData({ ownerNickname: value });
-  }, [setFormData]);
+  const [step, setStep] = useState(1);
 
   const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ [name]: value });
-    if (formData.ownerNickname !== 'special' && name === 'specialOwnerNickname' && value.length > 0) {
-      setFormData({ ownerNickname: 'special' });
+  }, [setFormData]);
+
+  const handleCharacterChange = useCallback((type: 'add' | 'remove', value: string) => {
+    if (type === 'add') {
+      setFormData({ character: [...formData.character ?? [], value] });
+    } else {
+      setFormData({ character: formData.character?.filter(item => item !== value) });
     }
-  }, [formData.ownerNickname, setFormData]);
+  }, [formData.character, setFormData]);
 
   const validate = useCallback(() => {
     if (!formData.name || !formData.species || (formData.ownerNickname === 'special' && !formData.specialOwnerNickname) || !formData.ownerNickname) {
@@ -41,163 +55,157 @@ export default function Step1() {
         disableBorder
         formElement={
           <>
-            <div className="text-base font-bold">
-              별나라에서 내새꾸를 찾기 위해 필수 정보를 입력해주세요.
-            </div>
-            <Box component="form" noValidate autoComplete="off">
-              <FormControl
+            {step === 1 && <div className='flex flex-col gap-1 justify-center items-center'>
+              <div className='text-base font-bold text-b940 text-lg'>내새꾸 이름을 알려주세요.</div>
+              <TextField
+                className='max-w-[240px]'
+                fullWidth
+                margin="normal"
+                placeholder="내새꾸 이름을 알려주세요."
+                variant="outlined"
+                color="primary"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <FormLabel
-                  component="legend"
-                  sx={{ marginRight: 2, width: '100px' }}
-                >
-                  <i className="required">*</i>
-                  <span className="font-bold text-base text-gray-950">
-                    이름
-                  </span>
-                </FormLabel>
-                <TextField
-                  sx={{ flex: 1 }}
-                  fullWidth
-                  margin="normal"
-                  placeholder="내새꾸 이름을 알려주세요."
-                  variant="outlined"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
+                  flex: 1,
+                  '& .MuiOutlinedInput-input': {textAlign: 'center'},
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '0px',
+                    '& fieldset': {
+                      border: 'none',
+                      borderBottom: '2px solid #1A9058',
+                    },
+                    '&:hover fieldset': {
+                      borderBottom: '2px solid #1A9058',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderBottom: '2px solid #1A9058',
+                    },
+                  }, }}
+              />
+            </div> }
+            {step === 2 &&
+            <div className='flex flex-col gap-6 justify-center items-center'>
+              <div className='text-base font-bold text-b940 text-lg'>어느 별에서 찾아야 될까요?</div>
+              <div className='flex flex-row gap-1.5'>
+                <CustomChip
+                  label="강아지별"
+                  selected={formData.species === 'DOG'}
+                  onClick={() => setFormData({ species: 'DOG' })}
                 />
-              </FormControl>
-              <div className="px-5 border border-line1 border-dashed my-4"></div>
-              <FormControl
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <FormLabel
-                  component="legend"
-                  sx={{ marginRight: 2, width: '100px' }}
-                >
-                  <i className="required">*</i>
-                  <span className="font-bold text-base text-gray-950">
-                    반려동물
-                  </span>
-                </FormLabel>
-                <RadioGroup
-                  row
-                  sx={{ flex: 1 }}
-                  name="species"
-                  value={formData.species}
-                  onChange={handleInputChange}
-                >
-                  <FormControlLabel
-                    value="DOG"
-                    control={<Radio />}
-                    label="강아지"
-                    sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
-                  />
-                  <FormControlLabel
-                    value="CAT"
-                    control={<Radio />}
-                    label="고양이"
-                    sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
-                  />
-                </RadioGroup>
-              </FormControl>
-              <div className="px-5 border border-line1 border-dashed my-4"></div>
-              <FormControl component="fieldset" margin="normal">
-                <FormLabel component="legend" className="pb-4">
-                  <i className="required">*</i>
-                  <span className="font-bold text-base text-gray-950">
-                    당신을 어떻게 불렀나요?
-                  </span>
-                </FormLabel>
-                <RadioGroup
-                  row
-                  onChange={handleRadioChange}
-                  value={formData.ownerNickname}
-                >
-                  <FormControlLabel
-                    className="w-1/3 !mr-2"
-                    value="엄마"
-                    control={<Radio />}
+                <CustomChip
+                  label="고양이별"
+                  selected={formData.species === 'CAT'}
+                  onClick={() => setFormData({ species: 'CAT' })}
+                />
+              </div>
+            </div>}
+            {step === 3 &&
+            <div className='flex flex-col gap-6 justify-center items-center'>
+              <div className='text-base font-bold text-b940 text-lg'>당신을 어떻게 불렀나요?</div>
+              <div className='flex flex-col gap-3'>
+                <div className='flex flex-row gap-1.5'>
+                  <CustomChip
                     label="엄마"
-                    sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
+                    selected={formData.ownerNickname === '엄마'}
+                    onClick={() => setFormData({ ownerNickname: '엄마' })}
                   />
-                  <FormControlLabel
-                    className="w-1/3 !mr-2"
-                    value="아빠"
-                    control={<Radio />}
+                  <CustomChip
                     label="아빠"
-                    sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
+                    selected={formData.ownerNickname === '아빠'}
+                    onClick={() => setFormData({ ownerNickname: '아빠' })}
                   />
-                  <FormControlLabel
-                    className="w-1/3 !mr-2"
-                    value="집사"
-                    control={<Radio />}
+                  <CustomChip
                     label="집사"
-                    sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
+                    selected={formData.ownerNickname === '집사'}
+                    onClick={() => setFormData({ ownerNickname: '집사' })}
                   />
-                  <FormControlLabel
-                    className="w-1/3 !mr-2"
-                    value="언니"
-                    control={<Radio />}
+                </div>
+                <div className='flex flex-row gap-1.5'>
+                  <CustomChip
                     label="언니"
-                    sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
+                    selected={formData.ownerNickname === '언니'}
+                    onClick={() => setFormData({ ownerNickname: '언니' })}
                   />
-                  <FormControlLabel
-                    className="w-1/3 !mr-2"
-                    value="누나"
-                    control={<Radio />}
+                  <CustomChip
                     label="누나"
-                    sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
+                    selected={formData.ownerNickname === '누나'}
+                    onClick={() => setFormData({ ownerNickname: '누나' })}
                   />
-                  <FormControlLabel
-                    className="w-1/3 !mr-2"
-                    value="오빠"
-                    control={<Radio />}
+                  <CustomChip
                     label="오빠"
-                    sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
+                    selected={formData.ownerNickname === '오빠'}
+                    onClick={() => setFormData({ ownerNickname: '오빠' })}
                   />
-                  <FormControlLabel
-                    className="w-30"
-                    value="special"
-                    control={<Radio />}
-                    label="특별한 명칭"
-                    sx={{ '& .MuiTypography-root': { fontSize: '15px' } }}
+                </div>
+                <div className='flex flex-col gap-1.5 justify-center items-center'>
+                  <CustomChip
+                    label="직접 입력하기"
+                    selected={formData.ownerNickname === 'special'}
+                    onClick={() => setFormData({ ownerNickname: 'special', specialOwnerNickname: '' })}
                   />
-                </RadioGroup>
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  placeholder="특별한 명칭을 알려주세요."
-                  variant="outlined"
-                  name="specialOwnerNickname"
-                  value={formData.specialOwnerNickname}
-                  onChange={handleInputChange}
-                  sx={{ '& .MuiInputBase-input': { fontSize: '15px' } }}
-                />
-              </FormControl>
-            </Box>
+                  { formData.ownerNickname === 'special' && <TextField
+                    className='max-w-[240px]'
+                    fullWidth
+                    margin="normal"
+                    placeholder="입력해주세요."
+                    variant="outlined"
+                    color="primary"
+                    name="specialOwnerNickname"
+                    value={formData.specialOwnerNickname}
+                    onChange={handleInputChange}
+                    sx={{
+                      flex: 1,
+                      '& .MuiOutlinedInput-input': {textAlign: 'center'},
+                      '& .MuiOutlinedInput-root': {
+                        borderRadius: '0px',
+                        '& fieldset': {
+                          border: 'none',
+                          borderBottom: '2px solid #1A9058',
+                        },
+                        '&:hover fieldset': {
+                          borderBottom: '2px solid #1A9058',
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderBottom: '2px solid #1A9058',
+                        },
+                      }, }}
+                  /> }
+                </div>
+              </div>
+            </div>}
+            {step === 4 &&
+            <div className='flex flex-col gap-6 justify-center items-center'>
+              <div className='text-base font-bold text-b940 text-lg'>내새꾸 성격을 모두 선택해 주세요.</div>
+              <div className='flex flex-col gap-3 w-[306px]'>
+                <div className='grid grid-cols-2 gap-x-1.5 gap-y-3'>
+                  {characterOptions.map((item) => (
+                    <CustomChip
+                      key={item.code}
+                      className="rounded-[12px]"
+                      label={item.codeName}
+                      selected={formData.character?.includes(String(item.code)) || false}
+                      onClick={() => handleCharacterChange(formData.character?.includes(String(item.code)) ? 'remove' : 'add', String(item.code))}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>}
           </>
         }
         buttonElement={
           <div className="flex gap-1.5">
             <button
               className="w-1/4 h-14 text-white bg-secondary rounded-[20px]"
-              onClick={() => router.push('/')}
+              onClick={() => step > 1 ? setStep(step - 1) : router.push('/')}
             >
               <span>이전</span>
             </button>
             <button
+              disabled={!formData.name || !formData.species || !formData.ownerNickname && !(formData.ownerNickname == 'special' && formData.specialOwnerNickname) || !formData.character?.length}
               className="w-3/4 h-14 text-white bg-primary rounded-[20px]"
-              onClick={validate}
+              onClick={() => step > 3 ? validate() : setStep(step + 1)}
             >
               <span>다음</span>
             </button>
@@ -208,10 +216,27 @@ export default function Step1() {
   );
 }
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
+//   return {
+//     props: {
+//       layoutClassName: 'bg-mint',
+//     },
+//   };
+// }
+
+// eslint-disable-next-line no-unused-vars
+export const getServerSideProps: GetServerSideProps = async (_context) => {
+  const res = await fetch('http://www.jellyletter.site:8080/api/info?groupId=G0001');
+  const data = await res.json();
+  const options = data.filter((item: any) => item.useYn === 'Y').map((item: any) => ({
+    code: item.code,
+    codeName: item.codeName,
+  }));
+
   return {
     props: {
-      layoutClassName: 'bg-white',
+      layoutClassName: 'bg-mint',
+      characterOptions: options,
     },
   };
-}
+};

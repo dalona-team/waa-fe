@@ -326,9 +326,8 @@ export default function Step2({characterOptions}: Props) {
   );
 }
 
-// eslint-disable-next-line no-unused-vars
 export const getServerSideProps: GetServerSideProps = async (_context) => {
-  const res = await fetch('http://223.130.153.29:8080/info?groupId=G0001');
+  const res = await fetch('http://www.jellyletter.site:8080/api/info?groupId=G0001');
   const data = await res.json();
   const options = data.filter((item: any) => item.useYn === 'Y').map((item: any) => ({
     code: item.code,
@@ -337,7 +336,7 @@ export const getServerSideProps: GetServerSideProps = async (_context) => {
 
   return {
     props: {
-      layoutClassName: 'bg-white',
+      layoutClassName: 'bg-mint',
       characterOptions: options,
     },
   };

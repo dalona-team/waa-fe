@@ -69,3 +69,9 @@ br + .jelly + br {
   background: #FFF;
   z-index: 99;
 }
+
+button:disabled{
+  background: rgba(0, 0, 0, 0.24) !important;
+  color: #FFF !important;
+  pointer-events: none;
+}

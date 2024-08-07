@@ -5,7 +5,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { name, species, ownerNickname, specialOwnerNickname, toyAndTreat, memory, petInfos } = req.body;
 
     try {
-      const response = await fetch('http://223.130.153.29:8080/pet', {
+      const response = await fetch('http://www.jellyletter.site:8080/api/pet', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
