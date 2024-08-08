@@ -15,8 +15,8 @@ interface Letter {
 
 export default function MyLetter() {
   const router = useRouter();
-  const { showModal } = useModal();
   const [data, setData] = useState<Letter[]>([]);
+  const { showModal } = useModal();
 
   const handleMenuClick = () => {
     showModal(<Drawer />);

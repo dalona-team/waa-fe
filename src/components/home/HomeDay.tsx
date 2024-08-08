@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { useRouter } from 'next/router';
+import Drawer from '../drawer/Drawer';
+import { useModal } from '@/hooks/useModal';
 
 const cardList = [{
   title: '사랑하는 엄마에게',
@@ -29,9 +31,22 @@ const cardList = [{
 
 const HomeDay = () => {
   const router = useRouter();
+  const { showModal } = useModal();
+
+  const handleMenuClick = () => {
+    showModal(<Drawer />);
+  };
 
   return (
     <div className="relative flex flex-col items-center justify-center h-full overflow-y-auto invisible-scroll">
+      <Image
+        className="cursor-pointer absolute top-2 right-4 w-[24px] h-[24px]"
+        src="/images/icon_menu.svg"
+        alt="HamburgerMenu"
+        width={24}
+        height={24}
+        onClick={handleMenuClick}
+      />
       <div className="flex-1 flex flex-col justify-center items-center">
         <Image
           priority
@@ -82,13 +97,13 @@ const HomeDay = () => {
           {cardList.map((card, index) => (
             <SwiperSlide
               key={index}
-              style={{ width: 'auto', userSelect: 'none' }}
+              style={{ width: "auto", userSelect: "none" }}
             >
               <div className="relative w-40 h-[184px] font-gangwon leading-tight pl-5 pr-5 pt-2.5 pb-4 bg-white rounded-xl flex flex-col justify-center text-lg font-normal text-left">
                 {card.imageSrc ? (
                   <div
                     className="absolute left-0 w-full flex justify-center"
-                    style={{ bottom: '96%' }}
+                    style={{ bottom: "96%" }}
                   >
                     <Image
                       src={card.imageSrc}
@@ -107,7 +122,7 @@ const HomeDay = () => {
               </div>
             </SwiperSlide>
           ))}
-          <SwiperSlide style={{ width: 'auto', userSelect: 'none' }}>
+          <SwiperSlide style={{ width: "auto", userSelect: "none" }}>
             <Image
               priority
               className="my-10"
@@ -115,7 +130,7 @@ const HomeDay = () => {
               alt="강아지들"
               width={200}
               height={100}
-              style={{ marginLeft: '-6px' }}
+              style={{ marginLeft: "-6px" }}
             />
           </SwiperSlide>
         </Swiper>
@@ -123,7 +138,7 @@ const HomeDay = () => {
           <button
             role="button"
             className="h-[52px] px-7 py-3 bg-primary rounded-[20px] shadow flex justify-center items-center"
-            onClick={() => router.push('/form/step1')}
+            onClick={() => router.push("/form/step1")}
           >
             <span className="text-center text-white text-sm font-bold">
               내새꾸에게 편지 신청
