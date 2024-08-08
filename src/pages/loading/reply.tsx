@@ -24,15 +24,18 @@ export default function Loading() {
       router.replace(router.pathname, undefined, { shallow: true });
 
       try {
-        const response = await fetch('/api/letter/pet-reply', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: petId,
-          }),
-        });
+        const response = await fetch(
+          'https://www.jellyletter.site:8080/api/letter/pet-reply',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id: petId,
+            }),
+          }
+        );
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }

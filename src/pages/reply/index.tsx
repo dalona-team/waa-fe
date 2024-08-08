@@ -18,16 +18,19 @@ export default function Reply() {
 
   const handleSubmit = useCallback(async () => {
     try {
-      const response = await fetch('/api/letter/human-reply', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          petId: petId,
-          content: content
-        }),
-      });
+      const response = await fetch(
+        'https://www.jellyletter.site:8080/api/letter/human-reply',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            petId: petId,
+            content: content,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to post data');
