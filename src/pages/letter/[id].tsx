@@ -22,6 +22,7 @@ type Props = {
   petId: string;
   petName: string;
   petSpecies: string;
+  ownerNickname: string;
   letterContent: string;
   imageUrl: string;
   counselingContent: string;
@@ -33,6 +34,7 @@ export default function Letter({
   petId,
   petName,
   petSpecies,
+  ownerNickname,
   letterContent,
   counselingContent,
   imageUrl,
@@ -121,7 +123,9 @@ export default function Letter({
                 <div className="px-[26px] flex flex-col gap-3">
                   <div
                     className="font-gangwon text-2xl leading-[40px]"
-                    dangerouslySetInnerHTML={{ __html: letterContent }}
+                    dangerouslySetInnerHTML={{
+                      __html: letterContent.replace('{{Owner}}', ownerNickname),
+                    }}
                   ></div>
                   {imageUrl && !isReply ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -135,7 +139,9 @@ export default function Letter({
                   ) : null}
                   <div
                     className="font-gangwon text-2xl leading-[40px]"
-                    dangerouslySetInnerHTML={{ __html: addedMessage }}
+                    dangerouslySetInnerHTML={{
+                      __html: addedMessage.replace('{{Owner}}', ownerNickname),
+                    }}
                   ></div>
                 </div>
               }
@@ -212,6 +218,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const petId = String(data.petResDto.id);
   const petName = data.petResDto.name;
   const petSpecies = data.petResDto.species;
+  const ownerNickname = data.petResDto.ownerNickname;
 
   return {
     props: {
