@@ -12,6 +12,7 @@ import Head from 'next/head';
 import { useModal } from '@/hooks/useModal';
 import Drawer from '@/components/drawer/Drawer';
 import Cookies from 'js-cookie';
+import * as hangul from 'hangul-js';
 
 function replaceNewlinesWithBr(inputText: string) {
   return inputText.replace(/(?:\r\\n|\r|\n)/g, '<br /> ');
@@ -50,7 +51,9 @@ export default function Letter({petId, petName, letterContent, counselingContent
   };
 
   const handleLogin = () => {
-    localStorage.setItem('redirectUrl', `/reply?petId=${petId}&petName=${petName}`);
+    const newPetName = hangul.endsWithConsonant(petName) ? petName + '이' : petName;
+    localStorage.setItem('petName', newPetName);
+    localStorage.setItem('redirectUrl', `/reply?petId=${petId}&petName=${newPetName}`);
     router.push('/login');
   };
 
