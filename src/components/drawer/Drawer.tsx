@@ -14,8 +14,6 @@ export default function Service() {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
 
-
-
   useEffect(() => {
     const drawer = drawerRef.current;
     if (drawer) {
@@ -35,15 +33,6 @@ export default function Service() {
     }
   }, []);
 
-  const handleLogout = () => {
-    Cookies.remove('accessToken');
-    Cookies.remove('refreshToken');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userEmail');
-    router.push('/');
-  };
-
   const handleClose = () => {
     setIsDimVisible(false); // dim 요소를 바로 숨김
     const drawer = drawerRef.current;
@@ -54,6 +43,16 @@ export default function Service() {
         hideModal();
       }, 300); // 애니메이션 시간과 일치시킴
     }
+  };
+
+  const handleLogout = () => {
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userEmail');
+    handleClose();
+    router.push('/');
   };
 
   if (!isVisible) return null;
