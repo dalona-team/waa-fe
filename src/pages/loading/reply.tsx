@@ -38,7 +38,7 @@ export default function Loading() {
         }
 
         const data = await response.json();
-        router.push(`/letter/${data.shareKey}?isReply=true`);
+        router.push(`/letter/${data.shareKey}`);
       } catch (error) {
         setToastMessage({ show: true, body: '오류가 발생했습니다.' });
         router.push('/');

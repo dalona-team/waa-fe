@@ -40,13 +40,12 @@ export default function NaverCallback({ code, state }: { code: string; state: st
             Cookies.set('refreshToken', data.loginInfo.refreshToken, { expires: 7 });
             localStorage.setItem('userId', data.loginInfo.user.id);
             localStorage.setItem('userName', data.loginInfo.user.username);
+            localStorage.setItem('userEmail', data.loginInfo.user.email);
           }
           const redirectUrl = localStorage.getItem('redirectUrl');
           if(redirectUrl){
             router.push(redirectUrl);
             localStorage.removeItem('redirectUrl');
-          }else{
-            router.push('/');
           }
         })
         .catch(error => {

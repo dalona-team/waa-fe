@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useModal } from '@/hooks/useModal';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 export default function Service() {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function Service() {
   const [isDimVisible, setIsDimVisible] = useState(true);
 
   const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
     const drawer = drawerRef.current;
@@ -22,10 +24,23 @@ export default function Service() {
       }, 0);
     }
     const userName = localStorage.getItem('userName');
+    const userEmail = localStorage.getItem('userEmail');
     if(userName){
       setUserName(userName);
     }
+    if(userEmail){
+      setUserEmail(userEmail);
+    }
   }, []);
+
+  const handleLogout = () => {
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userEmail');
+    router.push('/');
+  };
 
   const handleClose = () => {
     setIsDimVisible(false); // dim 요소를 바로 숨김
@@ -58,15 +73,25 @@ export default function Service() {
               />
             </button>
           </div>
-          <div className='flex gap-2 items-center'>
+          {userName ? <div className='flex gap-2 items-center'>
             <Image
               src="/images/icon_naver.svg"
               alt="네이버"
               width={24}
               height={24}
             />
-            <span className='text-lg text-black/80 font-bold'>{userName}</span>
-          </div>
+            <span className='text-lg text-black/80 font-bold'>{userName}<span className='text-black/50 text-xs ml-2'>{userEmail}</span></span>
+          </div> : <div className='flex gap-2 items-center' onClick={() => { router.push('/login'); hideModal(); }}>
+            <div className='w-[34px] h-[34px] bg-accent rounded-full flex justify-center items-center'>
+              <Image
+                src="/images/logo_white.svg"
+                alt="핑크 로고"
+                width={24}
+                height={24}
+              />
+            </div>
+            <span className='text-lg text-black/80 font-bold'>로그인해 주세요</span>
+          </div>}
           <div className="pt-6 pb-4">
             <div className="bg-black/10 h-[1px]" />
           </div>
@@ -74,7 +99,7 @@ export default function Service() {
             <span className='text-black/80 text-lg'>젤리레터 홈</span>
           </div>
           <div className="h-[52px] flex items-center cursor-pointer">
-            <span className='text-black/80 text-lg'>MY 레터 보기</span>
+            <span className='text-black/80 text-lg' onClick={() => { router.push('/my-letter'); hideModal(); }}>MY 레터 보기</span>
           </div>
           <div className="pt-6 pb-4">
             <div className="bg-black/10 h-[1px]" />
@@ -88,9 +113,9 @@ export default function Service() {
           <div className="pt-6 pb-4">
             <div className="bg-black/10 h-[1px]" />
           </div>
-          <div className="h-[52px] flex items-center cursor-pointer">
-            <span className='text-black/80 text-lg'>로그아웃</span>
-          </div>
+          {userName ? <div className="h-[52px] flex items-center cursor-pointer">
+            <span className='text-black/80 text-lg' onClick={() => handleLogout()}>로그아웃</span>
+          </div> : null}
         </div>
       </div>
     </div>

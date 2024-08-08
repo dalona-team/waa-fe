@@ -91,13 +91,14 @@ export default function Letter({petId, petName, letterContent, counselingContent
         formElement={
           <div>
             <LetterWrapper
+              isReply={isReply ? true: false}
               content={
                 <div className="px-[26px] flex flex-col gap-3">
                   <div
                     className="font-gangwon text-2xl leading-[40px]"
                     dangerouslySetInnerHTML={{ __html: letterContent }}
                   ></div>
-                  {imageUrl ? (
+                  {imageUrl && !isReply ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       className="w-full rounded-lg"
@@ -114,40 +115,42 @@ export default function Letter({petId, petName, letterContent, counselingContent
                 </div>
               }
             />
-            <div className="my-5 flex gap-2 justify-center items-center">
-              <button
-                className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
-                onClick={copy}
-              >
-                <Image
-                  src="/images/icon_copy.svg"
-                  alt="복사하기"
-                  width={24}
-                  height={24}
-                />
-                <span className="font-bold">공유하기</span>
-              </button>
-              {isReply ? null : <button
-                className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
-                onClick={() => isLogin ? router.push(`/reply?petId=${petId}&petName=${petName}`) : handleLogin()}
-              >
-                <Image
-                  src="/images/icon_pen.svg"
-                  alt="답장하기"
-                  width={24}
-                  height={24}
-                />
-                <span className="font-bold">답장하기</span>
-              </button>}
-            </div>
-            <CounselingWrapper
-              content={
-                <div
-                  className="px-[26px] leading-[36px]"
-                  dangerouslySetInnerHTML={{ __html: counselingContent }}
-                ></div>
-              }
-            />
+            {isReply ? null : <>
+              <div className="my-5 flex gap-2 justify-center items-center">
+                <button
+                  className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
+                  onClick={copy}
+                >
+                  <Image
+                    src="/images/icon_copy.svg"
+                    alt="복사하기"
+                    width={24}
+                    height={24}
+                  />
+                  <span className="font-bold">공유하기</span>
+                </button>
+                <button
+                  className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
+                  onClick={() => isLogin ? router.push(`/reply?petId=${petId}&petName=${petName}`) : handleLogin()}
+                >
+                  <Image
+                    src="/images/icon_pen.svg"
+                    alt="답장하기"
+                    width={24}
+                    height={24}
+                  />
+                  <span className="font-bold">답장하기</span>
+                </button>
+              </div>
+              <CounselingWrapper
+                content={
+                  <div
+                    className="px-[26px] leading-[36px]"
+                    dangerouslySetInnerHTML={{ __html: counselingContent }}
+                  ></div>
+                }
+              />
+            </>}
           </div>
         }
       />
