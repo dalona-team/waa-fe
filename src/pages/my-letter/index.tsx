@@ -44,8 +44,7 @@ export default function MyLetter() {
     try {
       const res = await fetch('https://www.jellyletter.site:8080/api/letter/user-pet', {
         headers: {
-          // 'Authorization': accessToken ?? ''
-          'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsInVzZXJSb2xlIjoiVVNFUiIsImlhdCI6MTcyMzA3NjMxOSwiZXhwIjoxNzIzMTEyMzE5fQ.BtRBWZ0fXgiSppQR2H1a2RZmAyrnhY4kOtijcPQAcuw'
+          'Authorization': accessToken ?? ''
         }
       });
 
