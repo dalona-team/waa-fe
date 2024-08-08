@@ -3,8 +3,9 @@ import { useToastMessage } from '@/hooks/useToastMessage';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useCallback } from 'react';
-import * as hangul from 'hangul-js';
 import Head from 'next/head';
+import * as hangul from 'hangul-js';
+import Cookies from 'js-cookie';
 
 export default function Loading() {
   const router = useRouter();
@@ -17,6 +18,7 @@ export default function Loading() {
   }, [formData.name]);
 
   const fetchData = useCallback(async () => {
+    const token = Cookies.get('accessToken');
     const { petId } = router.query;
 
     if (petId && !hasFetched.current) {
@@ -30,6 +32,7 @@ export default function Loading() {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: token || '',
             },
             body: JSON.stringify({
               id: petId,
