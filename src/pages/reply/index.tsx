@@ -3,6 +3,7 @@ import {  TextField} from '@mui/material';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
 import { useToastMessage } from '@/hooks/useToastMessage';
+import Cookies from 'js-cookie';
 import Head from 'next/head';
 
 export default function Reply() {
@@ -17,6 +18,7 @@ export default function Reply() {
   };
 
   const handleSubmit = useCallback(async () => {
+    const token = Cookies.get('accessToken');
     try {
       const response = await fetch(
         'https://www.jellyletter.site:8080/api/letter/human-reply',
@@ -24,6 +26,7 @@ export default function Reply() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: token || '',
           },
           body: JSON.stringify({
             petId: petId,
