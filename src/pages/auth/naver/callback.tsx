@@ -51,6 +51,7 @@ export default function NaverCallback({ code, state }: { code: string; state: st
         .catch(error => {
           // eslint-disable-next-line no-console
           console.error('Fetch error:', error);
+          router.push('/');
         });
     }
   }, [code, state, router]);
