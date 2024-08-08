@@ -222,7 +222,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      layoutClassName: "bg-mint",
+      layoutClassName: 'bg-mint',
       letterContent: `${outputText} <img class="inline-block" src="/images/icon_ jelly.svg" alt="강아지 발바닥" />`,
       counselingContent: counselingOutput,
       imageUrl,
