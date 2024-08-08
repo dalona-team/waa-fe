@@ -23,8 +23,6 @@ export default function NaverCallback({ code, state }: { code: string; state: st
           return response.json();
         })
         .then(data => {
-          console.log(data);
-          console.log(code);
           // 유저 정보를 우리 서비스로 전달하여 로그인 처리
           return fetch('/api/jellyletter/login', {
             method: 'POST',
