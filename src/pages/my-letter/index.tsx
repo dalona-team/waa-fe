@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
-import { useToastMessage } from '@/hooks/useToastMessage';
 import Image from 'next/image';
-import LetterWrapper from '@/components/letter/LetterWrapper';
-import CounselingWrapper from '@/components/counseling/CounselingWrapper';
-import { useForm } from '@/hooks/useForm';
 import Head from 'next/head';
 import { useModal } from '@/hooks/useModal';
 import Drawer from '@/components/drawer/Drawer';
@@ -17,23 +13,10 @@ interface Letter {
   typeCode: number;
 }
 
-const convertNewlinesToBreaks = (text: string) => {
-  return text.split('\n').map((line, index) => (
-    <React.Fragment key={index}>
-      {line}
-      <br />
-    </React.Fragment>
-  ));
-};
-
 export default function MyLetter() {
   const router = useRouter();
-  const { setToastMessage } = useToastMessage();
-  const { resetFormData } = useForm();
   const { showModal } = useModal();
-  const [isLogin, setIsLogin] = useState(false);
   const [data, setData] = useState<Letter[]>([]);
-  const [error, setError] = useState(null);
 
   const handleMenuClick = () => {
     showModal(<Drawer />);
@@ -139,6 +122,7 @@ export default function MyLetter() {
                 </p>
                 <button
                   className="w-[192px] h-12 text-white bg-primary rounded-[20px] flex justify-center items-center gap-1.5"
+                  onClick={() => router.push('/form/step1')}
                 >
                   <span className="font-bold">내새꾸에게 편지신청</span>
                 </button>

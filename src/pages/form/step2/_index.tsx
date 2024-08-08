@@ -90,7 +90,6 @@ export default function Step2() {
         disableBorder
         formElement={
           <Box component="form" noValidate autoComplete="off">
-            
             <div className="px-5 border border-line1 border-dashed my-4"></div>
             <FormControl sx={{ display: 'flex', flexDirection: 'column' }}>
               <FormLabel component="legend">

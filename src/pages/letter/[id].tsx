@@ -171,7 +171,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const counselingData = await counselingRes.json();
 
   const imageUrl = data.petAiImage.imageUrl;
-  const addedMessage = `${data.petAiImage.message} <img class="inline-block" src="/images/icon_ jelly.svg" alt="강아지 발바닥" />`;
+  const addedMessage = `${data.petAiImage.message ?? ''} <img class="inline-block" src="/images/icon_ jelly.svg" alt="강아지 발바닥" />`;
 
   const content = data.content.toString();
   const outputText = content.replace(/\n/g,'<img class="inline-block jelly" src="/images/icon_ jelly.svg" alt="강아지 발바닥" /><br /> ');
