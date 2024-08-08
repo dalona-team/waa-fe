@@ -9,10 +9,14 @@ const SignUp = () => {
   const handleNaverLogin = () => {
     const state = uuidv4();
     const clientId = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
-    const redirectUri = encodeURIComponent(process.env.NEXT_PUBLIC_NAVER_REDIRECT_URI ?? '');
-    const naverLoginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
-
-    router.push(naverLoginUrl);
+    const redirectUri = process.env.NEXT_PUBLIC_NAVER_REDIRECT_URI;
+    if(clientId && redirectUri){
+      console.log(state);
+      console.log(redirectUri);
+      console.log(!!clientId);
+      const naverLoginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+      router.push(naverLoginUrl);
+    }
   };
 
   return (
@@ -31,15 +35,20 @@ const SignUp = () => {
           편지를 받아보세요!
         </p>
       </div>
-      <div className='w-full mt-[60px]'>
-        <button type="button" style={{background: '#03C74A'}} className='block w-full h-[48px] flex items-center justify-center' onClick={handleNaverLogin} >
+      <div className="w-full mt-[60px]">
+        <button
+          type="button"
+          style={{ background: '#03C74A' }}
+          className="block w-full h-[48px] flex items-center justify-center"
+          onClick={handleNaverLogin}
+        >
           <Image
             src="/images/icon_naver.svg"
             alt="네이버"
             width={48}
             height={48}
           />
-          <span className='text-white'>네이버로 로그인하기</span>
+          <span className="text-white">네이버로 로그인하기</span>
         </button>
       </div>
     </div>
