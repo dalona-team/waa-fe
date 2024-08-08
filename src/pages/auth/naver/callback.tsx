@@ -48,6 +48,8 @@ export default function NaverCallback({ code, state }: { code: string; state: st
           if(redirectUrl){
             router.push(redirectUrl);
             localStorage.removeItem('redirectUrl');
+          }else{
+            router.push('/');
           }
         })
         .catch(error => {
