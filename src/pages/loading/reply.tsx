@@ -1,21 +1,18 @@
-import { useForm } from '@/hooks/useForm';
 import { useToastMessage } from '@/hooks/useToastMessage';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import Head from 'next/head';
-import * as hangul from 'hangul-js';
 import Cookies from 'js-cookie';
 
 export default function Loading() {
   const router = useRouter();
   const hasFetched = useRef(false); // API 요청이 한 번만 실행되도록 하기 위한 플래그
-  const { formData } = useForm();
   const { setToastMessage } = useToastMessage();
 
-  const isEndsWithConsonant = useMemo(() => {
-    return hangul.endsWithConsonant(formData.name);
-  }, [formData.name]);
+  const [petName, setPetName] = useState<string>('');
+  const [petSpecies, setPetSpecies] = useState<string>('');
+
 
   const fetchData = useCallback(async () => {
     const token = Cookies.get('accessToken');
@@ -53,6 +50,10 @@ export default function Loading() {
   }, [router, setToastMessage]);
 
   useEffect(() => {
+    const petName = localStorage.getItem('petName');
+    const petSpecies = localStorage.getItem('petSpecies');
+    setPetName(petName || '');
+    setPetSpecies(petSpecies || '');
     fetchData();
   }, [fetchData]);
 
@@ -71,14 +72,13 @@ export default function Loading() {
           height={60}
         />
         <div className="text-center text-black/95 text-lg font-bold">
-          {formData.name.length ? formData.name : '내새꾸'}
-          {isEndsWithConsonant ? '이' : ''}에게 잘 전달하였어요<br />
+          {petName.length ? petName : '내새꾸'}에게 잘 전달하였어요<br />
           지금 답장을 작성하고 있다네요^^
         </div>
         <div className="text-center text-black/40 text-sm font-bold">
-          {formData.name.length ? formData.name : '내새꾸'}가
-          {formData.species
-            ? formData.species === 'DOG'
+          {petName.length ? petName : '내새꾸'}가
+          {petSpecies
+            ? petSpecies === 'DOG'
               ? '강아지 언어'
               : '고양이 언어'
             : '강아지 언어/고양이 언어'}

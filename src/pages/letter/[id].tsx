@@ -21,6 +21,7 @@ function replaceNewlinesWithBr(inputText: string) {
 type Props = {
   petId: string;
   petName: string;
+  petSpecies: string;
   letterContent: string;
   imageUrl: string;
   counselingContent: string;
@@ -28,22 +29,37 @@ type Props = {
 };
 
 
-export default function Letter({petId, petName, letterContent, counselingContent, imageUrl, addedMessage}: Props) {
+export default function Letter({
+  petId,
+  petName,
+  petSpecies,
+  letterContent,
+  counselingContent,
+  imageUrl,
+  addedMessage,
+}: Props) {
   const router = useRouter();
   const { isReply } = router.query;
-  const {setToastMessage} = useToastMessage();
+  const { setToastMessage } = useToastMessage();
   const { resetFormData } = useForm();
   const { showModal } = useModal();
   const [isLogin, setIsLogin] = useState(false);
 
   const copy = useCallback(() => {
     const link = window.location.href; // 현재 페이지의 URL을 가져옵니다.
-    navigator.clipboard.writeText(link).then(() => {
-      setToastMessage({ show: true, body: '링크가 복사 되었습니다.', className: '!bottom-[30px]' });
-    }).catch(err => {
-      // eslint-disable-next-line no-console
-      console.error('Failed to copy: ', err);
-    });
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        setToastMessage({
+          show: true,
+          body: '링크가 복사 되었습니다.',
+          className: '!bottom-[30px]',
+        });
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to copy: ', err);
+      });
   }, [setToastMessage]);
 
   const handleMenuClick = () => {
@@ -51,9 +67,15 @@ export default function Letter({petId, petName, letterContent, counselingContent
   };
 
   const handleLogin = () => {
-    const newPetName = hangul.endsWithConsonant(petName) ? petName + '이' : petName;
+    const newPetName = hangul.endsWithConsonant(petName)
+      ? petName + '이'
+      : petName;
     localStorage.setItem('petName', newPetName);
-    localStorage.setItem('redirectUrl', `/reply?petId=${petId}&petName=${newPetName}`);
+    localStorage.setItem('petSpecies', petSpecies);
+    localStorage.setItem(
+      'redirectUrl',
+      `/reply?petId=${petId}&petName=${newPetName}`
+    );
     router.push('/login');
   };
 
@@ -61,7 +83,7 @@ export default function Letter({petId, petName, letterContent, counselingContent
     const hasToken = Cookies.get('accessToken');
     setIsLogin(hasToken ? true : false);
     resetFormData();
-  },[resetFormData]);
+  }, [resetFormData]);
 
   return (
     <>
@@ -94,7 +116,7 @@ export default function Letter({petId, petName, letterContent, counselingContent
         formElement={
           <div>
             <LetterWrapper
-              isReply={isReply ? true: false}
+              isReply={isReply ? true : false}
               content={
                 <div className="px-[26px] flex flex-col gap-3">
                   <div
@@ -118,42 +140,50 @@ export default function Letter({petId, petName, letterContent, counselingContent
                 </div>
               }
             />
-            {isReply ? null : <>
-              <div className="my-5 flex gap-2 justify-center items-center">
-                <button
-                  className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
-                  onClick={copy}
-                >
-                  <Image
-                    src="/images/icon_copy.svg"
-                    alt="복사하기"
-                    width={24}
-                    height={24}
-                  />
-                  <span className="font-bold">공유하기</span>
-                </button>
-                <button
-                  className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
-                  onClick={() => isLogin ? router.push(`/reply?petId=${petId}&petName=${petName}`) : handleLogin()}
-                >
-                  <Image
-                    src="/images/icon_pen.svg"
-                    alt="답장하기"
-                    width={24}
-                    height={24}
-                  />
-                  <span className="font-bold">답장하기</span>
-                </button>
-              </div>
-              <CounselingWrapper
-                content={
-                  <div
-                    className="px-[26px] leading-[36px]"
-                    dangerouslySetInnerHTML={{ __html: counselingContent }}
-                  ></div>
-                }
-              />
-            </>}
+            {isReply ? null : (
+              <>
+                <div className="my-5 flex gap-2 justify-center items-center">
+                  <button
+                    className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
+                    onClick={copy}
+                  >
+                    <Image
+                      src="/images/icon_copy.svg"
+                      alt="복사하기"
+                      width={24}
+                      height={24}
+                    />
+                    <span className="font-bold">공유하기</span>
+                  </button>
+                  <button
+                    className="w-[147px] h-12 text-white bg-accent rounded-[20px] flex justify-center items-center gap-1.5"
+                    onClick={() =>
+                      isLogin
+                        ? router.push(
+                          `/reply?petId=${petId}&petName=${petName}`
+                        )
+                        : handleLogin()
+                    }
+                  >
+                    <Image
+                      src="/images/icon_pen.svg"
+                      alt="답장하기"
+                      width={24}
+                      height={24}
+                    />
+                    <span className="font-bold">답장하기</span>
+                  </button>
+                </div>
+                <CounselingWrapper
+                  content={
+                    <div
+                      className="px-[26px] leading-[36px]"
+                      dangerouslySetInnerHTML={{ __html: counselingContent }}
+                    ></div>
+                  }
+                />
+              </>
+            )}
           </div>
         }
       />
@@ -181,6 +211,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const petId = String(data.petResDto.id);
   const petName = data.petResDto.name;
+  const petSpecies = data.petResDto.species;
 
   return {
     props: {
@@ -190,7 +221,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       imageUrl,
       addedMessage,
       petId,
-      petName
+      petName,
+      petSpecies,
     },
   };
 };
