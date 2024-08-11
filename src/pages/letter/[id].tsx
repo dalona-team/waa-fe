@@ -107,7 +107,7 @@ export default function Letter({
             />
             <Image
               className="cursor-pointer mx-5"
-              src="/images/icon_menu.svg"
+              src="/images/icon_menu_b.svg"
               alt="HamburgerMenu"
               width={24}
               height={24}

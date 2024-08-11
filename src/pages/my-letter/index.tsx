@@ -25,34 +25,46 @@ export default function MyLetter() {
   const fetchData = async () => {
     const accessToken = Cookies.get('accessToken');
     try {
-      const res = await fetch('https://www.jellyletter.site:8080/api/letter/user-pet', {
+      const response = await fetch('https://www.jellyletter.site:8080/api/letter/user-pet', {
         headers: {
           'Authorization': accessToken ?? ''
         }
       });
 
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
+      if (!response.ok) {
+        if (response.status === 401) {
+          Cookies.remove('accessToken');
+          Cookies.remove('refreshToken');
+          localStorage.removeItem('userId');
+          localStorage.removeItem('userName');
+          localStorage.removeItem('userEmail');
+          router.push('/');
+          return;
+        } else {
+          throw new Error('Failed to fetch data');
+        }
       }
 
-      const contentType = res.headers.get('content-type');
+      const contentType = response.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
         throw new Error('Invalid response format');
       }
 
-      const data = await res.json();
+      const data = await response.json();
       const newData = data.map((letter: Letter) => ({
         ...letter,
         content: letter.content.replace(/\n/g, ' ')
       }));
       setData(newData);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Fetch error:', error);
     }
   };
 
   useEffect(() => {
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -75,7 +87,7 @@ export default function MyLetter() {
             />
             <Image
               className="cursor-pointer mx-5"
-              src="/images/icon_menu.svg"
+              src="/images/icon_menu_b.svg"
               alt="HamburgerMenu"
               width={24}
               height={24}

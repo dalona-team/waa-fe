@@ -36,7 +36,17 @@ export default function Reply() {
       );
 
       if (!response.ok) {
-        throw new Error('Failed to post data');
+        if (response.status === 401) {
+          Cookies.remove('accessToken');
+          Cookies.remove('refreshToken');
+          localStorage.removeItem('userId');
+          localStorage.removeItem('userName');
+          localStorage.removeItem('userEmail');
+          router.push('/');
+          return;
+        } else {
+          throw new Error('Failed to fetch data');
+        }
       }
 
       const data = await response.json();

@@ -41,7 +41,7 @@ const HomeDay = () => {
     <div className="relative flex flex-col items-center justify-center h-full overflow-y-auto invisible-scroll">
       <Image
         className="cursor-pointer absolute top-2 right-4 w-[24px] h-[24px]"
-        src="/images/icon_menu.svg"
+        src="/images/icon_menu_b.svg"
         alt="HamburgerMenu"
         width={24}
         height={24}
