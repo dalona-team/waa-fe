@@ -15,7 +15,7 @@ import Cookies from 'js-cookie';
 import * as hangul from 'hangul-js';
 
 function replaceNewlinesWithBr(inputText: string) {
-  return inputText.replace(/(?:\r\\n|\r|\n)/g, '<br /> ');
+  return inputText.replaceAll(/(?:\r\\n|\r|\n)/g, '<br /> ');
 }
 
 type Props = {
@@ -124,7 +124,7 @@ export default function Letter({
                   <div
                     className="font-gangwon text-2xl leading-[40px]"
                     dangerouslySetInnerHTML={{
-                      __html: letterContent.replace('{{Owner}}', ownerNickname),
+                      __html: letterContent.replaceAll('{{Owner}}', ownerNickname),
                     }}
                   ></div>
                   {imageUrl && !isReply ? (
@@ -140,7 +140,7 @@ export default function Letter({
                   <div
                     className="font-gangwon text-2xl leading-[40px]"
                     dangerouslySetInnerHTML={{
-                      __html: addedMessage.replace('{{Owner}}', ownerNickname),
+                      __html: addedMessage.replaceAll('{{Owner}}', ownerNickname),
                     }}
                   ></div>
                 </div>
