@@ -212,7 +212,7 @@ export default function Step1({characterOptions}: Props) {
         buttonElement={
           <div className="flex gap-1.5">
             <button
-              className="w-1/4 h-14 text-white bg-secondary rounded-[20px]"
+              className="w-1/4 h-14 text-white bg-black/25 rounded-[20px]"
               onClick={() => step > 1 ? setStep(step - 1) : router.push('/')}
             >
               <span>이전</span>

@@ -71,8 +71,9 @@ export default function Loading() {
           width={90}
           height={60}
         />
-        <div className="text-center text-black/95 text-lg font-bold">
-          {petName.length ? petName : '내새꾸'}에게 잘 전달하였어요<br />
+        <div className="text-center text-black/80 text-lg font-bold">
+          {petName.length ? petName : '내새꾸'}에게 잘 전달하였어요
+          <br />
           지금 답장을 작성하고 있다네요^^
         </div>
         <div className="text-center text-black/40 text-sm font-bold">
@@ -83,7 +84,8 @@ export default function Loading() {
               : ' 고양이 언어'
             : ' 강아지 언어/고양이 언어'}
           로 답장을 작성중이에요.
-          <br />잠시만 기다려 주세요!
+          <br />
+          잠시만 기다려 주세요!
         </div>
       </div>
     </>

@@ -93,14 +93,14 @@ const HomeNight = () => {
           freeMode={true}
           spaceBetween={6}
           slidesPerView="auto"
-          className="w-full !pl-[20px] !pt-[45px] min-h-[230px]"
+          className="w-full !pl-[20px] !pt-[45px] min-h-[215px]"
         >
           {cardList.map((card, index) => (
             <SwiperSlide
               key={index}
               style={{ width: 'auto', userSelect: 'none' }}
             >
-              <div className="relative w-40 h-[184px] font-gangwon leading-tight pl-5 pr-5 pt-2.5 pb-4 bg-dark rounded-xl flex flex-col justify-center text-lg font-normal text-left">
+              <div className="relative w-40 h-[168px] font-gangwon leading-tight pl-5 pr-5 pt-2.5 pb-4 bg-dark rounded-xl flex flex-col justify-center text-lg font-normal text-left">
                 {card.imageSrc ? (
                   <div
                     className="absolute left-0 w-full flex justify-center"
@@ -117,7 +117,7 @@ const HomeNight = () => {
                 <div className="text-white/40 pb-1 truncate font-gangwon">
                   {card.title}
                 </div>
-                <div className="text-white text-ellipsis overflow-hidden line-clamp-6 font-gangwon">
+                <div className="text-white text-ellipsis overflow-hidden line-clamp-5 font-gangwon">
                   {card.message}
                 </div>
               </div>
@@ -135,7 +135,7 @@ const HomeNight = () => {
             />
           </SwiperSlide>
         </Swiper>
-        <div className="flex-1 flex flex-col justify-between">
+        <div className="flex-1 flex flex-col justify-between gap-5">
           <button
             role="button"
             className="h-[52px] px-7 py-3 bg-primary rounded-[20px] shadow flex justify-center items-center"

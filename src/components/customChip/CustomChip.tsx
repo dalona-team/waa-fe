@@ -13,9 +13,16 @@ const CustomChip: React.FC<CustomChipProps> = ({ label, selected, className, onC
     <Chip
       className={`!h-[42px] !px-4 !rounded-full ${className}`}
       onClick={onClick}
-      label={<span className={selected ? 'text-white text-base' : 'text-black text-base'}>{label}</span>}
+      label={
+        <span
+          className={selected ? 'text-white text-base' : 'text-black text-base'}
+        >
+          {label}
+        </span>
+      }
       color={selected ? 'primary' : 'info'}
       variant={selected ? 'filled' : 'outlined'}
+      style={{ borderColor: selected ? 'inherit' : '#00000029' }}
     />
   );
 };

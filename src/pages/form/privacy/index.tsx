@@ -70,8 +70,12 @@ export default function Step2() {
         percent={94}
         formElement={
           <>
-            <div className='flex flex-col gap-1 justify-center items-center'>
-              <div className='text-base font-bold text-b940 text-lg text-center'>편지를 받기 위해서는<br />약관 전체에 동의가 필요합니다.</div>
+            <div className="flex flex-col gap-1 justify-center items-center">
+              <div className="text-base font-bold text-b940 text-lg text-center">
+                편지를 받기 위해서는
+                <br />
+                약관 전체에 동의가 필요합니다.
+              </div>
               <FormControl
                 className="w-full max-w-[270px]"
                 component="fieldset"
@@ -92,7 +96,7 @@ export default function Step2() {
                     className="text-base text-gray-400 w-[30px] cursor-pointer"
                     onClick={handleOpenPrivacy}
                   >
-                  보기
+                    보기
                   </span>
                 </div>
                 <div className="w-full flex items-center justify-between">
@@ -110,7 +114,7 @@ export default function Step2() {
                     className="text-base text-gray-400 w-[30px] cursor-pointer"
                     onClick={handleOpenService}
                   >
-                  보기
+                    보기
                   </span>
                 </div>
               </FormControl>
@@ -120,12 +124,13 @@ export default function Step2() {
         buttonElement={
           <div className="flex gap-1.5">
             <button
-              className="w-1/4 h-14 text-white bg-secondary rounded-[20px]"
+              className="w-1/4 h-14 text-white bg-black/25 rounded-[20px]"
               onClick={() => router.push('/form/step2')}
             >
               <span>이전</span>
             </button>
             <button
+              disabled={!privacyAgree || !serviceAgree}
               className="w-3/4 h-14 text-white bg-accent rounded-[20px]"
               onClick={handleSubmit}
             >

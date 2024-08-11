@@ -91,7 +91,7 @@ export default function Reply() {
                 value={content}
                 onChange={handleInputChange}
                 multiline
-                rows={20}
+                rows={16}
                 sx={{
                   '& .MuiInputBase-root': {  height: 'auto !important', fontFamily: 'inherit', fontSize: '15px' },
                   '& .MuiOutlinedInput-notchedOutline': { borderColor: '#EA98E0 !important' },
