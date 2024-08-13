@@ -111,7 +111,7 @@ export default function MyLetter() {
                 {data.map((letter, index) => (
                   <div
                     key={letter.shareKey}
-                    className="h-[138px] overflow-hidden rounded-lg flex"
+                    className="h-[138px] overflow-hidden rounded-lg flex cursor-pointer"
                     onClick={() =>
                       letter.typeCode === 0
                         ? router.push(`/letter/${letter.shareKey}`)
