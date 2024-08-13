@@ -137,9 +137,9 @@ export default function MyLetter() {
                         <span className="text-black/40 text-sm text-ellipsis overflow-hidden line-clamp-3 flex-1">
                           {letter.content.replace(/\n/g, ' ')}
                         </span>
-                        <div className='w-[60px] h-[60px]'>
+                        {letter.petAiImage.imageUrl ? <div className='w-[60px] h-[60px]'>
                           <img src={letter.petAiImage.imageUrl} width={60} height={60} alt={letter.petAiImage.species} />
-                        </div>
+                        </div> : null }
                       </div>
                     </div>
                   </div>
