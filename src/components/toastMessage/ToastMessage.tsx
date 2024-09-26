@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import 'swiper/css';
 import { useToastMessage } from '@/hooks/useToastMessage';
 
 const ToastMessage = () => {
