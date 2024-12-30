@@ -8,25 +8,25 @@ import { useModal } from '@/hooks/useModal';
 
 const cardList = [{
   title: '사랑하는 엄마에게',
-  message: '엄마 안녕! 나 키키야! 엄마가 나 많이 보고 싶다고 하던데 그거 알아 ㅎㅎ 나도 엄마가 너무 보고싶어 ㅠㅠ 근데 있잖아 엄마 나 지금 되게되게 행복하게 잘 지내고 있어! 아픈 곳도 하나도 없고 완전 멀쩡하다구?!',
+  message: '엄마 안녕! 나 키키야! 엄마가 나 많이 보고 싶다고 하던데 그거 알아 ㅎㅎ 나도 엄마가 너무 보고싶어 ㅠㅠ 근데 있잖아 엄마 ',
   imageSrc: '/images/day_animals/illust_04.svg',
   imageWidth: 70,
   imageHeight: 50
 },{
   title: '집사야 안녕!',
-  message: '나는 마일로야 잘 지내고 이써? 내가 고양이 별로 떠난 다음에 집사가 마니마니 슬퍼했다고 드러써 내가 길냥이때 마니 아팟자나 그때 집사가 나 구해조서',
+  message: '나는 마일로야 잘 지내고 이써? 내가 고양이 별로 떠난 다음에 집사가 마니마니 슬퍼했다고 드러써 내가 길냥이때 마니 아팟자나',
   imageSrc: '/images/day_animals/illust_06.svg',
   imageWidth: 80,
   imageHeight: 50
 },{
   title: '사랑하는 누나에게',
-  message: '누나 안녕! 나 먼지야! 누나가 나 많이 보고 싶다고 하던데 그 마음 다 알아 나도 너무너무 보고싶다 누나... 주말에 누나랑 늦잠 자던 게 엊그제 같은데 이젠 그럴 수 없다는 게 너무 슬프다 그치..',
+  message: '누나 안녕! 나 먼지야! 누나가 나 많이 보고 싶다고 하던데 그 마음 다 알아 나도 너무너무 보고싶다 누나... 주말에 누나랑 늦잠 ',
   imageSrc: '/images/day_animals/illust_05.svg',
   imageWidth: 80,
   imageHeight: 50
 },{
   title: '엄마 안녕! 나 초코야!',
-  message: '엄마 잘 지내고 이찌~? 나 많이 보고 싶어한다고 들었눈데. 나도 엄마가 엄청 보고 시포 특히 엄마랑 바다에 놀러가서 바다 냄새 잔뜩 맡고 수영하던 거 그게 너무 그립고 가끔씩 생각나. 그때 파도 소리 들으면서 뛰놀던 게 참 좋았는데 그치'
+  message: '엄마 잘 지내고 이찌~? 나 많이 보고 싶어한다고 들었눈데. 나도 엄마가 엄청 보고 시포 특히 엄마랑 바다에 놀러가서 바다 냄새 잔뜩 '
 }];
 
 const HomeDay = () => {
@@ -116,7 +116,7 @@ const HomeDay = () => {
                 <div className="text-black/40 pb-1 truncate font-gangwon">
                   {card.title}
                 </div>
-                <div className="text-black/80 text-ellipsis overflow-hidden line-clamp-5 font-gangwon">
+                <div className="text-black/80 h-[112px] text-ellipsis overflow-hidden line-clamp-5 font-gangwon">
                   {card.message}
                 </div>
               </div>
