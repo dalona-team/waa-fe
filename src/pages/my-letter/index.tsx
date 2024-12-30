@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -27,9 +27,9 @@ export default function MyLetter() {
   const [data, setData] = useState<Letter[]>([]);
   const { showModal } = useModal();
 
-  const handleMenuClick = () => {
+  const handleMenuClick = useCallback(() => {
     showModal(<Drawer />);
-  };
+  },[showModal]);
 
   const fetchData = async () => {
     const accessToken = Cookies.get('accessToken');

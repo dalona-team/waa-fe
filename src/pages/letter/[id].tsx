@@ -40,6 +40,7 @@ export default function Letter({
   imageUrl,
   addedMessage,
 }: Props) {
+  const hasToken = Cookies.get('accessToken');
   const router = useRouter();
   const { isReply } = router.query;
   const { setToastMessage } = useToastMessage();
@@ -64,11 +65,11 @@ export default function Letter({
       });
   }, [setToastMessage]);
 
-  const handleMenuClick = () => {
+  const handleMenuClick = useCallback(() => {
     showModal(<Drawer />);
-  };
+  },[showModal]);
 
-  const handleLogin = () => {
+  const handleLogin = useCallback(() => {
     const newPetName = hangul.endsWithConsonant(petName)
       ? petName + '이'
       : petName;
@@ -79,13 +80,13 @@ export default function Letter({
       `/reply?petId=${petId}&petName=${newPetName}`
     );
     router.push('/login');
-  };
+  },[petId, petName, petSpecies, router]);
 
   useEffect(() => {
-    const hasToken = Cookies.get('accessToken');
     setIsLogin(hasToken ? true : false);
     resetFormData();
-  }, [resetFormData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

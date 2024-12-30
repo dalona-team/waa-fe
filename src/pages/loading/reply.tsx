@@ -65,7 +65,8 @@ export default function Loading() {
     setPetName(petName || '');
     setPetSpecies(petSpecies || '');
     fetchData();
-  }, [fetchData]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

@@ -13,9 +13,9 @@ export default function Reply() {
   const [content, setContent] = useState<string>('');
   const {setToastMessage} = useToastMessage();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
-  };
+  },[]);
 
   const handleSubmit = useCallback(async () => {
     const token = Cookies.get('accessToken');

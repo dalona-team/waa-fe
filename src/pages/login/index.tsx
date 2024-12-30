@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
@@ -6,18 +6,15 @@ import { v4 as uuidv4 } from 'uuid';
 const SignUp = () => {
   const router = useRouter();
 
-  const handleNaverLogin = () => {
+  const handleNaverLogin = useCallback(() => {
     const state = uuidv4();
     const clientId = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
     const redirectUri = process.env.NEXT_PUBLIC_NAVER_REDIRECT_URI;
     if(clientId && redirectUri){
-      console.log(state);
-      console.log(redirectUri);
-      console.log(!!clientId);
       const naverLoginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
       router.push(naverLoginUrl);
     }
-  };
+  },[router]);
 
   return (
     <div className="relative flex flex-col items-center justify-center h-full px-[50px]">

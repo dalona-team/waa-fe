@@ -51,7 +51,7 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
-  useEffect(() => {
+  const handleGetLocalStorageData = useCallback(() => {
     const localStorageData = localStorage.getItem('formData');
     if (localStorageData) {
       const parsedData = JSON.parse(localStorageData);
@@ -65,6 +65,11 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
         memory: parsedData.memory,
       });
     }
+  },[]);
+
+  useEffect(() => {
+    handleGetLocalStorageData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

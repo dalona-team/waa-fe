@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
 
 interface ThemeMode {
   isDay: boolean | undefined;
@@ -17,10 +17,15 @@ export const ThemeModeProvider = ({ children }: { children: ReactNode }) => {
     isDay: undefined,
   });
 
-  useEffect(() => {
+  const setThemeMode = useCallback(() => {
     const now = new Date();
     const hours = now.getHours();
     setMode({ isDay: hours >= 8 && hours < 19 });
+  },[]);
+
+  useEffect(() => {
+    setThemeMode();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

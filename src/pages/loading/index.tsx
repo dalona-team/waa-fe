@@ -51,7 +51,8 @@ export default function Loading() {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

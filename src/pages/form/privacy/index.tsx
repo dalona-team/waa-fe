@@ -47,17 +47,17 @@ export default function Step2() {
     }
   }, [formData, router, setToastMessage]);
 
-  const handleOpenPrivacy = () => {
+  const handleOpenPrivacy = useCallback(() => {
     showModal(
       <Privacy />
     );
-  };
+  },[showModal]);
 
-  const handleOpenService = () => {
+  const handleOpenService = useCallback(() => {
     showModal(
       <Service />
     );
-  };
+  },[showModal]);
 
   return (
     <>

@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useModal } from '@/hooks/useModal';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
 export default function Service() {
+  const hasToken = Cookies.get('accessToken');
   const router = useRouter();
   const { hideModal } = useModal();
+
   const drawerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [isDimVisible, setIsDimVisible] = useState(true);
@@ -14,7 +16,7 @@ export default function Service() {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
 
-  useEffect(() => {
+  const resetDrawer = useCallback(() => {
     const drawer = drawerRef.current;
     if (drawer) {
       drawer.style.transform = 'translateX(100%)';
@@ -31,9 +33,9 @@ export default function Service() {
     if(userEmail){
       setUserEmail(userEmail);
     }
-  }, []);
+  },[]);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsDimVisible(false); // dim 요소를 바로 숨김
     const drawer = drawerRef.current;
     if (drawer) {
@@ -43,9 +45,9 @@ export default function Service() {
         hideModal();
       }, 300); // 애니메이션 시간과 일치시킴
     }
-  };
+  },[hideModal]);
 
-  const handleLogout = () => {
+  const handleLogOut = useCallback(() => {
     Cookies.remove('accessToken');
     Cookies.remove('refreshToken');
     localStorage.removeItem('userId');
@@ -53,11 +55,16 @@ export default function Service() {
     localStorage.removeItem('userEmail');
     handleClose();
     router.push('/');
-  };
+  },[handleClose, router]);
 
   const handleClickHelp = () => {
     window.location.href = 'mailto:407potenday@gmail.com';
   };
+
+  useEffect(() => {
+    resetDrawer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!isVisible) return null;
 
@@ -138,8 +145,10 @@ export default function Service() {
             <span
               className="text-black/80 text-base"
               onClick={() => {
-                router.push('/my-letter');
-                hideModal();
+                if(hasToken){
+                  hideModal();
+                  router.push('/my-letter');
+                }
               }}
             >
               MY 레터 보기
@@ -174,7 +183,7 @@ export default function Service() {
             <div className="h-[52px] flex items-center cursor-pointer">
               <span
                 className="text-black/80 text-base"
-                onClick={() => handleLogout()}
+                onClick={handleLogOut}
               >
                 로그아웃
               </span>

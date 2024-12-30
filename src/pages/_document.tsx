@@ -33,8 +33,14 @@ export default function Document() {
           name="twitter:image"
           content="https://jellyletter.netlify.app/og_image.png"
         />
+        {/* 폰트 로딩을 위한 link 태그 추가 */}
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/fonts-archive/GangwonEduSaeeum/GangwonEduSaeeum.css"
+        />
         {/* GA 스크립트 추가 */}
-        <script async src={'https://www.googletagmanager.com/gtag/js?id=G-TFFWTQ1EX9'}></script>
+        <script async defer src={'https://www.googletagmanager.com/gtag/js?id=G-TFFWTQ1EX9'}></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `

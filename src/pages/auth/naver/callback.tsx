@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import Cookies from 'js-cookie';
@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 export default function NaverCallback({ code, state }: { code: string; state: string }) {
   const router = useRouter();
 
-  useEffect(() => {
+  const handleNaverLogin = useCallback(() => {
     if (code && state) {
       // 네이버 OAuth2 토큰 요청
       fetch(`/api/naver/token?code=${code}&state=${state}`, {
@@ -56,7 +56,12 @@ export default function NaverCallback({ code, state }: { code: string; state: st
           router.push('/');
         });
     }
-  }, [code, state, router]);
+  },[code, router, state]);
+
+  useEffect(() => {
+    handleNaverLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <div></div>;
 }

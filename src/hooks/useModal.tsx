@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 
 interface ModalContextType {
@@ -12,13 +12,13 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalContent, setModalContent] = useState<ReactNode | null>(null);
 
-  const showModal = (content: ReactNode) => {
+  const showModal = useCallback((content: ReactNode) => {
     setModalContent(content);
-  };
+  },[]);
 
-  const hideModal = () => {
+  const hideModal = useCallback(() => {
     setModalContent(null);
-  };
+  },[]);
 
   return (
     <ModalContext.Provider value={{ showModal, hideModal }}>
