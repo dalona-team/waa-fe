@@ -1,6 +1,6 @@
 
-* {
-  font-family: 'NanumSquareNeo', sans-serif;
+html, body {
+  font-family: 'NanumSquareNeo', sans-serif !important;
 }
 
 .font-gangwon {

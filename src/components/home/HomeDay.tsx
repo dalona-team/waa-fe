@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -33,9 +33,9 @@ const HomeDay = () => {
   const router = useRouter();
   const { showModal } = useModal();
 
-  const handleMenuClick = () => {
+  const handleMenuClick = useCallback(() => {
     showModal(<Drawer />);
-  };
+  },[showModal]);
 
   return (
     <div className="relative flex flex-col items-center justify-center h-full overflow-y-auto invisible-scroll">

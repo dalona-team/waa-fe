@@ -6,21 +6,11 @@ import { useForm } from '@/hooks/useForm';
 import { useToastMessage } from '@/hooks/useToastMessage';
 import Head from 'next/head';
 import CustomChip from '@/components/customChip/CustomChip';
-import { GetServerSideProps } from 'next';
+import { useCharacterOptions } from '@/hooks/useCharacterOptions';
 
-type Props = {
-  characterOptions: {
-    groupId: string,
-    groupName: string,
-    code: number,
-    codeName: string,
-    orders: number,
-    useYn: 'Y' | 'N'
-  }[];
-};
-
-export default function Step1({characterOptions}: Props) {
+export default function Step1() {
   const router = useRouter();
+  const { data: characterOptions } = useCharacterOptions();
   const { formData, setFormData } = useForm();
   const {setToastMessage} = useToastMessage();
   const [step, setStep] = useState(1);
@@ -195,7 +185,7 @@ export default function Step1({characterOptions}: Props) {
               <div className='text-base font-bold text-b940 text-lg text-center'>내새꾸 성격을 모두 선택해 주세요.</div>
               <div className='flex flex-col gap-3 w-[306px]'>
                 <div className='grid grid-cols-2 gap-x-1.5 gap-y-3'>
-                  {characterOptions.map((item) => (
+                  {characterOptions?.map((item) => (
                     <CustomChip
                       key={item.code}
                       className="rounded-[12px]"
@@ -231,19 +221,10 @@ export default function Step1({characterOptions}: Props) {
   );
 }
 
-// eslint-disable-next-line no-unused-vars
-export const getServerSideProps: GetServerSideProps = async (_context) => {
-  const res = await fetch('https://www.jellyletter.site:8080/api/info?groupId=G0001');
-  const data = await res.json();
-  const options = data.filter((item: any) => item.useYn === 'Y').map((item: any) => ({
-    code: item.code,
-    codeName: item.codeName,
-  }));
-
+export async function getStaticProps() {
   return {
     props: {
       layoutClassName: 'bg-mint',
-      characterOptions: options,
     },
   };
-};
+}

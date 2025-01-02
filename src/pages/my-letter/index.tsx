@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Wrapper from '@/components/wrapper/Wrapper';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
 import { useModal } from '@/hooks/useModal';
 import Drawer from '@/components/drawer/Drawer';
-import Cookies from 'js-cookie';
 import moment from 'moment';
+import { useMyLetter } from '@/hooks/useMyLetter';
 
-interface Letter {
+export interface Letter {
   shareKey: string;
   content: string;
   typeCode: number;
@@ -24,57 +24,19 @@ interface Letter {
 
 export default function MyLetter() {
   const router = useRouter();
-  const [data, setData] = useState<Letter[]>([]);
   const { showModal } = useModal();
+  const { data: myLetters, isLoading, isError } = useMyLetter();
+
+  useEffect(() => {
+    if (isError) {
+      // 에러 발생 시 홈으로 리다이렉트
+      router.push('/');
+    }
+  }, [isError, router]);
 
   const handleMenuClick = useCallback(() => {
     showModal(<Drawer />);
   },[showModal]);
-
-  const fetchData = async () => {
-    const accessToken = Cookies.get('accessToken');
-    try {
-      const response = await fetch('https://www.jellyletter.site:8080/api/letter/user-pet', {
-        headers: {
-          'Authorization': accessToken ?? ''
-        }
-      });
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          Cookies.remove('accessToken');
-          Cookies.remove('refreshToken');
-          localStorage.removeItem('userId');
-          localStorage.removeItem('userName');
-          localStorage.removeItem('userEmail');
-          router.push('/');
-          return;
-        } else {
-          throw new Error('Failed to fetch data');
-        }
-      }
-
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        throw new Error('Invalid response format');
-      }
-
-      const data = await response.json();
-      const newData = data.map((letter: Letter) => ({
-        ...letter,
-        content: letter.content.replace(/\n/g, ' ')
-      }));
-      setData(newData);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Fetch error:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <>
@@ -105,10 +67,10 @@ export default function MyLetter() {
           </div>
         }
         formElement={
-          data.length > 0 ? (
+          myLetters && myLetters.length > 0 ? (
             <>
               <div className="flex flex-col gap-3 mt-3">
-                {data.map((letter, index) => (
+                {myLetters.map((letter, index) => (
                   <div
                     key={letter.shareKey}
                     className="h-[138px] overflow-hidden rounded-lg flex cursor-pointer"
@@ -126,7 +88,7 @@ export default function MyLetter() {
                     <div className="flex flex-col gap-2 p-5 bg-white flex-1">
                       <div className="flex justify-between align-center">
                         <span className="text-black/80 text-lg font-bold">
-                          {data.length - index}st{' '}
+                          {myLetters.length - index}st{' '}
                           {letter.typeCode === 0 ? '받은' : '보낸'} 편지
                         </span>
                         <span className="text-black/40 text-sm mt-1">
@@ -152,7 +114,7 @@ export default function MyLetter() {
               </div>
             </>
           ) : (
-            <div className="h-full flex flex-col items-center justify-center">
+            isLoading ? null : <div className="h-full flex flex-col items-center justify-center">
               <Image
                 priority
                 src="/images/logo_big.svg"

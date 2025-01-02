@@ -19,7 +19,7 @@ const Wrapper = (
         <div className={`px-5 flex-1 flex flex-col w-full invisible-scroll ${isFloatingButton ? 'pb-14' : ''}`}>
           <div className='flex-1'>{formElement}</div>
         </div>
-        {isFloatingButton ? <div className='absolute bottom-3 left-5 h-16 w-[calc(100%-40px)]'>{buttonElement}</div> : buttonElement ? <div className='px-5 pt-5 pb-5'>{buttonElement}</div>: null}
+        {isFloatingButton ? <div className='absolute bottom-3 h-16 w-full px-4'>{buttonElement}</div> : buttonElement ? <div className='px-5 pt-5 pb-5'>{buttonElement}</div>: null}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
 export default function Service() {
-  const hasToken = Cookies.get('accessToken');
+  const hasToken = Boolean(Cookies.get('accessToken'));
   const router = useRouter();
   const { hideModal } = useModal();
 
