@@ -20,7 +20,6 @@ const theme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: 'NanumSquareNeo',
           fontSize: '15px',
         },
       },

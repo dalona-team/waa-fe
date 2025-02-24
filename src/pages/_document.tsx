@@ -33,7 +33,8 @@ export default function Document() {
           content=""
         />
         {/* 폰트 로딩을 위한 link 태그 추가 */}
-        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet" />
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
       <body>
         <Main />
