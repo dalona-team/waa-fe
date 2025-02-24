@@ -9,34 +9,140 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#1A9058', // GREEN
-        secondary: '#909195', // GRAY
-        accent: '#EA98E0', // PINK
-        line1: 'rgba(0, 0, 0, 0.08)',
-        mint: '#CEF4E9',
-        yellow: '#F8ED64',
-        dark: '#03345C',
-        // 추가 색상 변수
+        // Gray Scale
+        gray: {
+          100: '#F7F7F7',
+          200: '#E6E6E6',
+          300: '#D1D1D1',
+          400: '#ADADAD',
+          500: '#949494',
+          600: '#777777',
+          700: '#555555',
+          800: '#2E2E2E',
+          900: '#1A1A1A',
+        },
+        // White Scale
+        white: {
+          100: '#FFFFFF',
+          200: '#F7F7F7',
+          300: '#F0F0F0',
+          400: '#E8E8E8',
+          500: '#E0E0E0',
+        },
+        // Primary Scale (Blue)
+        primary: {
+          100: '#F5F7FF',
+          200: '#E5EAFF',
+          300: '#C2CDFF',
+          400: '#99A8FF',
+          500: '#6B7CFF',
+          600: '#4558FF',
+          700: '#2F3FCC',
+          800: '#1C2999',
+          900: '#0A1466',
+        }
       },
-      textColor: {
-        primary: '#1A9058',
-        secondary: '#909195',
-        accent: '#EA98E0',
-        line1: 'rgba(0, 0, 0, 0.08)',
-        line2: 'rgba(0, 0, 0, 0.16)',
-        b40: 'rgba(0, 0, 0, 0.4)',
-        b940: 'rgba(0, 0, 0, 0.94)',
-      },
-      borderColor: {
-        line1: 'rgba(0, 0, 0, 0.08)',
-        line2: 'rgba(0, 0, 0, 0.16)',
-        b40: 'rgba(0, 0, 0, 0.4)',
-      },
-      fontSize: {
-        base: '15px',
-      },
+      typography: {
+        'large-title': {
+          regular: {
+            fontSize: '32px',
+            lineHeight: '40px',
+            fontWeight: '400',
+          },
+          bold: {
+            fontSize: '32px',
+            lineHeight: '40px',
+            fontWeight: '700',
+          }
+        },
+        'large-title2': {
+          regular: {
+            fontSize: '28px',
+            lineHeight: '36px',
+            fontWeight: '400',
+          },
+          bold: {
+            fontSize: '28px',
+            lineHeight: '36px',
+            fontWeight: '700',
+          }
+        },
+        'title1': {
+          regular: {
+            fontSize: '24px',
+            lineHeight: '32px',
+            fontWeight: '400',
+          },
+          bold: {
+            fontSize: '24px',
+            lineHeight: '32px',
+            fontWeight: '700',
+          }
+        },
+        'title2': {
+          regular: {
+            fontSize: '20px',
+            lineHeight: '28px',
+            fontWeight: '400',
+          },
+          bold: {
+            fontSize: '20px',
+            lineHeight: '28px',
+            fontWeight: '700',
+          }
+        },
+        'title3': {
+          regular: {
+            fontSize: '18px',
+            lineHeight: '26px',
+            fontWeight: '400',
+          },
+          bold: {
+            fontSize: '18px',
+            lineHeight: '26px',
+            fontWeight: '700',
+          }
+        },
+        'body': {
+          regular: {
+            fontSize: '16px',
+            lineHeight: '24px',
+            fontWeight: '400',
+          },
+          semibold: {
+            fontSize: '16px',
+            lineHeight: '24px',
+            fontWeight: '600',
+          }
+        },
+        'caption': {
+          regular: {
+            fontSize: '14px',
+            lineHeight: '20px',
+            fontWeight: '400',
+          },
+          semibold: {
+            fontSize: '14px',
+            lineHeight: '20px',
+            fontWeight: '600',
+          }
+        },
+        'footnote': {
+          regular: {
+            fontSize: '12px',
+            lineHeight: '18px',
+            fontWeight: '400',
+          },
+          medium: {
+            fontSize: '12px',
+            lineHeight: '18px',
+            fontWeight: '500',
+          }
+        }
+      }
     },
   },
-  plugins: [require('@tailwindcss/line-clamp')],
+  plugins: [],
 };
+
 export default config;

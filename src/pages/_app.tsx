@@ -8,7 +8,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@mui/material/styles';
 import { ToastMessageProvider } from '@/hooks/useToastMessage';
 import ToastMessage from '@/components/toastMessage/ToastMessage';
-import { ModalProvider } from '@/hooks/useModal';
 import { useState } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -19,12 +18,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <ToastMessageProvider>
-          <ModalProvider>
-            <Layout className={layoutClassName}>
-              <Component {...rest} />
-              <ToastMessage />
-            </Layout>
-          </ModalProvider>
+          <Layout>
+            <Component {...rest} />
+            <ToastMessage />
+          </Layout>
         </ToastMessageProvider>
       </ThemeProvider>
     </QueryClientProvider>
