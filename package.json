@@ -1,5 +1,5 @@
 {
-  "name": "jelly_letter_web",
+  "name": "dalona-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,15 +15,11 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tanstack/react-query": "^5.62.11",
     "autoprefixer": "^10.4.19",
-    "hangul-js": "^0.2.6",
-    "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
-    "moment": "^2.30.1",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "swiper": "^11.1.7",
-    "uuid": "^10.0.0"
+    "swiper": "^11.1.7"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
