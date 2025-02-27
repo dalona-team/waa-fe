@@ -10,16 +10,15 @@ import { ToastMessageProvider } from '@/hooks/useToastMessage';
 import ToastMessage from '@/components/toastMessage/ToastMessage';
 import { useState } from 'react';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
-  const { layoutClassName, ...rest} = pageProps;
 
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <ToastMessageProvider>
           <Layout>
-            <Component {...rest} />
+            <Component />
             <ToastMessage />
           </Layout>
         </ToastMessageProvider>
