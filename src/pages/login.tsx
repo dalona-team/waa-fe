@@ -48,7 +48,6 @@ export default function Login() {
             value={id}
             onChange={(e) => setId(e.target.value)}
           />
-          
           <TextField
             fullWidth
             label="비밀번호"
@@ -69,7 +68,6 @@ export default function Login() {
               ),
             }}
           />
-          
           <Button
             type="submit"
             fullWidth

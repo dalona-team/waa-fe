@@ -16,7 +16,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div
-      className="container invisible-scroll"
+      className="invisible-scroll min-w-[1280px] min-h-screen"
     >
       <div className="flex">
         <NavigationBar />
