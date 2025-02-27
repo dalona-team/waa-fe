@@ -6,12 +6,20 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const isLoginPage = pathname === '/login';
 
+  if(isLoginPage) {
+    return (
+      <div>
+        {children}
+      </div>
+    );
+  }
+
   return (
     <div
       className="container invisible-scroll"
     >
       <div className="flex">
-        {!isLoginPage && <NavigationBar />}
+        <NavigationBar />
         <main className="flex-1">
           {children}
         </main>
