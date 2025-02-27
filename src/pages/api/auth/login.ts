@@ -11,7 +11,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (id === process.env.USER_ID && password === process.env.USER_PASSWORD) {
     const token = uuidv4();
-    
     res.setHeader('Set-Cookie', serialize('auth_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -24,4 +23,4 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   return res.status(401).json({ message: 'Invalid credentials' });
-} 
+}

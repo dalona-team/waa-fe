@@ -5,15 +5,15 @@ import React from 'react';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1A9058', // primary color
+      main: '#4964FF', // primary color
       contrastText: '#FFFFFF',
     },
     secondary: {
-      main: '#909195', // secondary color
+      main: '#575A5A', // secondary color
     },
     info: {
-      main: '#d6d6d6', // info color
-      contrastText: '#2b312f',
+      main: '#4964FF29', // info color
+      contrastText: '#4964FF',
     },
   },
   components: {
