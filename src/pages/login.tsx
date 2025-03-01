@@ -27,7 +27,7 @@ export default function Login() {
     });
 
     if (response.ok) {
-      router.push('/');
+      router.push('/create');
     } else {
       alert('로그인 실패');
     }
