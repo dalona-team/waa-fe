@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
 const config: Config = {
   content: [
@@ -179,7 +180,114 @@ const config: Config = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide'),
+    plugin(function({ addUtilities }) {
+      const typography = {
+        '.typography-large-title-regular': {
+          fontSize: '26px',
+          lineHeight: '32px',
+          fontWeight: '400',
+        },
+        '.typography-large-title-bold': {
+          fontSize: '26px',
+          lineHeight: '32px',
+          fontWeight: '700',
+        },
+        '.typography-large-title2-regular': {
+          fontSize: '36px',
+          lineHeight: '40px',
+          fontWeight: '400',
+        },
+        '.typography-large-title2-bold': {
+          fontSize: '36px',
+          lineHeight: '40px',
+          fontWeight: '700',
+        },
+        '.typography-title1-regular': {
+          fontSize: '22px',
+          lineHeight: '26px',
+          fontWeight: '400',
+        },
+        '.typography-title1-bold': {
+          fontSize: '22px',
+          lineHeight: '26px',
+          fontWeight: '700',
+        },
+        '.typography-title2-regular': {
+          fontSize: '17px',
+          lineHeight: '22px',
+          fontWeight: '400',
+        },
+        '.typography-title2-bold': {
+          fontSize: '17px',
+          lineHeight: '22px',
+          fontWeight: '700',
+        },
+        '.typography-title3-regular': {
+          fontSize: '15px',
+          lineHeight: '20px',
+          fontWeight: '400',
+        },
+        '.typography-title3-bold': {
+          fontSize: '15px',
+          lineHeight: '20px',
+          fontWeight: '600',
+        },
+        '.typography-headline-regular': {
+          fontSize: '13px',
+          lineHeight: '16px',
+          fontWeight: '400',
+        },
+        '.typography-headline-semibold': {
+          fontSize: '13px',
+          lineHeight: '16px',
+          fontWeight: '800',
+        },
+        '.typography-subheadline-regular': {
+          fontSize: '11px',
+          lineHeight: '14px',
+          fontWeight: '400',
+        },
+        '.typography-subheadline-semibold': {
+          fontSize: '11px',
+          lineHeight: '14px',
+          fontWeight: '600',
+        },
+        '.typography-body-regular': {
+          fontSize: '13px',
+          lineHeight: '16px',
+          fontWeight: '400',
+        },
+        '.typography-body-semibold': {
+          fontSize: '13px',
+          lineHeight: '16px',
+          fontWeight: '600',
+        },
+        '.typography-callout-regular': {
+          fontSize: '12px',
+          lineHeight: '15px',
+          fontWeight: '400',
+        },
+        '.typography-callout-semibold': {
+          fontSize: '12px',
+          lineHeight: '15px',
+          fontWeight: '600',
+        },
+        '.typography-footnote-regular': {
+          fontSize: '10px',
+          lineHeight: '13px',
+          fontWeight: '400',
+        },
+        '.typography-footnote-medium': {
+          fontSize: '10px',
+          lineHeight: '13px',
+          fontWeight: '600',
+        }
+      };
+      addUtilities(typography);
+    })
+  ],
 };
 
 export default config;
