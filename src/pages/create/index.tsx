@@ -28,10 +28,10 @@ export default function CreatePage() {
     ),
     dotsClass: 'slick-dots custom-dots flex justify-center gap-1',
     appendDots: (dots: any) => (
-      <div style={{ position: 'absolute', bottom: '-50px' }}>
+      <div style={{ position: 'absolute', bottom: '-45px' }}>
         <ul style={{ margin: 0, padding: 0 }}>{React.Children.map(dots, child => 
           React.cloneElement(child, {
-            style: { ...child.props.style, width: 'auto' }
+            style: { ...child.props.style, width: 'auto', margin: '0 3px' }
           })
         )}</ul>
       </div>
