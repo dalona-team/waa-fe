@@ -10,7 +10,11 @@ export function middleware(request: NextRequest) {
   }
 
   if (token && isLoginPage) {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL('/create', request.url));
+  }
+
+  if (token && request.nextUrl.pathname === '/') {
+    return NextResponse.redirect(new URL('/create', request.url));
   }
 
   return NextResponse.next();
