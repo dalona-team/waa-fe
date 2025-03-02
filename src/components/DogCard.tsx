@@ -22,7 +22,7 @@ export default function DogCard({
 }: DogCardProps) {
   const getStatusText = (status: string) => {
     switch (status) {
-    case 'WAITING': return '임양 대기';
+    case 'WAITING': return '입양 대기';
     case 'PROTECTION': return '임시 보호';
     case 'COMPLETED': return '입양 완료';
     default: return '';
