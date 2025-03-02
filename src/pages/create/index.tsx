@@ -18,6 +18,12 @@ export default function CreatePage() {
   const [selectedDog, setSelectedDog] = useState<Dog | null>(null);
   const [postText, setPostText] = useState('');
 
+  const getStatusText = (status: string) => {
+    if (status === 'WAITING') return '임시보호중';
+    if (status === 'PROTECTION') return '임시보호중';
+    if (status === 'COMPLETED') return '입양완료';
+  };
+
 
   const settings = {
     dots: true,
@@ -58,7 +64,7 @@ ${selectedDog.age}세로 추정
 중성화 완료
 9kg
 캔넬 없음
-현재 임시보호중
+현재 ${getStatusText(selectedDog.status)}
 
 우리 ${selectedDog.name}의 특별한 매력😀
 ${selectedDog.name}는 사람을 좋아하고 실내 배변을 잘 하는 귀여운 친구에요! 다만 자주 짖는 편인데 차차 좋아지고 있어요!
@@ -86,7 +92,7 @@ ${selectedDog.name}는 사람을 좋아하고 실내 배변을 잘 하는 귀여
         <p key={i}>
           {words.map((word, j) => (
             word.startsWith('#') ? (
-              <span key={j} className="text-[#1FA1FF]">{word} </span>
+              <span key={j} className="text-[#1FA1FF] mt-2">{word} </span>
             ) : (
               <span key={j}>{word} </span>
             )

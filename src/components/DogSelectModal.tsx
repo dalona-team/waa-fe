@@ -35,7 +35,7 @@ export default function DogSelectModal({ isOpen, onClose, onSelect }: DogSelectM
   return (
     <div className="fixed inset-0 z-50">
       <div className="absolute inset-0 bg-black bg-opacity-40" />
-      <div className="absolute inset-24 bg-white-1000 rounded-2xl overflow-hidden">
+      <div className="absolute inset-24 bg-white-1000 rounded-2xl overflow-hidden max-w-[1280px] mx-auto">
         <div className="flex items-center justify-between p-4">
           <button onClick={onClose}>
             <ArrowBackIcon />
