@@ -9,7 +9,7 @@ import { ToastMessageProvider } from '@/hooks/useToastMessage';
 import ToastMessage from '@/components/toastMessage/ToastMessage';
 import { useState } from 'react';
 import { SessionProvider } from 'next-auth/react';
-import CreateLayout from './create/layout';
+import CreateLayout from './create/Layout';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
