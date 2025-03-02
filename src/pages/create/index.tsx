@@ -104,7 +104,7 @@ ${selectedDog.name}는 사람을 좋아하고 실내 배변을 잘 하는 귀여
 
   return (
     <>
-      <div className="container mx-auto px-6 py-8">
+      <div className="mx-auto">
         <div className="w-full h-full min-h-screen flex">
           <div className="flex-1">
             <div className="px-6 py-8">

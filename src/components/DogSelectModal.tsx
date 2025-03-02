@@ -46,7 +46,7 @@ export default function DogSelectModal({ isOpen, onClose, onSelect }: DogSelectM
           </button>
         </div>
         
-        <div className="p-4 overflow-y-auto h-[calc(100%-140px)]">
+        <div className="p-4 overflow-y-auto h-[calc(100%-140px)] scrollbar-hide">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {dogs.map(dog => (
               <DogCard
