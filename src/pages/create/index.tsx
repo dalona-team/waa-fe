@@ -129,10 +129,10 @@ ${selectedDog.name}는 사람을 좋아하고 실내 배변을 잘 하는 귀여
               </div>
 
               {/* 게시글 섹션 */}
-              <div className="bg-white-1000 rounded-xl p-5">
+              <div className="bg-white-1000 rounded-xl p-5 flex flex-col">
                 <h2 className="typography-title2-bold text-gray-800 mb-4">게시글</h2>
                 <textarea 
-                  className="w-full min-h-[300px] p-4 outline-none border-0 bg-gray-50 rounded-lg typography-title3-regular"
+                  className="scrollbar-hide w-full flex-1 min-h-[500px] p-4 outline-none border-0 bg-gray-50 rounded-lg typography-title3-regular"
                   placeholder="게시글 내용을 입력하세요"
                   value={postText}
                   onChange={(e) => setPostText(e.target.value)}
