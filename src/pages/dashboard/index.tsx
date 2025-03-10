@@ -5,6 +5,8 @@ import CustomChip from '@/components/customChip/CustomChip';
 import DogCard from '@/components/DogCard';
 import { DogCardSkeleton } from '@/components/DogCardSkeleton';
 import DogDetailModal from '@/components/DogDetailModal';
+import EmptyDogList from '@/components/EmptyDogList';
+import DogRegistrationModal from '@/components/DogRegistrationModal';
 
 const FILTER_OPTIONS = [
   { id: 'all', label: '전체' },
@@ -18,6 +20,7 @@ export default function Dashboard() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [loading, setLoading] = useState(true);
   const [selectedDog, setSelectedDog] = useState<Dog | null>(null);
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchDogs = async () => {
@@ -36,6 +39,11 @@ export default function Dashboard() {
 
     fetchDogs();
   }, []);
+
+
+  const handleAddDog = () => {
+    setIsRegistrationModalOpen(true);
+  };
 
   return (
     <div className="p-6">
@@ -58,13 +66,15 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* 강아지 카드 그리드 */}
+      {/* 컨텐츠 */}
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {Array.from({ length: 8 }).map((_, index) => (
             <DogCardSkeleton key={index} />
           ))}
         </div>
+      ) : dogs.length === 0 ? (
+        <EmptyDogList onAddDog={handleAddDog} />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {dogs.map((dog) => (
@@ -86,6 +96,13 @@ export default function Dashboard() {
           isOpen={!!selectedDog}
           onClose={() => setSelectedDog(null)}
           dog={selectedDog}
+        />
+      )}
+
+      {isRegistrationModalOpen && (
+        <DogRegistrationModal
+          isOpen={isRegistrationModalOpen}
+          onClose={() => setIsRegistrationModalOpen(false)}
         />
       )}
     </div>

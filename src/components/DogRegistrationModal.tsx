@@ -11,14 +11,14 @@ export default function DogRegistrationModal({ isOpen, onClose }: DogRegistratio
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
+    <div className="fixed inset-0 z-[9999] overflow-y-auto">
       <div 
         className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
         onClick={onClose}
       />
 
       <div className="relative min-h-screen flex items-center justify-center p-4">
-        <div className="relative bg-white rounded-2xl w-full max-w-md mx-auto h-[90vh] overflow-y-auto">
+        <div className="relative bg-white-1000 rounded-2xl w-full max-w-xl mx-auto h-[90vh] flex flex-col">
           {/* 헤더 */}
           <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
             <h2 className="text-lg font-bold">강아지 정보 등록</h2>
@@ -41,7 +41,7 @@ export default function DogRegistrationModal({ isOpen, onClose }: DogRegistratio
           </div>
 
           {/* 폼 내용 */}
-          <div className="px-6 pb-6">
+          <div className="px-6 pb-6 flex-1 overflow-y-auto scrollbar-hide">
             {/* 기본 정보 */}
             <div className="space-y-4">
               <div>
