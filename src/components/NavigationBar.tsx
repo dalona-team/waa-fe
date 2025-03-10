@@ -1,8 +1,10 @@
-import { Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import EditNoteIcon from '@mui/icons-material/EditNote';
-import InfoIcon from '@mui/icons-material/Info';
-import ListIcon from '@mui/icons-material/List';
+import { Drawer, Link, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import Image from 'next/image';
+
+import HomeIcon from '@/icons/home.svg';
+import AddIcon from '@/icons/add.svg';
+import DashboardIcon from '@/icons/dashboard.svg';
+import ListIcon from '@/icons/list.svg';
 
 const NavigationBar = () => {
   return (
@@ -10,29 +12,37 @@ const NavigationBar = () => {
       variant="permanent"
       anchor="left"
       sx={{
-        width: 190,
+        width: 182,
         flexShrink: 0,
         ['& .MuiDrawer-paper']: {
           width: 190,
           boxSizing: 'border-box',
-          borderRight: '1px solid rgba(0, 0, 0, 0.12)',
+          borderRight: '1px solid #f6f6f6',
         },
       }}
     >
       <div className="p-4">
-        {/* <img src="/waa-logo.svg" alt="WAA Logo" className="h-8 text-primary" /> */}
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/images/waa-logo.svg" 
+            alt="WAA Logo"
+            width={130}
+            height={48}
+            priority
+          />
+        </Link>
       </div>
       <List className="mt-4 flex flex-col gap-6 p-3">
         <ListItem component="button" className="hover:bg-primary-100 rounded-md group p-2">
           <ListItemIcon style={{ minWidth: '38px' }}>
-            <HomeIcon className="text-primary group-hover:text-primary-1000" />
+            <HomeIcon width={26} height={26} className="text-primary group-hover:text-primary-1000" />
           </ListItemIcon>
           <ListItemText primary="홈" className="text-gray-600 typography-title3-regular group-hover:text-primary-1000" />
         </ListItem>
 
         <ListItem component="button" className="hover:bg-primary-100 rounded-md group p-2">
           <ListItemIcon style={{ minWidth: '38px' }}>
-            <EditNoteIcon className="text-primary group-hover:text-primary-1000" />
+            <AddIcon width={26} height={26} className="text-primary group-hover:text-primary-1000" />
           </ListItemIcon>
           <ListItemText primary="글쓰기" className="text-gray-600 typography-title3-regular group-hover:text-primary-1000" />
         </ListItem>
@@ -42,7 +52,7 @@ const NavigationBar = () => {
           className="hover:bg-primary-100 rounded-md group p-2"
         >
           <ListItemIcon style={{ minWidth: '38px' }}>
-            <InfoIcon className="text-primary group-hover:text-primary-1000" />
+            <DashboardIcon width={26} height={26} className="text-primary group-hover:text-primary-1000" />
           </ListItemIcon>
           <ListItemText 
             primary="강아지 정보 추가" 
@@ -52,7 +62,7 @@ const NavigationBar = () => {
 
         <ListItem component="button" className="hover:bg-primary-100 rounded-md group p-2">
           <ListItemIcon style={{ minWidth: '38px' }}>
-            <ListIcon className="text-primary group-hover:text-primary-1000" />
+            <ListIcon width={26} height={26} className="text-primary group-hover:text-primary-1000" />
           </ListItemIcon>
           <ListItemText primary="리스트" className="text-gray-600 typography-title3-regular group-hover:text-primary-1000" />
         </ListItem>

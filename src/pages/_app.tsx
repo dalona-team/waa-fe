@@ -9,7 +9,8 @@ import { ToastMessageProvider } from '@/hooks/useToastMessage';
 import ToastMessage from '@/components/toastMessage/ToastMessage';
 import { useState } from 'react';
 import { SessionProvider } from 'next-auth/react';
-import CreateLayout from './create/Layout';
+import HeaderLayout from '@/components/layout/HeaderLayout';
+import NavLayout from '@/components/layout/NavLayout';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
@@ -20,11 +21,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <ThemeProvider theme={theme}>
           <ToastMessageProvider>
             {Component.name === 'CreatePage' ? (
-              <CreateLayout>
+              <HeaderLayout>
                 <Component {...pageProps} />
-              </CreateLayout>
+              </HeaderLayout>
             ) : (
-              <Component {...pageProps} />
+              <NavLayout>
+                <Component {...pageProps} />
+              </NavLayout>
             )}
             <ToastMessage />
           </ToastMessageProvider>

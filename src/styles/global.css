@@ -24,3 +24,8 @@ button:disabled{
   color: #FFF !important;
   pointer-events: none;
 }
+
+img{
+  user-select: none;
+  pointer-events: none;
+}

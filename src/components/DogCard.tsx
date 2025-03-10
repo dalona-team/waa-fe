@@ -1,3 +1,6 @@
+import { Dog, Status } from '@/types/dog';
+import { useState } from 'react';
+
 /* eslint-disable @next/next/no-img-element */
 interface DogCardProps {
   id: string;
@@ -5,7 +8,7 @@ interface DogCardProps {
   age: string;
   imageUrl: string;
   dDay: string;
-  status: 'WAITING' | 'PROTECTION' | 'COMPLETED';
+  status: Status;
   selected?: boolean;
   onClick?: () => void;
 }
