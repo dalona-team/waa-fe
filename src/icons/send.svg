@@ -1,9 +1,9 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Icons" clip-path="url(#clip0_187_724)">
-<path id="Polygon 4" d="M2.68376 3.9498L21.5703 3.94981L12.1272 20.3057L9.36084 11.2372C9.32085 11.1061 9.25144 10.9858 9.15792 10.8856L2.68376 3.9498Z" stroke="black" stroke-width="1.8" stroke-linejoin="round"/>
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Send" clip-path="url(#clip0_190_863)">
+<path id="Polygon 4 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M9.46973 9.90071L4.75528 4.85007L18.2137 4.85007L9.46973 9.90071ZM10.3698 11.4595L12.3839 18.0619L19.1107 6.41066L10.3698 11.4595ZM12.2164 21.952C12.0852 22.1792 11.7462 22.1405 11.6696 21.8896L8.50027 11.5L1.08388 3.55478C0.904885 3.36302 1.04087 3.05007 1.30319 3.05007L23.1294 3.05007L12.2164 21.952Z" fill="black"/>
 </g>
 <defs>
-<clipPath id="clip0_187_724">
+<clipPath id="clip0_190_863">
 <rect width="24" height="24" fill="white"/>
 </clipPath>
 </defs>

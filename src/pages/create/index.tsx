@@ -1,15 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import SendIcon from '@mui/icons-material/Send';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useState, useEffect } from 'react';
 import React from 'react';
 import DogSelectModal, { Dog } from '@/components/DogSelectModal';
+
+import ChatIcon from '@/icons/chat.svg';
+import HeartIcon from '@/icons/heart.svg';
+import SendIcon from '@/icons/send.svg';
+import BookmarkIcon from '@/icons/Bookmark.svg';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 export default function CreatePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -180,12 +181,12 @@ ${selectedDog.name}는 사람을 좋아하고 실내 배변을 잘 하는 귀여
                   {/* 액션 버튼들 */}
                   <div className="p-3">
                     <div className="flex justify-between items-center">
-                      <div className="flex gap-4">
-                        <FavoriteBorderIcon />
-                        <ChatBubbleOutlineIcon />
-                        <SendIcon />
+                      <div className="flex gap-2">
+                        <HeartIcon width={24} height={24} />
+                        <ChatIcon width={22} height={22} />
+                        <SendIcon width={21} height={21} />
                       </div>
-                      <BookmarkBorderIcon />
+                      <BookmarkIcon width={20} height={20} />
                     </div>
                   </div>
                   <div className="p-3 font-bold">with_all_animals</div>
